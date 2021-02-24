@@ -3,4 +3,69 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/</url-pattern>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Result History</servlet-name>
+        <servlet-class>ResultHistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Result History</servlet-name>
+        <url-pattern>/resulthistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>My Account</servlet-name>
+        <servlet-class>AccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>My Account</servlet-name>
+        <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Blast</servlet-name>
+        <servlet-class>BlastServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Blast</servlet-name>
+        <url-pattern>/blast</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Predict</servlet-name>
+        <servlet-class>PredictServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Predict</servlet-name>
+        <url-pattern>/predict</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Result</servlet-name>
+        <servlet-class>ResultServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Result</servlet-name>
+        <url-pattern>/result</url-pattern>
+    </servlet-mapping>
+
 </web-app>
