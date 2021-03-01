@@ -24,9 +24,20 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         // Forward to /WEB-INF/<the correct page>.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)
+
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
                         "/index.jsp");
         dispatcher.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response) {
+        if (Login.checkCredentials()) {
+            return "pagina met yes het lukte";
+        } else {
+            return "pagina met shit verkeerd wachtwoord"
+        }
     }
 }
