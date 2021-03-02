@@ -34,10 +34,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) {
-        if (Login.checkCredentials()) {
-            return "pagina met yes het lukte";
-        } else {
-            return "pagina met shit verkeerd wachtwoord"
-        }
+//        if (Login.checkCredentials()) {
+//            return "pagina met yes het lukte";
+//        } else {
+//            return "pagina met shit verkeerd wachtwoord"
+//        }
     }
 }
