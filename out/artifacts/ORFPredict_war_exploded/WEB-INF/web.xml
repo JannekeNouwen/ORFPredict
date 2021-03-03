@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>LoginServlet</servlet-class>
+        <servlet-class>servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -16,7 +16,7 @@
 
     <servlet>
         <servlet-name>Result History</servlet-name>
-        <servlet-class>ResultHistoryServlet</servlet-class>
+        <servlet-class>servlets.ResultHistoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Result History</servlet-name>
@@ -24,17 +24,8 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>My Account</servlet-name>
-        <servlet-class>AccountServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>My Account</servlet-name>
-        <url-pattern>/account</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>Blast</servlet-name>
-        <servlet-class>BlastServlet</servlet-class>
+        <servlet-class>servlets.BlastServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Blast</servlet-name>
@@ -43,7 +34,7 @@
 
     <servlet>
         <servlet-name>Predict</servlet-name>
-        <servlet-class>PredictServlet</servlet-class>
+        <servlet-class>servlets.PredictServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Predict</servlet-name>
@@ -52,7 +43,7 @@
 
     <servlet>
         <servlet-name>Register</servlet-name>
-        <servlet-class>RegisterServlet</servlet-class>
+        <servlet-class>servlets.RegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
@@ -61,7 +52,7 @@
 
     <servlet>
         <servlet-name>Result</servlet-name>
-        <servlet-class>ResultServlet</servlet-class>
+        <servlet-class>servlets.ResultServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Result</servlet-name>

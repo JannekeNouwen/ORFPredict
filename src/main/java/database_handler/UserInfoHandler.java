@@ -1,4 +1,6 @@
-public class Login {
+package database_handler;
+
+public class UserInfoHandler {
 
 //    public static void checkCredentials(username, wachtwoord) {
 //        make conn to database()

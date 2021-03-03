@@ -6,7 +6,7 @@
 </head>
 <body>
   <%@include file="/WEB-INF/includes/header.jsp"%>
-  <h1>Login</h1>
+  <h1>database_handler.UserInfoHandler</h1>
   Hello World!
   </body>
 </html>

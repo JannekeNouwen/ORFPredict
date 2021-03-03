@@ -1,3 +1,5 @@
+package servlets;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 
-public class AccountServlet extends HttpServlet {
+public class BlastServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -28,7 +30,7 @@ public class AccountServlet extends HttpServlet {
         // (Users can not access directly into JSP pages placed in WEB-INF)
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
-                        "/account.jsp");
+                        "/blast.jsp");
         dispatcher.forward(request, response);
     }
 }
