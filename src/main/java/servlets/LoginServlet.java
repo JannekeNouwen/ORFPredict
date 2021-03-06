@@ -36,10 +36,15 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) {
-//        if (AppLogic.Login.checkCredentials()) {
+
+        String username = ""; //get from request/response
+        String password = ""; //get from request/response
+
+        if (database_handler.UserInfoHandler.checkCredentials(username,
+                password) == 0) {
 //            return "pagina met yes het lukte";
-//        } else {
+        } else {
 //            return "pagina met shit verkeerd wachtwoord"
-//        }
+        }
     }
 }

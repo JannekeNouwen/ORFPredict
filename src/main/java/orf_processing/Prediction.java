@@ -6,6 +6,7 @@ public class Prediction {
     private String seq;
     private String acc;
     private String header;
+    private File fastaFromUser;
 
     public Prediction(String acc) {
         this.acc = acc;
