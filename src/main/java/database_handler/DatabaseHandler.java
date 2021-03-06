@@ -20,7 +20,8 @@ public class DatabaseHandler {
     }
 
     public static ORFResult getResult(int userId) {
-        ORFResult result = new ORFResult();
+        ORFResult result = new ORFResult("", "", 0);  // heb ff lege data
+        // ingevuld om error te voorkomen
 
         // get ORF result from database by user id
 
