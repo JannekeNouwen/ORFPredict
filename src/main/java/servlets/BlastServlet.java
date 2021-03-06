@@ -1,5 +1,7 @@
 package servlets;
 
+import blast_handler.BlastResult;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class BlastServlet extends HttpServlet {
@@ -32,5 +36,19 @@ public class BlastServlet extends HttpServlet {
                 this.getServletContext().getRequestDispatcher(
                         "/blast.jsp");
         dispatcher.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response) {
+
+        HashMap<String, String> blastQuery = new HashMap<String, String>();
+
+        String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
+
+        ArrayList<BlastResult> BlastResults =
+                blast_handler.BlastProcessor.parseXML(XMLpath);
+
+        // Add BlastResults to request or response
     }
 }
