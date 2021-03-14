@@ -33,4 +33,14 @@ public class PredictServlet extends HttpServlet {
                         "/predict.jsp");
         dispatcher.forward(request, response);
     }
+
+    protected void doPost(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+
+        RequestDispatcher dispatcher =
+                this.getServletContext().getRequestDispatcher(
+                        "/predict.jsp");
+        dispatcher.forward(request, response);
+    }
 }
