@@ -26,10 +26,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         // Forward to /WEB-INF/<the correct page>.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)
-
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
-                        "/index.jsp");
+                        "/jsps/index.jsp");
         dispatcher.forward(request, response);
     }
 
