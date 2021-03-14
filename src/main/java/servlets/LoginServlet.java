@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.SQLException;
 
 
 public class LoginServlet extends HttpServlet {
@@ -45,8 +46,13 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         int loginResult =
-                database_handler.UserInfoHandler.checkCredentials(username,
-                password);
+                0;
+        try {
+            loginResult = database_handler.UserInfoHandler.checkCredentials(username,
+            password);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
 
         if (loginResult >= 0) {
             String message = "Login was successful!";
