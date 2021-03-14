@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         // Forward to /WEB-INF/<the correct page>.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)
-
+        request.setAttribute("message", "");
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
                         "/index.jsp");
@@ -36,33 +36,36 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
 
+        System.out.println("Did post request at LoginServlet");
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        int loginResult =
+                database_handler.UserInfoHandler.checkCredentials(username,
+                password);
 
-        if (database_handler.UserInfoHandler.checkCredentials(username,
-                password) == 0) {
+        if (loginResult >= 0) {
             String message = "Login was successful!";
             System.out.println(message);
             HttpSession session = request.getSession();
-            session.setAttribute("name", username);
+            session.setAttribute("username", username);
+            session.setAttribute("userId", loginResult);
 
-            RequestDispatcher dispatcher =
-                    request.getRequestDispatcher(
-                            "/predict");
-            dispatcher.forward(request, response);
+            response.sendRedirect("predict");
 
         }
         else{
             String message = "Login was not successful. Please try again.";
             System.out.println(message);
             out.print("Sorry, username or password error!");
+            request.setAttribute("message", message);
             RequestDispatcher dispatcher =
                     this.getServletContext().getRequestDispatcher(
-                            "/index.jsp");
+                            "/");
             dispatcher.forward(request, response);
         }
         out.close();

@@ -23,7 +23,8 @@ public class UserInfoHandler {
 //                        gooi custom exceptie op
 //        else
 //            gooi custom exceptie op
-        return 0; // statuscode of user ID?
+        return 0; // statuscode of user ID. Let op: statuscode is altijd
+        // kleiner dan 0
     }
 
     private static String hashPassword(String password) {

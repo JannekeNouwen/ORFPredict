@@ -2,9 +2,7 @@ package servlets;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -25,7 +23,7 @@ public class PredictServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("Did get request at PredictServlet");
         // Forward to /WEB-INF/<the correct page>.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)
         RequestDispatcher dispatcher =
@@ -37,6 +35,11 @@ public class PredictServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("Did post request at PredictServlet");
+
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        System.out.println(username);
 
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(

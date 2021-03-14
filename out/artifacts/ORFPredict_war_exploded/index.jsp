@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,10 +6,11 @@
 <body>
   <%@include file="/WEB-INF/includes/header.jsp"%>
   <h1>Login</h1>
-  <form action="LoginServlet" method="post">
+  <form action="login" method="post">
     Name:<input type="text" name="username"><br>
     Password:<input type="password" name="password"><br>
     <input type="submit" value="login">
   </form>
+  ${message}
 </body>
 </html>
