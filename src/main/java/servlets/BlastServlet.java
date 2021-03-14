@@ -27,7 +27,7 @@ public class BlastServlet extends HttpServlet {
         // (Users can not access directly into JSP pages placed in WEB-INF)
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
-                        "/blast.jsp");
+                        "/jsps/blast.jsp");
         dispatcher.forward(request, response);
     }
 
