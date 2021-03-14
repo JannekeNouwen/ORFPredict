@@ -7,15 +7,24 @@
     <title>
 
     </title>
-    <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+    <link rel="stylesheet" href="stylesheets/style_base.css" type="text/css">
+    <link rel="stylesheet" href="stylesheets/style_navbar.css" type="text/css">
 </head>
 <body>
     <div class="navbar">
-        <a class="titel_applicatie" title="">ORF Predict</a>
+        <a class="titel_applicatie" href="./">ORF Predict</a>
+        <%--Hamburgerknop--%>
+        <a <%--href="javascript:void(0);" onclick="hamburger()" --%>class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </a>
+        <div class="navbarBreaker"></div>
         <ul class="navigatie">
+            <li><a href="./">Home</a></li>
             <li><a href="predict">Predict new ORF</a></li>
-            <li><a href="resulthistory">My Result History</a></li>
-            <li><a href="account">My Account</a></li>
+            <li><a href="resulthistory">My result history</a></li>
+            <li><a href="account">My account</a></li>
         </ul>
     </div>
     <div class="content">

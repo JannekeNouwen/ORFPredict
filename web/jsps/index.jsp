@@ -3,5 +3,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template_main>
-  Content van de index [W.I.P.]
+  <p>
+    Content van de index [W.I.P.]
+  </p>
+  <p>
+    Wordt nu als 'home' gebruikt.
+  </p>
+
 </t:template_main>

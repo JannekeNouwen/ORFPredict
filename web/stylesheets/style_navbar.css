@@ -1,0 +1,82 @@
+div.navbar {
+    background-color: whitesmoke;
+    width: 100%;
+    min-width: fit-content;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.titel_applicatie {
+    margin: 0px 24px;
+    white-space: nowrap;
+    color: black;
+    font-size: 24px;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+a.hamburger {
+    height: 100%;
+    width: 52px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    display: none;
+}
+
+a.hamburger:hover {
+    background-color: turquoise;
+}
+
+a.hamburger > div {
+    width: 28px;
+    height: 3px;
+    background-color: lightgray;
+    margin: 2px 0;
+}
+a.hamburger:hover > div {
+    background-color: #23272a;
+}
+
+ul.navigatie {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+ul.navigatie > li {
+    float: left;
+    margin: 0px 6px;
+}
+ul.navigatie > li a {
+    display: flex;
+    flex-wrap: nowrap;
+    /*height: 100%;*/
+    padding: 8px 10px;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: lighter;
+    border-radius: 14px;
+}
+ul.navigatie > li a:hover {
+    background-color: turquoise;
+    color: #23272a;
+}
+
+
+@media (max-width: 650px) {
+    div.navbarBreaker {
+        display: initial;
+    }
+
+    a.hamburger {
+        display: flex;
+    }
+
+    ul.navigatie {
+        visibility: hidden;
+    }
+}
