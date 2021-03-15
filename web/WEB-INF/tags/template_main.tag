@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-
+<%--        TODO: titel vanuit servlet doorgeven en hier weergeven.--%>
     </title>
     <link rel="stylesheet" href="stylesheets/style_base.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/style_navbar.css" type="text/css">
@@ -19,6 +19,7 @@
             <div></div>
         </a>
         <a class="titleWebsite" id="title_website" href="./">ORF Predict</a>
+<%--        TODO: element 'account' verwijderen en een overlay van maken.--%>
         <div class="navbarBreaker" id="navbar_breaker"></div>
         <ul class="navigationDisplay" id="navigation_display">
             <li><a id="link_home" href="./">Home</a></li>

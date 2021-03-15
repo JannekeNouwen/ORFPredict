@@ -9,5 +9,7 @@
         <br>
         <label>Or, upload a file</label>
         <input id="file" type="file">
+<%--        TODO: stijl voor elementen toevoegen.--%>
+<%--        TODO: invoervelden voor parameters toevoegen.--%>
     </form>
 </t:template_main>
