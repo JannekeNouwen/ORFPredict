@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class ResultHistoryServlet extends HttpServlet{
@@ -26,6 +27,11 @@ public class ResultHistoryServlet extends HttpServlet{
                             "/");
             dispatcher.forward(request, response);
         } else {
+            ArrayList<ArrayList<String>> resultSummary =
+                    database_handler.DatabaseHandler.getResultSummary(
+                            (Integer) session.getAttribute("userId"));
+
+            request.setAttribute("resultSummary", resultSummary);
             // Forward to /WEB-INF/<the correct page>.jsp
             // (Users can not access directly into JSP pages placed in WEB-INF)
             RequestDispatcher dispatcher =
