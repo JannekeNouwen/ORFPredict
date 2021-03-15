@@ -3,10 +3,7 @@ package database_handler;
 import blast_handler.BlastResult;
 import orf_processing.ORFResult;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseHandler {
@@ -14,11 +11,41 @@ public class DatabaseHandler {
         // save ORF prediction result to database
     }
 
-    public static ArrayList<ArrayList<String>> getResultSummary(int userId) {
+    /**
+     * Get result history summary from database
+     * @param userId
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public static ArrayList<ArrayList<String>> getResultSummary(int userId) throws ClassNotFoundException, SQLException {
         ArrayList<ArrayList<String>> resultSummary =
                 new ArrayList<>();
 
-        // get result history summary from database
+        Connection con = connect();
+        assert con != null;
+        Statement use = con.createStatement();
+
+        String query = "select id, name, seq, acc_code, header from " +
+                "orf_prediction where user_id = " + userId + ";";
+
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                ArrayList<String> newResult = new ArrayList<>();
+                newResult.add(rs.getString("id"));
+                newResult.add(rs.getString("name"));
+                newResult.add(rs.getString("seq"));
+                newResult.add(rs.getString("acc_code"));
+                newResult.add(rs.getString("header"));
+
+                resultSummary.add(newResult);
+            }
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return resultSummary;
     }
@@ -62,6 +89,7 @@ public class DatabaseHandler {
         String databseUserName = "course7user";
         String databasePassword = "ORFfound!01";
 
+        Class.forName("com.mysql.cj.jdbc.Driver");
 //        Class.forName("com.mysql.jdbc.Driver");
         Connection con = null;
         try {

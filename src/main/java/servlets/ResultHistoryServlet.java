@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -28,8 +29,13 @@ public class ResultHistoryServlet extends HttpServlet{
             dispatcher.forward(request, response);
         } else {
             ArrayList<ArrayList<String>> resultSummary =
-                    database_handler.DatabaseHandler.getResultSummary(
-                            (Integer) session.getAttribute("userId"));
+                    null;
+            try {
+                resultSummary = database_handler.DatabaseHandler.getResultSummary(
+                        (Integer) session.getAttribute("userId"));
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
 
             request.setAttribute("resultSummary", resultSummary);
             // Forward to /WEB-INF/<the correct page>.jsp
