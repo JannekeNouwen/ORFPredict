@@ -23,7 +23,7 @@ public class ResultHistoryServlet extends HttpServlet{
         // (Users can not access directly into JSP pages placed in WEB-INF)
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
-                        "/jsps/resulthistory.jsp");
+                        "/resulthistory.jsp");
         dispatcher.forward(request, response);
     }
 }

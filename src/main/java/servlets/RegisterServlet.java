@@ -23,7 +23,7 @@ public class RegisterServlet extends HttpServlet {
         // (Users can not access directly into JSP pages placed in WEB-INF)
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
-                        "/jsps/register.jsp");
+                        "/register.jsp");
         dispatcher.forward(request, response);
     }
 

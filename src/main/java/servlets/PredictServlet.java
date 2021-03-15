@@ -30,7 +30,7 @@ public class PredictServlet extends HttpServlet {
         // (Users can not access directly into JSP pages placed in WEB-INF)
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
-                        "/jsps/predict.jsp");
+                        "/predict.jsp");
         dispatcher.forward(request, response);
     }
 }
