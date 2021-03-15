@@ -26,24 +26,24 @@ public class UserInfoHandler {
         String hashedPassword = password;
 
         String query = "select id from user where username = '" +
-                username +
-                "'" +
-                " and " +
+                username + "'" + " and " +
                 "password = '" + hashedPassword + "';";
-
+        System.out.println(query);
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
-            if (rs.wasNull()) {
+            if (!rs.next()) {
+                con.close();
                 return -1;
             }
-            rs.next();
+            int id = Integer.parseInt(rs.getString("id"));
+            con.close();
             // statuscode of user ID. Let op: statuscode is altijd
             // kleiner dan 0
-            return Integer.parseInt(rs.getString("id"));
+            return id;
 
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("Something went wrong. Please try again.");
-//            JDBCTutorialUtilities.printSQLException(e);
         }
 
 //        make conn to database()

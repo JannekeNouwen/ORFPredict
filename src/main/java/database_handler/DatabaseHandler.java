@@ -62,7 +62,7 @@ public class DatabaseHandler {
         String databseUserName = "course7user";
         String databasePassword = "ORFfound!01";
 
-        Class.forName("com.mysql.jdbc.Driver");
+//        Class.forName("com.mysql.jdbc.Driver");
         Connection con = null;
         try {
             con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword);
