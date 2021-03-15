@@ -6,23 +6,23 @@ div.navbar {
     background-color: whitesmoke;
 }
 
-a.hamburger {
+a.hamburgerButton {
     display: flex;
     flex-direction: column;
     padding: 12px;
     height: 100%;
 }
-a.hamburger:hover {
+a.hamburgerButton:hover {
     background-color: turquoise;
 }
 
-a.hamburger > div {
+a.hamburgerButton > div {
     margin: 2px 0;
     width: 28px;
     height: 4px;
     background-color: lightgray;
 }
-a.hamburger:hover > div {
+a.hamburgerButton:hover > div {
     background-color: gray;
 }
 
@@ -39,8 +39,8 @@ div.navbarBreaker {
     flex-basis: 100%;
 }
 
-ul.navigatie {
-    display: flex;
+ul.navigationDisplay {
+    display: none;
     flex-flow: column;
     list-style-type: none;
     margin: 0;
@@ -48,7 +48,11 @@ ul.navigatie {
     width: 100%;
 }
 
-ul.navigatie > li a {
+ul.navigationDisplayVisible {
+    display: flex;
+}
+
+ul.navigationDisplay > li a {
     display: flex;
     padding: 10px 24px;
     text-decoration: none;
@@ -56,7 +60,7 @@ ul.navigatie > li a {
     font-size: 16px;
     color: black;
 }
-ul.navigatie > li a:hover {
+ul.navigationDisplay > li a:hover {
     background-color: turquoise;
 }
 
@@ -71,7 +75,7 @@ ul.navigatie > li a:hover {
         margin: 0 24px;
     }
 
-    a.hamburger {
+    a.hamburgerButton {
         display: none;
     }
 
@@ -79,13 +83,14 @@ ul.navigatie > li a:hover {
         display: none;
     }
 
-    ul.navigatie {
+    ul.navigationDisplay {
+        display: flex;
         flex-flow: row;
         padding: 0;
         width: fit-content;
     }
 
-    ul.navigatie > li a {
+    ul.navigationDisplay > li a {
         align-items: center;
         padding: 0 12px;
         height: 48px;
