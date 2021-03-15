@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        if (loginResult >= 0) {
+        if (loginResult > 0) {
             String message = "Login was successful!";
             System.out.println(message);
             HttpSession session = request.getSession();

@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>ORFPredict</title>
+
 </head>
 <body>
   <%@include file="/WEB-INF/includes/header.jsp"%>
@@ -11,6 +12,8 @@
     Password:<input type="password" name="password"><br>
     <input type="submit" value="login">
   </form>
+
   ${message}
 </body>
+
 </html>

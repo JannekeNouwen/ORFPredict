@@ -25,7 +25,9 @@ public class UserInfoHandler {
 //        String hashedPassword = hashPassword(password);
         String hashedPassword = password;
 
-        String query = "select id from user where username = '" +username+ "'" +
+        String query = "select id from user where username = '" +
+                username +
+                "'" +
                 " and " +
                 "password = '" + hashedPassword + "';";
 
