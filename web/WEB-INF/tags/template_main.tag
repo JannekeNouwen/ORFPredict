@@ -11,22 +11,22 @@
     <link rel="stylesheet" href="stylesheets/style_navbar.css" type="text/css">
 </head>
 <body>
-    <div class="navbar">
-        <a <%--href="javascript:void(0);" onclick="hamburger()" --%>class="hamburger" id="hamburger">
+    <div class="navbar" id="navigation_bar">
+        <a <%--href="javascript:void(0);" onclick="hamburger()" --%>class="hamburger" id="hamburger_button">
             <div></div>
             <div></div>
             <div></div>
         </a>
-        <a class="titel_applicatie" href="./">ORF Predict</a>
-        <div class="navbarBreaker"></div>
+        <a class="titleWebsite" id="title_website" href="./">ORF Predict</a>
+        <div class="navbarBreaker" id="navbar_breaker"></div>
         <ul class="navigatie">
-            <li><a href="./">Home</a></li>
-            <li><a href="predict">Predict new ORF</a></li>
-            <li><a href="resulthistory">My result history</a></li>
-            <li><a href="account">My account</a></li>
+            <li><a id="link_home" href="./">Home</a></li>
+            <li><a id="link_predict" href="predict">Predict new ORF</a></li>
+            <li><a id="link_history" href="resulthistory">My result history</a></li>
+            <li><a id="link_account" href="account">My account</a></li>
         </ul>
     </div>
-    <div class="content">
+    <div class="content" id="content">
         <jsp:doBody/>
     </div>
 </body>

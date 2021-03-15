@@ -26,7 +26,7 @@ a.hamburger:hover > div {
     background-color: gray;
 }
 
-.titel_applicatie {
+.titleWebsite {
     text-decoration: none;
     font-weight: bolder;
     font-size: 24px;
@@ -67,7 +67,7 @@ ul.navigatie > li a:hover {
         height: 48px;
     }
 
-    .titel_applicatie {
+    .titleWebsite {
         margin: 0 24px;
     }
 
