@@ -12,13 +12,12 @@
 </head>
 <body>
     <div class="navbar">
-        <a class="titel_applicatie" href="./">ORF Predict</a>
-        <%--Hamburgerknop--%>
         <a <%--href="javascript:void(0);" onclick="hamburger()" --%>class="hamburger" id="hamburger">
             <div></div>
             <div></div>
             <div></div>
         </a>
+        <a class="titel_applicatie" href="./">ORF Predict</a>
         <div class="navbarBreaker"></div>
         <ul class="navigatie">
             <li><a href="./">Home</a></li>

@@ -1,82 +1,93 @@
 div.navbar {
-    background-color: whitesmoke;
-    width: 100%;
-    min-width: fit-content;
-    height: 48px;
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
-}
-
-.titel_applicatie {
-    margin: 0px 24px;
-    white-space: nowrap;
-    color: black;
-    font-size: 24px;
-    font-weight: bolder;
-    text-decoration: none;
+    align-items: center;
+    height: fit-content;
+    background-color: whitesmoke;
 }
 
 a.hamburger {
-    height: 100%;
-    width: 52px;
+    display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    display: none;
+    padding: 12px;
+    height: 100%;
 }
-
 a.hamburger:hover {
     background-color: turquoise;
 }
 
 a.hamburger > div {
-    width: 28px;
-    height: 3px;
-    background-color: lightgray;
     margin: 2px 0;
+    width: 28px;
+    height: 4px;
+    background-color: lightgray;
 }
 a.hamburger:hover > div {
-    background-color: #23272a;
+    background-color: gray;
+}
+
+.titel_applicatie {
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 24px;
+    white-space: nowrap;
+    color: black;
+    margin: 0 auto;
+}
+
+div.navbarBreaker {
+    flex-basis: 100%;
 }
 
 ul.navigatie {
+    display: flex;
+    flex-flow: column;
     list-style-type: none;
-    padding: 0px;
-    margin: 0px;
+    margin: 0;
+    padding: 16px 0;
+    width: 100%;
 }
-ul.navigatie > li {
-    float: left;
-    margin: 0px 6px;
-}
+
 ul.navigatie > li a {
     display: flex;
-    flex-wrap: nowrap;
-    /*height: 100%;*/
-    padding: 8px 10px;
-    color: black;
+    padding: 10px 24px;
     text-decoration: none;
-    font-size: 16px;
     font-weight: lighter;
-    border-radius: 14px;
+    font-size: 16px;
+    color: black;
 }
 ul.navigatie > li a:hover {
     background-color: turquoise;
-    color: #23272a;
 }
 
 
-@media (max-width: 650px) {
-    div.navbarBreaker {
-        display: initial;
+@media (min-width: 650px) {
+    div.navbar {
+        flex-wrap: nowrap;
+        height: 48px;
+    }
+
+    .titel_applicatie {
+        margin: 0 24px;
     }
 
     a.hamburger {
-        display: flex;
+        display: none;
+    }
+
+    div.navbarBreaker {
+        display: none;
     }
 
     ul.navigatie {
-        visibility: hidden;
+        flex-flow: row;
+        padding: 0;
+        width: fit-content;
+    }
+
+    ul.navigatie > li a {
+        align-items: center;
+        padding: 0 12px;
+        height: 48px;
     }
 }
