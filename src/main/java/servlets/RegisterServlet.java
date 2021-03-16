@@ -16,6 +16,7 @@ public class RegisterServlet extends HttpServlet {
 
         // Forward to /WEB-INF/<the correct page>.jsp
         // (Users can not access directly into JSP pages placed in WEB-INF)
+        System.out.println("i did a cool get request at registerservlet");
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
                         "/register.jsp");
