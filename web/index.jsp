@@ -1,19 +1,13 @@
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-  <title>ORFPredict</title>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-</head>
-<body>
-  <%@include file="/WEB-INF/includes/header.jsp"%>
+<t:template_main>
   <h1>Login</h1>
   <form action="login" method="post">
     Name:<input type="text" name="username"><br>
     Password:<input type="password" name="password"><br>
     <input type="submit" value="login">
   </form>
-
   ${message}
-</body>
-
-</html>
+</t:template_main>

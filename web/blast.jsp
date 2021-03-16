@@ -11,8 +11,8 @@
     <title>Blast</title>
 </head>
 <body>
-    <%@include file="/WEB-INF/includes/header.jsp"%>
-    <h1>Blast your ORF</h1>
+<%@include file="/WEB-INF/includes/header.jsp"%>
+<h1>Blast your ORF</h1>
 
 </body>
 </html>

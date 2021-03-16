@@ -1,0 +1,9 @@
+body {
+    margin: 0;
+    background-color: white;
+    font-family: 'Segoe UI', 'Open Sans', sans-serif;
+}
+
+div.content {
+    margin: 12px 12px 0px;
+}
