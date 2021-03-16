@@ -33,41 +33,45 @@ public class LoginServlet extends HttpServlet {
 
         System.out.println("Did post request at LoginServlet");
 
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        String action = request.getParameter("action");
+        if ("register".equals(action)) {
+            response.sendRedirect("register");
+        } else {
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
 
-        int loginResult =
-                0;
-        try {
-            loginResult = database_handler.UserInfoHandler.checkCredentials(username,
-            password);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            int loginResult =
+                    0;
+            try {
+                loginResult = database_handler.UserInfoHandler.checkCredentials(username,
+                        password);
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+
+            if (loginResult > 0) {
+                String message = "Login was successful!";
+                System.out.println(message);
+                HttpSession session = request.getSession();
+                session.setAttribute("username", username);
+                session.setAttribute("userId", loginResult);
+
+                response.sendRedirect("predict");
+
+            } else {
+                String message = "Login was not successful. Please try again.";
+                System.out.println(message);
+                out.print("Sorry, username or password error!");
+                request.setAttribute("message", message);
+                RequestDispatcher dispatcher =
+                        this.getServletContext().getRequestDispatcher(
+                                "/");
+                dispatcher.forward(request, response);
+            }
+            out.close();
         }
-
-        if (loginResult > 0) {
-            String message = "Login was successful!";
-            System.out.println(message);
-            HttpSession session = request.getSession();
-            session.setAttribute("username", username);
-            session.setAttribute("userId", loginResult);
-
-            response.sendRedirect("predict");
-
-        }
-        else{
-            String message = "Login was not successful. Please try again.";
-            System.out.println(message);
-            out.print("Sorry, username or password error!");
-            request.setAttribute("message", message);
-            RequestDispatcher dispatcher =
-                    this.getServletContext().getRequestDispatcher(
-                            "/");
-            dispatcher.forward(request, response);
-        }
-        out.close();
     }
 }
