@@ -1,6 +1,6 @@
 package servlets;
 
-import orf_processing.ORFResult;
+import blast_handler.BlastResult;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
+
+import java.util.ArrayList;
 
 
-public class ResultServlet extends HttpServlet {
+public class BlastResultHistoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Check if user is logged in
         HttpSession session = request.getSession(false);
         if (session.getAttribute("userId") == null) {
             // No session created yet, so user is not logged in
@@ -29,39 +29,35 @@ public class ResultServlet extends HttpServlet {
                             "/");
             dispatcher.forward(request, response);
         } else {
-            int resultId = Integer.parseInt(request.getParameter("result_id"));
+            int orfId = Integer.parseInt(request.getParameter("orf_id"));
 
+            ArrayList<ArrayList<String>> blastResultSummary =
+                    null;
             try {
-                ORFResult result =
-                        database_handler.DatabaseHandler.getResult(resultId);
-                System.out.println("Found result!");
-                System.out.println("Acc_code: " + result.getAccCode());
-                request.setAttribute("result", result);
-                request.setAttribute("ORFArray", result.getORFs());
+                blastResultSummary = database_handler.DatabaseHandler.getAllBlastResults(
+                        orfId);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+
+            request.setAttribute("blastResultSummary", blastResultSummary);
+
 
             // Forward to /WEB-INF/<the correct page>.jsp
             // (Users can not access directly into JSP pages placed in WEB-INF)
             RequestDispatcher dispatcher =
                     this.getServletContext().getRequestDispatcher(
-                            "/result.jsp");
+                            "/blastresulthistory.jsp");
             dispatcher.forward(request, response);
         }
     }
 
+    @Override
     protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+                          HttpServletResponse response) {
 
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
-        System.out.println(username);
 
-        RequestDispatcher dispatcher =
-                this.getServletContext().getRequestDispatcher(
-                        "/predict.jsp");
-        dispatcher.forward(request, response);
+
+        // Add BlastResults to request or response
     }
 }

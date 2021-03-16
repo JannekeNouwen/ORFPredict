@@ -33,6 +33,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>BlastResult</servlet-name>
+        <servlet-class>servlets.BlastResultServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BlastResult</servlet-name>
+        <url-pattern>/blastresult</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BlastResultHistory</servlet-name>
+        <servlet-class>servlets.BlastResultHistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BlastResultHistory</servlet-name>
+        <url-pattern>/blastresulthistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Predict</servlet-name>
         <servlet-class>servlets.PredictServlet</servlet-class>
     </servlet>

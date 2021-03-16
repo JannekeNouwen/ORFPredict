@@ -33,7 +33,7 @@ public class ResultHistoryServlet extends HttpServlet{
             try {
                 resultSummary = database_handler.DatabaseHandler.getResultSummary(
                         (Integer) session.getAttribute("userId"));
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
 

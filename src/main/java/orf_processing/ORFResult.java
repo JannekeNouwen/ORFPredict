@@ -3,12 +3,12 @@ package orf_processing;
 import java.util.ArrayList;
 
 public class ORFResult {
-    private String seq;
-    private String name;
-    private int userId;
+    private final String seq;
+    private final String name;
+    private final int userId;
     private String accCode;
     private String header;
-    private ArrayList<ORF> ORFArray;
+    private final ArrayList<ORF> ORFArray = new ArrayList<>();
 
     public ORFResult(String seq, String name, int userId, String accCode) {
         this.seq = seq;

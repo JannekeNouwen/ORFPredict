@@ -19,13 +19,12 @@ public class DatabaseHandler {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static ArrayList<ArrayList<String>> getResultSummary(int userId) throws ClassNotFoundException, SQLException {
+    public static ArrayList<ArrayList<String>> getResultSummary(int userId) throws ClassNotFoundException {
         ArrayList<ArrayList<String>> resultSummary =
                 new ArrayList<>();
 
         Connection con = connect();
         assert con != null;
-        Statement use = con.createStatement();
 
         String query = "select id, name, seq, acc_code, header from " +
                 "orf_prediction where user_id = " + userId + ";";
@@ -56,13 +55,12 @@ public class DatabaseHandler {
      * @param resultId
      * @return
      */
-    public static ORFResult getResult(int resultId) throws ClassNotFoundException, SQLException {
+    public static ORFResult getResult(int resultId) throws ClassNotFoundException {
 //        ORFResult result = new ORFResult("", "", 0);  // heb ff lege data
         // ingevuld om error te voorkomen
 
         Connection con = connect();
         assert con != null;
-        Statement use = con.createStatement();
 
         String query = "select name, seq, user_id, acc_code, header from " +
                 "orf_prediction where id = " + resultId + ";";
@@ -84,9 +82,10 @@ public class DatabaseHandler {
             rs = stmt2.executeQuery(query);
             while (rs.next()) {
                 ORF orf = new ORF(
-                        rs.getInt("start_pos"),
-                        rs.getInt("stop"),
-                        rs.getString("seq")
+                    rs.getInt("id"),
+                    rs.getInt("start_pos"),
+                    rs.getString("seq").length() + rs.getInt("start_pos"),
+                    rs.getString("seq")
                 );
                 result.addORF(orf);
             }
@@ -107,12 +106,41 @@ public class DatabaseHandler {
 
     }
 
-    public static ArrayList<ArrayList<String>> getAllBlastResults(int ORFid) {
+    /**
+     * get summary of all blastresults
+     * @param ORFid
+     * @return
+     */
+    public static ArrayList<ArrayList<String>> getAllBlastResults(int ORFid) throws ClassNotFoundException {
         ArrayList<ArrayList<String>> blastResultSummary =
                 new ArrayList<>();
 
-        // get summary of all blastresults (by ORF id?)???? ik weet ff niet
-        // meer wat deze functie nou moest doen
+        Connection con = connect();
+        assert con != null;
+
+        String query = "select id, `database`, organism, `exclude`, " +
+                "max_target_sequences, expect_threshold, word_size " +
+                "from blast_search where orf_id = " + ORFid + ";";
+
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                ArrayList<String> newBlastResult = new ArrayList<>();
+                newBlastResult.add(rs.getString("id"));
+                newBlastResult.add(rs.getString("database"));
+                newBlastResult.add(rs.getString("organism"));
+                newBlastResult.add(rs.getString("exclude"));
+                newBlastResult.add(rs.getString("max_target_sequences"));
+                newBlastResult.add(rs.getString("expect_threshold"));
+                newBlastResult.add(rs.getString("word_size"));
+
+                blastResultSummary.add(newBlastResult);
+            }
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return blastResultSummary;
     }

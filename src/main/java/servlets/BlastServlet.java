@@ -38,6 +38,7 @@ public class BlastServlet extends HttpServlet {
         ArrayList<BlastResult> BlastResults =
                 blast_handler.BlastProcessor.parseXML(XMLpath);
 
+        request.setAttribute("blastresults", BlastResults);
         // Add BlastResults to request or response
     }
 }
