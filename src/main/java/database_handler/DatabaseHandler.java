@@ -1,6 +1,7 @@
 package database_handler;
 
 import blast_handler.BlastResult;
+import orf_processing.ORF;
 import orf_processing.ORFResult;
 
 import java.sql.*;
@@ -50,13 +51,53 @@ public class DatabaseHandler {
         return resultSummary;
     }
 
-    public static ORFResult getResult(int userId) {
-        ORFResult result = new ORFResult("", "", 0);  // heb ff lege data
+    /**
+     * get ORF result from database by user id
+     * @param resultId
+     * @return
+     */
+    public static ORFResult getResult(int resultId) throws ClassNotFoundException, SQLException {
+//        ORFResult result = new ORFResult("", "", 0);  // heb ff lege data
         // ingevuld om error te voorkomen
 
-        // get ORF result from database by user id
+        Connection con = connect();
+        assert con != null;
+        Statement use = con.createStatement();
 
-        return result;
+        String query = "select name, seq, user_id, acc_code, header from " +
+                "orf_prediction where id = " + resultId + ";";
+
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            ORFResult result = new ORFResult(
+                    rs.getString("seq"),
+                    rs.getString("name"),
+                    rs.getInt("user_id"),
+                    rs.getString("acc_code"),
+                    rs.getString("header")
+            );
+
+            query = "select id, seq, start_pos from " +
+                    "orf where orf_prediction_id = " + resultId + ";";
+            Statement stmt2 = con.createStatement();
+            rs = stmt2.executeQuery(query);
+            while (rs.next()) {
+                ORF orf = new ORF(
+                        rs.getInt("start"),
+                        rs.getInt("stop"),
+                        rs.getString("seq")
+                );
+                result.addORF(orf);
+            }
+
+            con.close();
+            return result;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ORFResult("", "", 0);
     }
 
     public static void saveBlastResult(ArrayList<BlastResult> blastResults) {
@@ -90,7 +131,6 @@ public class DatabaseHandler {
         String databasePassword = "ORFfound!01";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-//        Class.forName("com.mysql.jdbc.Driver");
         Connection con = null;
         try {
             con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword);

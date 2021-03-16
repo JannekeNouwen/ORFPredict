@@ -1,5 +1,7 @@
 package servlets;
 
+import orf_processing.ORFResult;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class ResultServlet extends HttpServlet {
@@ -26,6 +29,19 @@ public class ResultServlet extends HttpServlet {
                             "/");
             dispatcher.forward(request, response);
         } else {
+            int resultId = Integer.parseInt(request.getParameter("result_id"));
+
+            try {
+                ORFResult result =
+                        database_handler.DatabaseHandler.getResult(resultId);
+                System.out.println("Found result!");
+                System.out.println("Acc_code: " + result.getAccCode());
+                request.setAttribute("result", result);
+                request.setAttribute("ORFArray", result.getORFs());
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+
             // Forward to /WEB-INF/<the correct page>.jsp
             // (Users can not access directly into JSP pages placed in WEB-INF)
             RequestDispatcher dispatcher =

@@ -31,6 +31,10 @@ public class ORFResult {
         this.userId = userId;
     }
 
+    public void addORF(ORF orf) {
+        ORFArray.add(orf);
+    }
+
     public String getSeq() {
         return seq;
     }

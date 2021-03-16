@@ -1,4 +1,3 @@
-<%@ page import="java.util.ArrayList" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -19,7 +18,6 @@
 
     <table>
         <tr>
-            <th>ID</th>
             <th>name</th>
             <th>seq</th>
             <th>acc_code</th>
@@ -27,8 +25,6 @@
         </tr>
         <c:forEach var="result" items="${resultSummary}" varStatus="loopCounter">
             <tr>
-    <%--            <td><c:out value="${loopCounter.count}"/></td>--%>
-                <td>${result.get(0)}</td>
                 <td><a href="result?result_id=${result.get(0)}">${result.get(1)}</a></td>
                 <td>${result.get(2)}</td>
                 <td>${result.get(3)}</td>
