@@ -1,0 +1,22 @@
+div.containerTitle {
+    margin: 48px auto 0;
+    width: fit-content;
+}
+
+div.containerTitle > h1 {
+    padding: 30px;
+    border-style: solid;
+    border-width: 8px;
+    border-spacing: 12px;
+    border-color: black;
+    text-align: center;
+    font-size: 48px;
+}
+
+div.containerContent {
+    display: flex;
+    margin: 16px auto 0;
+    border-radius: 26px;
+    /*background-color: whitesmoke;*/
+    background-color: gray;
+}

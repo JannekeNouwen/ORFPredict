@@ -28,7 +28,7 @@
             <li><a id="link_account" href="account">My account</a></li>
         </ul>
     </div>
-    <div class="content" id="content">
+    <div class="containerContent" id="content">
         <jsp:doBody/>
     </div>
 </body>
