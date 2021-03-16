@@ -84,7 +84,7 @@ public class DatabaseHandler {
             rs = stmt2.executeQuery(query);
             while (rs.next()) {
                 ORF orf = new ORF(
-                        rs.getInt("start"),
+                        rs.getInt("start_pos"),
                         rs.getInt("stop"),
                         rs.getString("seq")
                 );
