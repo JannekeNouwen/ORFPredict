@@ -3,13 +3,15 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template_main>
-    <form>
-        <textarea id="input" rows="10" cols="50"
-                  placeholder="Enter accession number(s) or FASTA sequence(s)"></textarea>
+    <form action="predict" method="post" enctype="multipart/form-data">
+        <textarea name="textInput" rows="10" cols="50"
+                  placeholder="Enter ONE accession number or FASTA sequence"></textarea>
         <br>
         <label>Or, upload a file</label>
-        <input id="file" type="file">
+        <input name="fileInput" type="file" accept=".fasta,.fa">
+        <input type="submit" name="action">
 <%--        TODO: stijl voor elementen toevoegen.--%>
 <%--        TODO: invoervelden voor parameters toevoegen.--%>
     </form>
+    ${message}
 </t:template_main>
