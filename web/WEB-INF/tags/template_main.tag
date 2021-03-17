@@ -1,6 +1,6 @@
 <%@tag description="Template for a generic page" pageEncoding="UTF-8" %>
 
-<html lang="nl" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +28,7 @@
             <li><a id="link_account" href="account">My account</a></li>
         </ul>
     </div>
-    <div class="content" id="content">
+    <div class="containerContent" id="content">
         <jsp:doBody/>
     </div>
 </body>
