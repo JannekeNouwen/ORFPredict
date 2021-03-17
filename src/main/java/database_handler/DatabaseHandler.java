@@ -145,10 +145,40 @@ public class DatabaseHandler {
         return blastResultSummary;
     }
 
-    public static ArrayList<BlastResult> getBlastResult(int blastSearchId) {
+    /**
+     * get blast results by BlastSearch id
+     * @param blastSearchId
+     * @return
+     */
+    public static ArrayList<BlastResult> getBlastResult(int blastSearchId) throws ClassNotFoundException {
         ArrayList<BlastResult> blastResults = new ArrayList<>();
 
-        // get blast results by ORF id
+        //
+        Connection con = connect();
+        assert con != null;
+
+        String query = "select seq, aligned_seq, e_value, acc_code, identity_percent, title from " +
+                "blast_result where blast_search_id = " + blastSearchId + ";";
+
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()) {
+                BlastResult result = new BlastResult(
+                        rs.getString("seq"),
+                        rs.getString("aligned_seq"),
+                        rs.getDouble("e_value"),
+                        rs.getString("acc_code"),
+                        rs.getDouble("identity_percent"),
+                        rs.getString("title")
+                );
+                blastResults.add(result);
+            }
+
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return blastResults;
     }

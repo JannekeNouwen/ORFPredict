@@ -37,8 +37,8 @@ public class BlastResultServlet extends HttpServlet {
                 ArrayList<BlastResult> blastResults =
                         database_handler.
                 DatabaseHandler.getBlastResult(blastSearchId);
-                // TODO do something to get the blast results
 
+                request.setAttribute("blastResults", blastResults);
 
                 // Forward to /WEB-INF/<the correct page>.jsp
                 // (Users can not access directly into JSP pages placed in WEB-INF)
@@ -47,7 +47,7 @@ public class BlastResultServlet extends HttpServlet {
                                 "/blastresult.jsp");
                 dispatcher.forward(request, response);
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ClassNotFoundException e) {
             request.setAttribute("message", "You have to log in before you " +
                     "can use this page.");
             RequestDispatcher dispatcher =
