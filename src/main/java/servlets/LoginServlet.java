@@ -57,7 +57,9 @@ public class LoginServlet extends HttpServlet {
                 System.out.println(message);
                 HttpSession session = request.getSession();
                 session.setAttribute("username", username);
+                System.out.println(session.getAttribute("username"));
                 session.setAttribute("userId", loginResult);
+                System.out.println(session.getAttribute("userId"));
 
                 response.sendRedirect("predict");
 
@@ -70,8 +72,8 @@ public class LoginServlet extends HttpServlet {
                         this.getServletContext().getRequestDispatcher(
                                 "/");
                 dispatcher.forward(request, response);
+                out.close();
             }
-            out.close();
         }
     }
 }
