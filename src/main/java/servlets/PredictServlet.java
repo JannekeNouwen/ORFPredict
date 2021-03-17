@@ -1,7 +1,10 @@
 package servlets;
 
+import orf_processing.Prediction;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import java.io.File;
@@ -9,8 +12,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -76,9 +83,27 @@ public class PredictServlet extends HttpServlet {
         } catch (NoSuchElementException ignored) {
         }
 
+        String inputSeq = null;
+        if (textInput.isEmpty() && fileContent == null) {
+            String message = "Please input either a fasta seq, fasta file or accession code";
+            request.setAttribute("message", message);
+            RequestDispatcher dispatcher =
+                    this.getServletContext().getRequestDispatcher(
+                            "/predict.jsp");
+            dispatcher.forward(request, response);
+        } else if (textInput.isEmpty()) {
+            inputSeq = fileContent;
+        } else if (fileContent == null) {
+            inputSeq = textInput;
+        } else {
+            inputSeq = fileContent;
+        }
+
+        Prediction prediction = new Prediction(inputSeq);
+
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
-                        "/predict.jsp");
+                        "/result.jsp");
         dispatcher.forward(request, response);
     }
 }
