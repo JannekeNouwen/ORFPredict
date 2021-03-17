@@ -65,9 +65,6 @@ public class PredictServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("Did post request at PredictServlet");
 
-        String info = getServletInfo();
-        System.out.println(info);
-
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         System.out.println(username);
@@ -100,6 +97,16 @@ public class PredictServlet extends HttpServlet {
         }
 
         Prediction prediction = new Prediction(inputSeq);
+        if (!prediction.getType().equals("invalid")) {
+            prediction.predictSeq();
+        } else {
+            String message = "Input is not valid";
+            request.setAttribute("message", message);
+            RequestDispatcher dispatcher =
+                    this.getServletContext().getRequestDispatcher(
+                            "/predict.jsp");
+            dispatcher.forward(request, response);
+        }
 
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
