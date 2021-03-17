@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 
 public class LoginServlet extends HttpServlet {
@@ -48,7 +47,7 @@ public class LoginServlet extends HttpServlet {
             try {
                 loginResult = database_handler.UserInfoHandler.checkCredentials(username,
                         password);
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
 
