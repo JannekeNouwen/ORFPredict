@@ -55,7 +55,7 @@ public class DatabaseHandler {
      * @param resultId
      * @return
      */
-    public static ORFResult getResult(int resultId) throws ClassNotFoundException {
+    public static ORFResult getResult(int resultId) throws ClassNotFoundException, SQLException {
 //        ORFResult result = new ORFResult("", "", 0);  // heb ff lege data
         // ingevuld om error te voorkomen
 
@@ -65,38 +65,33 @@ public class DatabaseHandler {
         String query = "select name, seq, user_id, acc_code, header from " +
                 "orf_prediction where id = " + resultId + ";";
 
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
-            rs.next();
-            ORFResult result = new ORFResult(
-                    rs.getString("seq"),
-                    rs.getString("name"),
-                    rs.getInt("user_id"),
-                    rs.getString("acc_code"),
-                    rs.getString("header")
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        ORFResult result = new ORFResult(
+                rs.getString("seq"),
+                rs.getString("name"),
+                rs.getInt("user_id"),
+                rs.getString("acc_code"),
+                rs.getString("header")
+        );
+
+        query = "select id, seq, start_pos from " +
+                "orf where orf_prediction_id = " + resultId + ";";
+        Statement stmt2 = con.createStatement();
+        rs = stmt2.executeQuery(query);
+        while (rs.next()) {
+            ORF orf = new ORF(
+                rs.getInt("id"),
+                rs.getInt("start_pos"),
+                rs.getString("seq").length() + rs.getInt("start_pos"),
+                rs.getString("seq")
             );
-
-            query = "select id, seq, start_pos from " +
-                    "orf where orf_prediction_id = " + resultId + ";";
-            Statement stmt2 = con.createStatement();
-            rs = stmt2.executeQuery(query);
-            while (rs.next()) {
-                ORF orf = new ORF(
-                    rs.getInt("id"),
-                    rs.getInt("start_pos"),
-                    rs.getString("seq").length() + rs.getInt("start_pos"),
-                    rs.getString("seq")
-                );
-                result.addORF(orf);
-            }
-
-            con.close();
-            return result;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            result.addORF(orf);
         }
-        return new ORFResult("", "", 0);
+
+        con.close();
+        return result;
     }
 
     public static void saveBlastResult(ArrayList<BlastResult> blastResults) {
@@ -111,7 +106,7 @@ public class DatabaseHandler {
      * @param ORFid
      * @return
      */
-    public static ArrayList<ArrayList<String>> getAllBlastResults(int ORFid) throws ClassNotFoundException {
+    public static ArrayList<ArrayList<String>> getAllBlastResults(int ORFid) throws ClassNotFoundException, SQLException {
         ArrayList<ArrayList<String>> blastResultSummary =
                 new ArrayList<>();
 
@@ -122,25 +117,21 @@ public class DatabaseHandler {
                 "max_target_sequences, expect_threshold, word_size " +
                 "from blast_search where orf_id = " + ORFid + ";";
 
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                ArrayList<String> newBlastResult = new ArrayList<>();
-                newBlastResult.add(rs.getString("id"));
-                newBlastResult.add(rs.getString("database"));
-                newBlastResult.add(rs.getString("organism"));
-                newBlastResult.add(rs.getString("exclude"));
-                newBlastResult.add(rs.getString("max_target_sequences"));
-                newBlastResult.add(rs.getString("expect_threshold"));
-                newBlastResult.add(rs.getString("word_size"));
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {
+            ArrayList<String> newBlastResult = new ArrayList<>();
+            newBlastResult.add(rs.getString("id"));
+            newBlastResult.add(rs.getString("database"));
+            newBlastResult.add(rs.getString("organism"));
+            newBlastResult.add(rs.getString("exclude"));
+            newBlastResult.add(rs.getString("max_target_sequences"));
+            newBlastResult.add(rs.getString("expect_threshold"));
+            newBlastResult.add(rs.getString("word_size"));
 
-                blastResultSummary.add(newBlastResult);
-            }
-            con.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            blastResultSummary.add(newBlastResult);
         }
+        con.close();
 
         return blastResultSummary;
     }

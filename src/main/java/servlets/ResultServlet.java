@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class ResultServlet extends HttpServlet {
@@ -40,6 +41,8 @@ public class ResultServlet extends HttpServlet {
                     request.setAttribute("ORFArray", result.getORFs());
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
 
                 // Forward to /WEB-INF/<the correct page>.jsp

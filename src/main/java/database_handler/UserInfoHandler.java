@@ -99,7 +99,6 @@ public class UserInfoHandler {
             byte[] res = key.getEncoded( );
 
             BigInteger bi = new BigInteger(1, res);
-            System.out.println(String.format("%0" + (res.length << 1) + "X", bi));
             return String.format("%0" + (res.length << 1) + "X", bi);
 
         } catch ( NoSuchAlgorithmException | InvalidKeySpecException e ) {

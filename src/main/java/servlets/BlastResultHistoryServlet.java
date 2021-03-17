@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -40,6 +41,8 @@ public class BlastResultHistoryServlet extends HttpServlet {
                     System.out.println(blastResultSummary.size());
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
 
                 request.setAttribute("blastResultSummary", blastResultSummary);
