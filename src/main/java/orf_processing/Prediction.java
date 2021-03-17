@@ -4,26 +4,32 @@ import java.io.File;
 
 public class Prediction {
     private String seq;
-    private String acc;
+    private final String input;
     private String header;
     private File fastaFromUser;
 
-    public Prediction(String acc) {
-        this.acc = acc;
-        this.seq = getSeqByAcc();
+    public Prediction(String input) {
+        this.input = input;
     }
 
-    public Prediction(String seq, String accOrHeader) {
-        this.seq = seq;
-        // if accOrHeader = acc:
-            this.acc = accOrHeader;
-        // else
-            this.header = accOrHeader;
-    }
-
-    public Prediction(File fastaFromUser) {
-        // get header and seq from user
-    }
+    //            boolean fasta = textInput.startsWith(">");
+//            Pattern accPattern = Pattern.compile("([a-zA-Z]_?[0-9]{5}|[a-zA-Z]{2}_?([0-9]{6}|[0-9]{8}))(\\.[0-9])?");
+//            Matcher accMatcher = accPattern.matcher(textInput);
+//            if (fasta) {
+//                String[] fastaInput = inputSeq.split("\\r?\\n");
+//                String header = fastaInput[0];
+//                String[] slice = Arrays.copyOfRange(fastaInput, 1, fastaInput.length);
+//                String seq = String.join("", slice);
+//            } else if (accMatcher.find()) {
+//                String accessionCode = textInput;
+//            } else {
+//                String message = "Input is not valid";
+//                request.setAttribute("message", message);
+//                RequestDispatcher dispatcher =
+//                        this.getServletContext().getRequestDispatcher(
+//                                "/predict.jsp");
+//                dispatcher.forward(request, response);
+//            }
 
     private String getSeqByAcc() {
         return "";
