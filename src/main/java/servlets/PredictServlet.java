@@ -69,6 +69,12 @@ public class PredictServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         System.out.println(username);
 
+        String minSize = request.getParameter("minSize");
+        String startCodon = request.getParameter("startcodon");
+
+        System.out.println(minSize);
+        System.out.println(startCodon);
+
         String textInput = request.getParameter("textInput");
 
         // Read input from file

@@ -67,9 +67,14 @@ public class Prediction {
 
     public ORFResult predictSeq() {
         ORFResult result = new ORFResult("", "", 0);
+        String reverseComp = translating.revComp(seq);
         String[] readingFrame1 = seq.split("(?<=\\G...)");
         String[] readingFrame2 = seq.substring(1).split("(?<=\\G...)");
         String[] readingFrame3 = seq.substring(2).split("(?<=\\G...)");
+        String[] reverseReadingFrame1 = reverseComp.split("(?<=\\G...)");
+        String[] reverseReadingFrame2 = reverseComp.substring(1).split("(?<=\\G...)");
+        String[] reverseReadingFrame3 = reverseComp.substring(2).split("(?<=\\G...)");
+
 
         //System.out.println(java.util.Arrays.toString(seq.split("(?<=\\G...)")));
         // predict ORFs
