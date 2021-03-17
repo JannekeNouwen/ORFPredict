@@ -1,42 +1,62 @@
 package orf_processing;
 
-import java.io.File;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Prediction {
     private String seq;
     private final String input;
+    private String type;
     private String header;
-    private File fastaFromUser;
 
-    public Prediction(String input) {
-        this.input = input;
+    public Prediction(String rawInput) {
+        this.input = rawInput;
+        typeCheck();
+        switch (this.type) {
+            case "fasta":
+                fastaExtract();
+                break;
+            case "acccode":
+                getSeqByAcc();
+                break;
+            case "fastanoheader":
+                this.seq = input;
+                break;
+            default:
+                seq = null;
+                break;
+        }
     }
 
-    //            boolean fasta = textInput.startsWith(">");
-//            Pattern accPattern = Pattern.compile("([a-zA-Z]_?[0-9]{5}|[a-zA-Z]{2}_?([0-9]{6}|[0-9]{8}))(\\.[0-9])?");
-//            Matcher accMatcher = accPattern.matcher(textInput);
-//            if (fasta) {
-//                String[] fastaInput = inputSeq.split("\\r?\\n");
-//                String header = fastaInput[0];
-//                String[] slice = Arrays.copyOfRange(fastaInput, 1, fastaInput.length);
-//                String seq = String.join("", slice);
-//            } else if (accMatcher.find()) {
-//                String accessionCode = textInput;
-//            } else {
-//                String message = "Input is not valid";
-//                request.setAttribute("message", message);
-//                RequestDispatcher dispatcher =
-//                        this.getServletContext().getRequestDispatcher(
-//                                "/predict.jsp");
-//                dispatcher.forward(request, response);
-//            }
+    private void getSeqByAcc() {
 
-    private String getSeqByAcc() {
-        return "";
     }
 
-    private String getSeqByFile() {
-        return "";
+    public void fastaExtract() {
+        String[] fastaInput = input.split("\\r?\\n");
+        this.header = fastaInput[0];
+        String[] slice = Arrays.copyOfRange(fastaInput, 1, fastaInput.length);
+        this.seq = String.join("", slice);
+    }
+
+    public void typeCheck() {
+        boolean fastaHeader = input.startsWith(">");
+        Pattern nuclPattern = Pattern.compile("([^ACGTURYKMSWBDHVN-]|[^acgturykmswbdhvn-])");
+        Matcher nuclMatcher = nuclPattern.matcher(input);
+        Pattern accPattern = Pattern.compile("([a-zA-Z]_?[0-9]{5}|[a-zA-Z]{2}_?([0-9]{6}|[0-9]{8}))(\\.[0-9])?");
+        Matcher accMatcher = accPattern.matcher(input);
+        boolean isNotNucl = nuclMatcher.find();
+        boolean isAccCode = accMatcher.find();
+        if (isNotNucl) {
+            this.type = "invalid";
+        } else if (fastaHeader){
+            this.type = "fasta";
+        } else if (isAccCode) {
+            this.type = "acccode";
+        } else {
+            this.type = "fastanoheader";
+        }
     }
 
     public ORFResult predictSeq() {
@@ -45,5 +65,17 @@ public class Prediction {
         // predict ORFs
 
         return result;
+    }
+
+    public String getSeq() {
+        return seq;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getHeader() {
+        return header;
     }
 }
