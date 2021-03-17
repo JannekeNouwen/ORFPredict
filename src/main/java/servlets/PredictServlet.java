@@ -96,11 +96,7 @@ public class PredictServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else if (textInput.isEmpty()) {
             inputSeq = fileContent;
-        } else if (fileContent == null) {
-            inputSeq = textInput;
-        } else {
-            inputSeq = fileContent;
-        }
+        } else inputSeq = Objects.requireNonNullElse(fileContent, textInput);
 
         Prediction prediction = new Prediction(inputSeq);
         if (!prediction.getType().equals("invalid")) {
