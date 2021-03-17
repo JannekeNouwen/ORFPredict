@@ -145,7 +145,7 @@ public class DatabaseHandler {
         return blastResultSummary;
     }
 
-    public static ArrayList<BlastResult> getBlastResult(int userId) {
+    public static ArrayList<BlastResult> getBlastResult(int blastSearchId) {
         ArrayList<BlastResult> blastResults = new ArrayList<>();
 
         // get blast results by ORF id

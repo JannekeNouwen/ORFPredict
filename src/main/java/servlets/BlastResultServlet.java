@@ -31,9 +31,12 @@ public class BlastResultServlet extends HttpServlet {
                                 "/");
                 dispatcher.forward(request, response);
             } else {
-                int blastresult_id = Integer.parseInt(request.getParameter(
-                        "blastresult_id"));
+                int blastSearchId = Integer.parseInt(request.getParameter(
+                        "blastsearch_id"));
 
+                ArrayList<BlastResult> blastResults =
+                        database_handler.
+                DatabaseHandler.getBlastResult(blastSearchId);
                 // TODO do something to get the blast results
 
 
