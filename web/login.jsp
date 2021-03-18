@@ -6,6 +6,9 @@
     <div class="textBlock">
         Welcome to ORF Predict! Please use your credentials to log into your account.
     </div>
+    <div class="errorMessage">
+        ${message}
+    </div>
     <form class="flexbox" action="login" method="post">
         <label for="username">Username</label>
         <input id="username" name="username" type="text" autocapitalize="off" required>
@@ -19,5 +22,4 @@
         </div>
         <a class="button" href="register">Register</a>
     </div>
-    ${message}
 </t:template_login_register>

@@ -17,3 +17,8 @@ div.containerContent {
     flex-flow: column;
     height: 100%;
 }
+
+.errorMessage {
+    font-weight: bolder;
+    color: red;
+}

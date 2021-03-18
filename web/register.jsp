@@ -7,11 +7,15 @@
         Please fill out the form below to register your account.
     </div>
     <div class="textBlock">
-        Your password must al least be
-        8 characters long, containing one uppercase and lowercase letter, one digit and one
-        special character.
+        Your password must at least be 8 characters long, containing one uppercase
+        and lowercase letter, one digit and one special character.
+    </div>
+    <div class="errorMessage">
+        ${message}
     </div>
     <form class="flexbox" action="register" method="post">
+<%--        TODO: met JavaScript ingegeven wachtwoord valideren of twee keer hetzelfde
+                  is ingegeven.--%>
         <label for="username">Username</label>
         <input id="username" name="username" type="text" required>
         <label for="password">Password</label>
@@ -23,5 +27,4 @@
         <input class="button" type="submit" name="action" value="Register">
     </form>
     <a class="button" href="./">Log in instead</a>
-    ${message}
 </t:template_login_register>
