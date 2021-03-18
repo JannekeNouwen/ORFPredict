@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         request.setAttribute("message", "");
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
-                        "/index.jsp");
+                        "/login.jsp");
         dispatcher.forward(request, response);
     }
 

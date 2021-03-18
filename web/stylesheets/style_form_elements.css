@@ -1,0 +1,46 @@
+input[type=text], input[type=password] {
+    padding: 8px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 0;
+    border-color: lightgray;
+    font-size: inherit;
+}
+
+input[type=text]:hover, input[type=password]:hover {
+    border-color: darkgray;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    outline: none;
+    border-color: gray;
+}
+
+.button {
+    margin-top: 24px;
+    padding: 8px 24px;
+    background-color: lightgray;
+    border-style: solid;
+    border-radius: 0;
+    border-width: 2px;
+    border-color: lightgray;
+    text-decoration: none;
+    text-align: center;
+    font-family: inherit;
+    font-size: inherit;
+    color: black;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+.button:hover, .button:focus {
+    outline: none;
+    border-color: darkgray;
+}
+
+.button:active {
+    outline: none;
+    background-color: darkgray;
+    border-color: gray;
+}

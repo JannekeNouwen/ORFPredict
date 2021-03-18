@@ -1,22 +1,51 @@
-div.containerTitle {
-    margin: 48px auto 0;
-    width: fit-content;
-}
-
-div.containerTitle > h1 {
+h1 {
+    align-self: center;
+    margin: 32px 0;
     padding: 30px;
+    width: fit-content;
     border-style: solid;
     border-width: 8px;
-    border-spacing: 12px;
     border-color: black;
     text-align: center;
     font-size: 48px;
 }
 
-div.containerContent {
+div.containerBackground {
     display: flex;
-    margin: 16px auto 0;
-    border-radius: 26px;
-    /*background-color: whitesmoke;*/
-    background-color: gray;
+    flex-flow: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    padding: 24px;
+    background-color: whitesmoke;
+}
+
+.flexbox {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+}
+
+label {
+    margin-top: 24px;
+}
+
+div.welcome {
+    max-width: 440px;
+}
+
+div.register {
+    margin-top: 72px;
+}
+
+
+@media (min-width: 560px) {
+    div.containerBackground {
+        flex-grow: 0;
+        flex-shrink: 0;
+        align-self: center;
+        padding: 32px;
+        width: fit-content;
+        border-radius: 26px;
+    }
 }

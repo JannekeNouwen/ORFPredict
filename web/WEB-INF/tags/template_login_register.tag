@@ -9,12 +9,11 @@
     </title>
     <link rel="stylesheet" href="stylesheets/style_base.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/style_login_register.css" type="text/css">
+    <link rel="stylesheet" href="stylesheets/style_form_elements.css" type="text/css">
 </head>
-<body>
-    <div class="containerTitle" id="container_title">
-        <h1>ORF Predict</h1>
-    </div>
-    <div class="containerContent" id="container_content">
+<body class="flexPage">
+    <h1>ORF Predict</h1>
+    <div class="containerBackground">
         <jsp:doBody/>
     </div>
 </body>
