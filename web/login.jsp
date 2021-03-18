@@ -3,7 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template_login_register>
-    <div class="welcome">
+    <div class="textBlock">
         Welcome to ORF Predict! Please use your credentials to log into your account.
     </div>
     <form class="flexbox" action="login" method="post">

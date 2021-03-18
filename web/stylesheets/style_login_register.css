@@ -38,6 +38,14 @@ div.register {
     margin-top: 72px;
 }
 
+div.textBlock {
+    max-width: 440px;
+}
+
+div.textBlockSpacer {
+    margin: 0 0 16px 0;
+}
+
 
 @media (min-width: 560px) {
     div.containerBackground {
