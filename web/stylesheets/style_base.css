@@ -18,7 +18,15 @@ div.containerContent {
     height: 100%;
 }
 
+.flexbox {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+}
+
 .errorMessage {
     font-weight: bolder;
     color: red;
 }
+
+/*https://colorlib.com/etc/metro-colors.html*/

@@ -20,14 +20,9 @@ div.containerBackground {
     background-color: whitesmoke;
 }
 
-.flexbox {
-    display: flex;
-    flex-flow: column;
-    width: 100%;
-}
-
 label {
     margin-top: 24px;
+    font-weight: lighter;
 }
 
 div.welcome {
