@@ -1,7 +1,9 @@
 package orf_processing;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,9 +12,13 @@ public class Prediction {
     private final String input;
     private String type;
     private String header;
+    private final int minSize;
+    private final String startCodon;
 
-    public Prediction(String rawInput) {
+    public Prediction(String rawInput, int minSize, String startCodon) {
         this.input = rawInput;
+        this.minSize = minSize;
+        this.startCodon = startCodon;
         typeCheck();
         switch (this.type) {
             case "fasta":
@@ -68,13 +74,34 @@ public class Prediction {
     public ORFResult predictSeq() {
         ORFResult result = new ORFResult("", "", 0);
         String reverseComp = translating.revComp(seq);
-        String[] readingFrame1 = seq.split("(?<=\\G...)");
-        String[] readingFrame2 = seq.substring(1).split("(?<=\\G...)");
-        String[] readingFrame3 = seq.substring(2).split("(?<=\\G...)");
-        String[] reverseReadingFrame1 = reverseComp.split("(?<=\\G...)");
-        String[] reverseReadingFrame2 = reverseComp.substring(1).split("(?<=\\G...)");
-        String[] reverseReadingFrame3 = reverseComp.substring(2).split("(?<=\\G...)");
+        ArrayList<String> readingFrame1 = new ArrayList<>(Arrays.asList(seq.split("(?<=\\G...)")));
+        ArrayList<String> readingFrame2 = new ArrayList<>(Arrays.asList(seq.substring(1).split("(?<=\\G...)")));
+        ArrayList<String> readingFrame3 = new ArrayList<>(Arrays.asList(seq.substring(2).split("(?<=\\G...)")));
+        ArrayList<String> reverseReadingFrame1 = new ArrayList<>(Arrays.asList(reverseComp.split("(?<=\\G...)")));
+        ArrayList<String> reverseReadingFrame2 = new ArrayList<>(Arrays.asList(reverseComp.substring(1).split("(?<=\\G...)")));
+        ArrayList<String> reverseReadingFrame3 = new ArrayList<>(Arrays.asList(reverseComp.substring(2).split("(?<=\\G...)")));
+        ArrayList<ArrayList<String>> arr = new ArrayList<>();
+        arr.add(readingFrame1);
+        arr.add(readingFrame2);
+        arr.add(readingFrame3);
+        arr.add(reverseReadingFrame1);
+        arr.add(reverseReadingFrame2);
+        arr.add(reverseReadingFrame3);
 
+        String[] start;
+        if (startCodon.equals("atgonly")) {
+            start = new String[]{"ATG"};
+        } else {
+            start = new String[]{"ATG", "CTG", "GTG", "TTG"};
+        }
+
+        boolean end = false;
+        ArrayList<String> currList;
+        for (ArrayList<String> list: arr) {
+            for (int index = 0; index <= list.size(); index++) {
+                // Loop over list, check for every codon if it is in the "start" array
+            }
+        }
 
         //System.out.println(java.util.Arrays.toString(seq.split("(?<=\\G...)")));
         // predict ORFs

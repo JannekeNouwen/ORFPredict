@@ -69,7 +69,7 @@ public class PredictServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         System.out.println(username);
 
-        String minSize = request.getParameter("minSize");
+        int minSize = Integer.parseInt(request.getParameter("minSize"));
         String startCodon = request.getParameter("startcodon");
 
         System.out.println(minSize);
@@ -98,7 +98,7 @@ public class PredictServlet extends HttpServlet {
             inputSeq = fileContent;
         } else inputSeq = Objects.requireNonNullElse(fileContent, textInput);
 
-        Prediction prediction = new Prediction(inputSeq);
+        Prediction prediction = new Prediction(inputSeq, minSize, startCodon);
         if (!prediction.getType().equals("invalid")) {
             prediction.predictSeq();
         } else {
