@@ -18,6 +18,7 @@ public class ResultHistoryServlet extends HttpServlet{
             throws ServletException, IOException {
 
         // Check if user is logged in
+        // TODO: Sorting functionality for resultHistory
         HttpSession session = request.getSession(false);
         try {
             if (session.getAttribute("userId") == null) {

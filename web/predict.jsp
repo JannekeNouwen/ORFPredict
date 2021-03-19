@@ -14,7 +14,7 @@
         </div>
         <div class="flexbox" id="codon_usage">
             <div>
-                <input type="radio" id="atgonly" name="startcodon" value="atgonly">
+                <input type="radio" id="atgonly" name="startcodon" value="atgonly" checked>
                 <label for="atgonly">"ATG" only</label>
             </div>
             <div>
