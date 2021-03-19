@@ -76,7 +76,6 @@ public class LoginServlet extends HttpServlet {
             } else {
                 String message = "Login was not successful. Please try again.";
                 System.out.println(message);
-                out.print("Sorry, username or password error!");
                 request.setAttribute("message", message);
                 RequestDispatcher dispatcher =
                         this.getServletContext().getRequestDispatcher(

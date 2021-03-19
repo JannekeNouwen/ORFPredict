@@ -31,6 +31,50 @@ public class ORFResult {
         this.userId = userId;
     }
 
+    public ArrayList<ArrayList<ORF>> getFormattedORFs() {
+        ArrayList<Integer> rowLengths = new ArrayList<>();
+        rowLengths.add(0, -6);
+        int row = 0;
+        int numRows = 0;
+        boolean placed = false;
+        ArrayList<ArrayList<ORF>> formattedORFs = new ArrayList<>();
+        formattedORFs.add(row, new ArrayList<>());
+        System.out.println("Number of ORF's: " + ORFArray.size());
+
+        for (ORF orf : ORFArray) {
+            placed = false;
+            for (Integer length : rowLengths) {
+                System.out.println(length);
+                if (row > numRows) {
+                    formattedORFs.add(row, new ArrayList<>());
+                    formattedORFs.get(row).add(orf);
+                    rowLengths.add(row, orf.getStop());
+                    placed = true;
+                    break;
+                }
+                if (length + 5 < orf.getStart()) {
+                    formattedORFs.get(row).add(orf);
+                    rowLengths.set(row, orf.getStop());
+                    placed = true;
+                    break;
+                }
+                row++;
+            }
+            if (!placed) {
+                formattedORFs.add(row, new ArrayList<>());
+                formattedORFs.get(row).add(orf);
+                rowLengths.add(row, orf.getStop());
+            }
+            row = 0;
+        }
+        System.out.println("Formatted the ORFs to " + rowLengths.size() +
+                "rows.");
+        for (ArrayList<ORF> arrayy : formattedORFs) {
+            System.out.println(arrayy.size());
+        }
+        return formattedORFs;
+    }
+
     public void addORF(ORF orf) {
         ORFArray.add(orf);
     }

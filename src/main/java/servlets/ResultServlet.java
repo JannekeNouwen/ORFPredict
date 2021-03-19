@@ -17,7 +17,7 @@ public class ResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("did GET at ResultServlet");
         // Check if user is logged in
         HttpSession session = request.getSession(false);
         try {
@@ -36,23 +36,22 @@ public class ResultServlet extends HttpServlet {
                     ORFResult result =
                             database_handler.DatabaseHandler.getResult(resultId);
                     System.out.println("Found result!");
-                    System.out.println("Acc_code: " + result.getAccCode());
                     request.setAttribute("result", result);
+                    request.setAttribute("formattedORFs",
+                            result.getFormattedORFs());
+                    System.out.println("Acc_code: " + result.getAccCode());
                     request.setAttribute("ORFArray", result.getORFs());
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
 
-                // Forward to /WEB-INF/<the correct page>.jsp
-                // (Users can not access directly into JSP pages placed in WEB-INF)
-                RequestDispatcher dispatcher =
-                        this.getServletContext().getRequestDispatcher(
-                                "/result.jsp");
-                dispatcher.forward(request, response);
+                    RequestDispatcher dispatcher =
+                            this.getServletContext().getRequestDispatcher(
+                                    "/result.jsp");
+                    dispatcher.forward(request, response);
+                } catch (ClassNotFoundException | SQLException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (NullPointerException e) {
+            e.printStackTrace();
             request.setAttribute("message", "You have to log in before you " +
                     "can use this page.");
             RequestDispatcher dispatcher =

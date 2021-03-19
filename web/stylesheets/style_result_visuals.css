@@ -1,0 +1,12 @@
+.browser {
+    overflow-x:   auto;
+    overflow-y:   scroll;
+}
+
+#overview {
+    border:     1px solid #000000;
+}
+
+.orf_browser {
+    border:     1px solid #000000;
+}
