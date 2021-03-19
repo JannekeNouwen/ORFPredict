@@ -19,11 +19,11 @@
             <div></div>
             <div></div>
         </a>
-        <a class="titleWebsite" id="title_website" href="./">ORF Predict</a>
+        <a class="titleWebsite" id="title_website" href="predict">ORF
+            Predict</a>
 <%--        TODO: element 'account' verwijderen en een overlay van maken.--%>
         <div class="navbarBreaker" id="navbar_breaker"></div>
         <ul class="navigationDisplay" id="navigation_display">
-            <li><a id="link_home" href="./">Home</a></li>
             <li><a id="link_predict" href="predict">Predict new ORF</a></li>
             <li><a id="link_history" href="resulthistory">My result history</a></li>
             <li><a id="link_account" href="account">My account</a></li>

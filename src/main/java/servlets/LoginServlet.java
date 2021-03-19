@@ -17,13 +17,24 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-        // Forward to /WEB-INF/<the correct page>.jsp
-        // (Users can not access directly into JSP pages placed in WEB-INF)
-        request.setAttribute("message", "");
-        RequestDispatcher dispatcher =
-                this.getServletContext().getRequestDispatcher(
-                        "/login.jsp");
-        dispatcher.forward(request, response);
+
+        HttpSession session = request.getSession();
+//        try {
+        if (session.getAttribute("userId") == null) {
+            // Forward to /WEB-INF/<the correct page>.jsp
+            // (Users can not access directly into JSP pages placed in WEB-INF)
+            request.setAttribute("message", "");
+            RequestDispatcher dispatcher =
+                    this.getServletContext().getRequestDispatcher(
+                            "/login.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher =
+                    this.getServletContext().getRequestDispatcher(
+                            "/predict.jsp");
+            dispatcher.forward(request, response);
+//            response.sendRedirect("predict");
+        }
     }
 
     @Override
