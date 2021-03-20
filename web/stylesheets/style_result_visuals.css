@@ -3,10 +3,24 @@
     overflow-y:   scroll;
 }
 
-#overview {
+.box {
+    border:     1px solid #000000;
+
+}
+
+#raphael_browser {
+}
+
+.orf_browser, #overview {
     border:     1px solid #000000;
 }
 
-.orf_browser {
-    border:     1px solid #000000;
+div.containerBackground {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    padding: 24px;
+    background-color: whitesmoke;
 }

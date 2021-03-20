@@ -1,6 +1,6 @@
 package orf_processing;
 
-public class ORF {
+public class ORF implements Comparable<ORF> {
     private final int id;
     private final int start;
     private final int stop;
@@ -27,5 +27,10 @@ public class ORF {
 
     public String getSeq() {
         return seq;
+    }
+
+    @Override
+    public int compareTo(ORF o) {
+        return Integer.compare(this.getStart(), o.getStart());
     }
 }

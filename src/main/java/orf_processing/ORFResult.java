@@ -1,6 +1,7 @@
 package orf_processing;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ORFResult {
     private final String seq;
@@ -41,10 +42,12 @@ public class ORFResult {
         formattedORFs.add(row, new ArrayList<>());
         System.out.println("Number of ORF's: " + ORFArray.size());
 
+        ORFArray.sort(Comparator.comparingInt(ORF::getStart));
+
         for (ORF orf : ORFArray) {
+            System.out.println(orf.getStart());
             placed = false;
             for (Integer length : rowLengths) {
-                System.out.println(length);
                 if (row > numRows) {
                     formattedORFs.add(row, new ArrayList<>());
                     formattedORFs.get(row).add(orf);
@@ -69,9 +72,6 @@ public class ORFResult {
         }
         System.out.println("Formatted the ORFs to " + rowLengths.size() +
                 "rows.");
-        for (ArrayList<ORF> arrayy : formattedORFs) {
-            System.out.println(arrayy.size());
-        }
         return formattedORFs;
     }
 
@@ -102,4 +102,5 @@ public class ORFResult {
     public ArrayList<ORF> getORFs() {
         return ORFArray;
     }
+
 }

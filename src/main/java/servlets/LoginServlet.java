@@ -23,12 +23,18 @@ public class LoginServlet extends HttpServlet {
         if (session.getAttribute("userId") == null) {
             // Forward to /WEB-INF/<the correct page>.jsp
             // (Users can not access directly into JSP pages placed in WEB-INF)
-            request.setAttribute("message", "");
+            if (session.getAttribute("message") != "") {
+                request.setAttribute("message", session.getAttribute("message"));
+                session.setAttribute("message", "");
+            } else {
+                request.setAttribute("message", "");
+            }
             RequestDispatcher dispatcher =
                     this.getServletContext().getRequestDispatcher(
                             "/login.jsp");
             dispatcher.forward(request, response);
         } else {
+            request.setAttribute("message", "");
             RequestDispatcher dispatcher =
                     this.getServletContext().getRequestDispatcher(
                             "/predict.jsp");
@@ -47,9 +53,6 @@ public class LoginServlet extends HttpServlet {
         if ("register".equals(action)) {
             response.sendRedirect("register");
         } else {
-            response.setContentType("text/html");
-            PrintWriter out = response.getWriter();
-
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
@@ -62,10 +65,10 @@ public class LoginServlet extends HttpServlet {
                 e.printStackTrace();
             }
 
+            HttpSession session = request.getSession();
             if (loginResult > 0) {
                 String message = "Login was successful!";
                 System.out.println(message);
-                HttpSession session = request.getSession();
                 session.setAttribute("username", username);
                 System.out.println(session.getAttribute("username"));
                 session.setAttribute("userId", loginResult);
@@ -76,12 +79,13 @@ public class LoginServlet extends HttpServlet {
             } else {
                 String message = "Login was not successful. Please try again.";
                 System.out.println(message);
-                request.setAttribute("message", message);
-                RequestDispatcher dispatcher =
-                        this.getServletContext().getRequestDispatcher(
-                                "/");
-                dispatcher.forward(request, response);
-                out.close();
+                session.setAttribute("message", message);
+
+                response.sendRedirect("login");
+//                RequestDispatcher dispatcher =
+//                        this.getServletContext().getRequestDispatcher(
+//                                "/");
+//                dispatcher.forward(request, response);
             }
         }
     }
