@@ -52,7 +52,3 @@ div.textBlockSpacer {
         border-radius: 26px;
     }
 }
-
-#nuc_seq, #prot_seq {
-    word-wrap: break-word;
-}

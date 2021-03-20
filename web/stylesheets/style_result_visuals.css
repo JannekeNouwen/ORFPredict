@@ -24,3 +24,7 @@ div.containerBackground {
     padding: 24px;
     background-color: whitesmoke;
 }
+
+#nuc_seq, #prot_seq {
+    word-wrap: break-word;
+}

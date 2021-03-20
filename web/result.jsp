@@ -53,6 +53,8 @@
                 </c:forEach>
             var rows = ${loopCounter.count}
         </c:forEach>
+
+        c.style.height = rows*20 + 30;
     </script>
 
     <h2>ORF browser</h2>

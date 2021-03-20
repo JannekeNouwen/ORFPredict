@@ -47,6 +47,7 @@ public class ORFResult {
         for (ORF orf : ORFArray) {
             System.out.println(orf.getStart());
             placed = false;
+            numRows = rowLengths.size();
             for (Integer length : rowLengths) {
                 if (row > numRows) {
                     formattedORFs.add(row, new ArrayList<>());
