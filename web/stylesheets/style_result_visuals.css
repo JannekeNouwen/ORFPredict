@@ -1,18 +1,17 @@
 .browser {
-    overflow-x:   auto;
-    overflow-y:   scroll;
-}
-
-.box {
-    border:     1px solid #000000;
-
+    overflow:   auto;
+    max-height: 500px;
+    margin-bottom: 24px;
+    padding: 24px;
+    background-color: whitesmoke;
 }
 
 #raphael_browser {
 }
 
-.orf_browser, #overview {
-    border:     1px solid #000000;
+#overview {
+    padding: 10px;
+    background-color: whitesmoke;
 }
 
 div.containerBackground {
@@ -27,4 +26,15 @@ div.containerBackground {
 
 #nuc_seq, #prot_seq {
     word-wrap: break-word;
+}
+
+.info_text {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    font-size: 15px;
+}
+
+.info_header {
+    font-weight: bold;
 }

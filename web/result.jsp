@@ -4,27 +4,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <t:template_main>
     <h1>Results</h1>
-
-<%--    <table>--%>
-<%--        <tr>--%>
-<%--            <th>Start</th>--%>
-<%--            <th>Stop</th>--%>
-<%--            <th>Seq</th>--%>
-<%--            <th></th>--%>
-<%--            <th></th>--%>
-<%--        </tr>--%>
-<%--        <c:forEach var="orf" items="${ORFArray}" varStatus="loopCounter">--%>
-<%--            <tr>--%>
-<%--                <td>${orf.start}</td>--%>
-<%--                <td>${orf.stop}</td>--%>
-<%--                <td>${orf.seq}</td>--%>
-<%--                <td><a href="blastresulthistory?orf_id=${orf.id}">View--%>
-<%--                    BLAST searches</a></td>--%>
-<%--                <td><a href="blast?orf_id=${orf.id}">New BLAST--%>
-<%--                search</a></td>--%>
-<%--            </tr>--%>
-<%--        </c:forEach>--%>
-<%--    </table>--%>
     <h2>Overview</h2>
 
     <canvas id="overview" width="200" height="100">
@@ -54,17 +33,13 @@
             var rows = ${loopCounter.count}
         </c:forEach>
 
-        c.style.height = rows*20 + 30;
+        c.style.height = (rows * 20 + 30).toString();
     </script>
 
     <h2>ORF browser</h2>
+    <p>Click on an ORF to get more information.</p>
     <div class="browser" id="div_browser">
-<%--        <span class="box">--%>
-            <span id="raphael_browser"></span>
-<%--        <canvas class="orf_browser" id="orf_browser" >--%>
-<%--            Sorry, your browser does not support the Canvas element. You're missing out.--%>
-<%--        </canvas>--%>
-<%--        </span>--%>
+        <span id="raphael_browser"></span>
     <script>
         var paper = Raphael("raphael_browser",
             (seqLength * 20 + 10).toString(), rows * 20 + 60);
@@ -97,6 +72,10 @@
             document.getElementById("nuc_seq").innerHTML = seq;
             document.getElementById("seq_len").innerHTML =
                 seq.length.toString();
+            document.getElementById("seq_start").innerHTML =
+                start.toString();
+            document.getElementById("seq_stop").innerHTML =
+                stop.toString();
             document.getElementById("prot_seq").innerHTML = seq;
             // TODO nog doen
             document.getElementById("new_blast").setAttribute('href',
@@ -159,7 +138,10 @@
                     });
             }
             paper.text(10 + x, 10 + y, nuc).attr({'font-weight':
-                    "bold", cursor: 'pointer'})
+                    "bold", cursor: 'pointer'}).click(function() {
+                showORFInfo(
+                    ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}")
+            });
 
         }
 
@@ -170,14 +152,18 @@
     </div>
 
     <div class="containerBackground" id="orf_info" style="visibility: hidden">
-        <div>Nucleotide sequence: </div>
-        <div id="nuc_seq"></div>
-        <div>Length: </div>
-        <div id="seq_len"></div>
-        <div>Protein sequence: </div>
-        <div id="prot_seq"></div><br>
-            <a id="new_blast" class="button">BLAST with this ORF</a>
-            <a id="old_blasts" class="button">View old BLAST queries</a>
+        <div class="info_header">Nucleotide sequence: </div>
+        <div id="nuc_seq" class="info_text"></div>
+        <div class="info_header">From: </div>
+        <div id="seq_start" class="info_text"></div>
+        <div class="info_header">To: </div>
+        <div id="seq_stop" class="info_text"></div>
+        <div class="info_header">Length: </div>
+        <div id="seq_len" class="info_text"></div>
+        <div class="info_header">Protein sequence: </div>
+        <div id="prot_seq" class="info_text"></div>
+        <a id="new_blast" class="button">BLAST with this ORF</a>
+        <a id="old_blasts" class="button">View old BLAST queries</a>
     </div>
 </t:template_main>
 

@@ -36,16 +36,24 @@ public class ResultServlet extends HttpServlet {
                     ORFResult result =
                             database_handler.DatabaseHandler.getResult(resultId);
                     System.out.println("Found result!");
-                    request.setAttribute("result", result);
-                    request.setAttribute("formattedORFs",
-                            result.getFormattedORFs());
-                    System.out.println("Acc_code: " + result.getAccCode());
-                    request.setAttribute("ORFArray", result.getORFs());
 
-                    RequestDispatcher dispatcher =
-                            this.getServletContext().getRequestDispatcher(
-                                    "/result.jsp");
-                    dispatcher.forward(request, response);
+                    request.setAttribute("ORFArray", result.getORFs());
+                    if (result.getORFs().size() == 0) {
+                        RequestDispatcher dispatcher =
+                                this.getServletContext().getRequestDispatcher(
+                                        "/noresult.jsp");
+                        dispatcher.forward(request, response);
+                    } else {
+                        request.setAttribute("result", result);
+                        request.setAttribute("formattedORFs",
+                                result.getFormattedORFs());
+                        System.out.println("Acc_code: " + result.getAccCode());
+
+                        RequestDispatcher dispatcher =
+                                this.getServletContext().getRequestDispatcher(
+                                        "/result.jsp");
+                        dispatcher.forward(request, response);
+                    }
                 } catch (ClassNotFoundException | SQLException e) {
                     e.printStackTrace();
                 }
