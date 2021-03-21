@@ -4,6 +4,10 @@
 
 <t:template_main>
     <form class="flexbox" action="predict" method="post" enctype="multipart/form-data">
+        <div id="name">
+            <label for="query_name">Query name:</label>
+            <input type="text" id="query_name" name="query_name" required>
+        </div><br>
         <div id="sequence_input">
             <textarea name="textInput" rows="10" cols="50"
                       placeholder="Enter ONE accession number or FASTA sequence"></textarea>

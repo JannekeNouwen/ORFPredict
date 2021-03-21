@@ -38,3 +38,26 @@ div.containerBackground {
 .info_header {
     font-weight: bold;
 }
+
+
+#resulthistorytable {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    padding: 24px;
+    background-color: whitesmoke;
+}
+
+.resulthistorytablerow {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    font-size: 15px;
+}
+
+.resulthistorytabledata {
+    margin: 20px;
+    padding: 10px;
+}

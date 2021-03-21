@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="stylesheets/style_base.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/style_navbar.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/style_form_elements.css" type="text/css">
-    <link rel="stylesheet" href="stylesheets/style_result_visuals.css"
+    <link rel="stylesheet" href="stylesheets/style_result.css"
           type="text/css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> <%--Nodig voor SVG visualisatie--%>
     <script rel="script" src="scripts/functions_hamburger.js" type="text/javascript"></script>

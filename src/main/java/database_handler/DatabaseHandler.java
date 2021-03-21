@@ -32,10 +32,14 @@ public class DatabaseHandler {
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
+                String seq = rs.getString("seq");
+                if (seq.length() > 20) {
+                    seq = seq.substring(0, 18) + "...";
+                }
                 ArrayList<String> newResult = new ArrayList<>();
                 newResult.add(rs.getString("id"));
                 newResult.add(rs.getString("name"));
-                newResult.add(rs.getString("seq"));
+                newResult.add(seq);
                 newResult.add(rs.getString("acc_code"));
                 newResult.add(rs.getString("header"));
 
