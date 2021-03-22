@@ -25,6 +25,15 @@
                 <input type="radio" id="alternative" name="startcodon" value="alternative">
                 <label for="alternative">"ATG" and alternative initiation codons</label>
             </div>
+            <br>
+            <div>
+                <input type="radio" id="normalstop" name="stopcodon" value="normalstop" checked>
+                <label for="normalstop">Only standard stop codons</label>
+            </div>
+            <div>
+                <input type="radio" id="mitostop" name="stopcodon" value="mitostop">
+                <label for="mitostop">Also include mitochondrial stop codons</label>
+            </div>
         </div>
         <div id="orf_length">
             <label for="length">Minimal ORF length</label>

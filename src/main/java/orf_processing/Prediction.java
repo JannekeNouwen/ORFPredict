@@ -1,9 +1,6 @@
 package orf_processing;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,11 +11,13 @@ public class Prediction {
     private String header;
     private final int minSize;
     private final String startCodon;
+    private final String stopCodon;
 
-    public Prediction(String rawInput, int minSize, String startCodon) {
+    public Prediction(String rawInput, int minSize, String startCodon, String stopCodon) {
         this.input = rawInput;
         this.minSize = minSize;
         this.startCodon = startCodon;
+        this.stopCodon = stopCodon;
         typeCheck();
         switch (this.type) {
             case "fasta":
@@ -88,20 +87,93 @@ public class Prediction {
         arr.add(reverseReadingFrame2);
         arr.add(reverseReadingFrame3);
 
-        String[] start;
+        ArrayList<String> start = new ArrayList<>();
         if (startCodon.equals("atgonly")) {
-            start = new String[]{"ATG"};
+            start.add("ATG");
         } else {
-            start = new String[]{"ATG", "CTG", "GTG", "TTG"};
+            start.add("ATG");
+            start.add("CTG");
+            start.add("GTG");
+            start.add("TTG");
         }
 
-        boolean end = false;
-        ArrayList<String> currList;
-        for (ArrayList<String> list: arr) {
-            for (int index = 0; index <= list.size(); index++) {
-                // Loop over list, check for every codon if it is in the "start" array
-            }
+        ArrayList<String> stop = new ArrayList<>();
+        if (stopCodon.equals("normalstop")) {
+            stop.add("TAG");
+            stop.add("TAA");
+            stop.add("TGA");
+        } else {
+            stop.add("TAG");
+            stop.add("TAA");
+            stop.add("TGA");
+            stop.add("AGA");
+            stop.add("AGG");
+            stop.add("TCA");
+            stop.add("TTA");
         }
+
+        // Search for all start and stop codon's per frame and combine start and stop codons for ORF's
+        int count = 1;
+        for (ArrayList<String> currList : arr) {
+            // Use TreeMap to have found start and stop codons be sorted by index
+            Map<Integer, String> startCodons = new TreeMap<>();
+            Map<Integer, String> stopCodons = new TreeMap<>();
+            int lowestStartIndex = -1;
+            for (int index = 0; index < currList.size(); index++) {
+                if (start.contains(currList.get(index))) {
+                    // Current codon is startcodon, add to startCodons map
+                    startCodons.put(index, currList.get(index));
+                    if (index < lowestStartIndex | lowestStartIndex == -1) {
+                        lowestStartIndex = index;
+                    }
+                } else if (stop.contains(currList.get(index))) {
+                    // Current codon is stopcodon, add to stopCodons map
+                    stopCodons.put(index, currList.get(index));
+                }
+            }
+
+            for (int y = 0; y < stopCodons.size(); y++) {
+
+            }
+
+            int currIndex;
+            String currStart;
+            String currStop;
+            for (Map.Entry<Integer, String> startEntry : startCodons.entrySet()) {
+                currIndex = startEntry.getKey();
+                currStart = startEntry.getValue();
+                for (Map.Entry<Integer, String> stopEntry : stopCodons.entrySet()) {
+//                    if (stopEntry.getKey() >)
+                }
+            }
+            System.out.println(count);
+            System.out.println(startCodons);
+            System.out.println(stopCodons);
+            System.out.println("\n");
+            count++;
+        }
+
+//        boolean end = false;
+//        ArrayList<String> currList;
+//        List<String> slice;
+//        int lowStopIndex = -1;
+//        for (ArrayList<String> list: arr) {
+//            for (int index = 0; index < list.size(); index++) {
+//                // Loop over list, check for every codon if it is in the "start" array
+//                if (start.contains(list.get(index))) {
+//                    // if current codon is startcodon
+//                    slice = list.subList(index, list.size());
+//                    for (String stopCodon : stop) {
+//                        int stopIndex = slice.indexOf(stopCodon);
+//                        if (stopIndex != -1) {
+//                            if (stopIndex < lowStopIndex | lowStopIndex == -1) {
+//                                lowStopIndex = stopIndex;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         //System.out.println(java.util.Arrays.toString(seq.split("(?<=\\G...)")));
         // predict ORFs

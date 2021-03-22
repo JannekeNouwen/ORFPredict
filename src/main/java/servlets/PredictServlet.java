@@ -71,9 +71,7 @@ public class PredictServlet extends HttpServlet {
 
         int minSize = Integer.parseInt(request.getParameter("minSize"));
         String startCodon = request.getParameter("startcodon");
-
-        System.out.println(minSize);
-        System.out.println(startCodon);
+        String stopCodon = request.getParameter("stopcodon");
 
         String textInput = request.getParameter("textInput");
 
@@ -98,7 +96,7 @@ public class PredictServlet extends HttpServlet {
             inputSeq = fileContent;
         } else inputSeq = Objects.requireNonNullElse(fileContent, textInput);
 
-        Prediction prediction = new Prediction(inputSeq, minSize, startCodon);
+        Prediction prediction = new Prediction(inputSeq, minSize, startCodon, stopCodon);
         if (!prediction.getType().equals("invalid")) {
             prediction.predictSeq();
         } else {
