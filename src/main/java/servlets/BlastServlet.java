@@ -33,6 +33,7 @@ public class BlastServlet extends HttpServlet {
 
         HashMap<String, String> blastQuery = new HashMap<String, String>();
 
+
         String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
 
         ArrayList<BlastResult> BlastResults =

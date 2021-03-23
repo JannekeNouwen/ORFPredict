@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="stylesheets/style_form_elements.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/style_result.css"
           type="text/css">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> <%--Nodig voor SVG visualisatie--%>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> <%--Nodig voor SVG visualisatie--%>
     <script rel="script" src="scripts/functions_hamburger.js" type="text/javascript"></script>
 </head>
 <body>
