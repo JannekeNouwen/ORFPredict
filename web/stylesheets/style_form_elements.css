@@ -1,10 +1,10 @@
 input[type=text], input[type=password] {
-    padding: 8px;
+    padding: 6px;
     border-style: solid;
     border-width: 2px;
     border-radius: 0;
     border-color: lightgray;
-    font-size: inherit;
+    font-family: inherit;
 }
 
 input[type=text]:hover, input[type=password]:hover {
@@ -18,7 +18,7 @@ input[type=text]:focus, input[type=password]:focus {
 
 .button {
     margin-top: 24px;
-    padding: 8px 24px;
+    padding: 6px 22px;
     background-color: lightgray;
     border-style: solid;
     border-radius: 0;
@@ -27,7 +27,6 @@ input[type=text]:focus, input[type=password]:focus {
     text-decoration: none;
     text-align: center;
     font-family: inherit;
-    font-size: inherit;
     color: black;
     user-select: none;
     -webkit-tap-highlight-color: transparent;

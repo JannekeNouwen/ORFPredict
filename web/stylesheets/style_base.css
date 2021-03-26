@@ -6,6 +6,7 @@ body {
     margin: 0;
     background-color: white;
     font-family: 'Segoe UI', 'Open Sans', sans-serif;
+    font-size: 14px;
 }
 
 div.containerContent {
