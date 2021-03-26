@@ -1,3 +1,12 @@
+label {
+    margin-top: 24px;
+    font-weight: lighter;
+}
+
+label.normal {
+    font-weight: normal;
+}
+
 input[type=text], input[type=password] {
     padding: 6px;
     border-style: solid;
@@ -42,4 +51,8 @@ input[type=text]:focus, input[type=password]:focus {
     outline: none;
     background-color: darkgray;
     border-color: gray;
+}
+
+input[type=radio] {
+    margin-left: 22px;
 }

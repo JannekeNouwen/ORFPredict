@@ -10,7 +10,7 @@ body {
 }
 
 div.containerContent {
-    margin: 12px 12px 0;
+    margin: 12px 12px 32px;
 }
 
 .flexPage {
@@ -30,4 +30,5 @@ div.containerContent {
     color: red;
 }
 
+/*TODO: paarse kleur in website verwerken.*/
 /*https://colorlib.com/etc/metro-colors.html*/

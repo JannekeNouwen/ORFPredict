@@ -20,11 +20,6 @@ div.containerBackground {
     background-color: whitesmoke;
 }
 
-label {
-    margin-top: 24px;
-    font-weight: lighter;
-}
-
 div.welcome {
     max-width: 440px;
 }
