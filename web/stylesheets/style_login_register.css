@@ -42,6 +42,7 @@ div.textBlockSpacer {
         flex-grow: 0;
         flex-shrink: 0;
         align-self: center;
+        margin-bottom: 64px;
         padding: 32px;
         width: fit-content;
         border-radius: 26px;

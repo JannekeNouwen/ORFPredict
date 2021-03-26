@@ -1,7 +1,3 @@
-html {
-    height: 100%;
-}
-
 body {
     margin: 0;
     background-color: white;
@@ -10,13 +6,14 @@ body {
 }
 
 div.containerContent {
-    margin: 12px 12px 32px;
+    display: flex;
+    flex-flow: column;
+    margin: 12px 12px 64px;
 }
 
 .flexPage {
     display: flex;
     flex-flow: column;
-    height: 100%;
 }
 
 .flexbox {

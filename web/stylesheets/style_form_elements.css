@@ -1,10 +1,7 @@
 label {
     margin-top: 24px;
+    margin-bottom: 2px;
     font-weight: lighter;
-}
-
-label.normal {
-    font-weight: normal;
 }
 
 input[type=text], input[type=password] {
@@ -54,5 +51,22 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 input[type=radio] {
-    margin-left: 22px;
+    margin: 2px 0 0 22px;
+    padding: 0;
+}
+
+label.radioLabel {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 3px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+div.radioElement {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    margin: 0 0 4px;
+    padding: 0;
 }

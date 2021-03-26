@@ -26,25 +26,25 @@
 
         <div class="flexbox" id="start_codon_use">
             <label>ORF start codon use</label>
-            <div>
+            <div class="radioElement">
                 <input type="radio" id="atgonly" name="startcodon" value="atgonly" checked>
-                <label class="normal" for="atgonly">'ATG' only</label>
+                <label class="radioLabel" for="atgonly">'ATG' only</label>
             </div>
-            <div>
+            <div class="radioElement">
                 <input type="radio" id="alternative" name="startcodon" value="alternative">
-                <label class="normal" for="alternative">'ATG' and alternative initiation codons</label>
+                <label class="radioLabel" for="alternative">'ATG' and alternative initiation codons</label>
             </div>
         </div>
 
         <div class="flexbox" id="stop_codon_use">
             <label>ORF stop codon use</label>
-            <div>
+            <div class="radioElement">
                 <input type="radio" id="normalstop" name="stopcodon" value="normalstop" checked>
-                <label class="normal" for="normalstop">'TAG', 'TGA' and 'TAA' only</label>
+                <label class="radioLabel" for="normalstop">'TAG', 'TGA' and 'TAA' only</label>
             </div>
-            <div>
+            <div class="radioElement">
                 <input type="radio" id="mitostop" name="stopcodon" value="mitostop">
-                <label class="normal" for="mitostop">'TAG', 'TGA', 'TAA' and mitochondrial termination codons</label>
+                <label class="radioLabel" for="mitostop">'TAG', 'TGA', 'TAA' and mitochondrial termination codons</label>
             </div>
         </div>
 
