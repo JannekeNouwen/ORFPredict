@@ -25,6 +25,7 @@ div.containerContent {
 .errorMessage {
     font-weight: bolder;
     color: red;
+    margin-top: 24px;
 }
 
 /*TODO: paarse kleur in website verwerken.*/

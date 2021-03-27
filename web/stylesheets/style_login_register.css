@@ -30,6 +30,7 @@ div.register {
 
 div.textBlock {
     max-width: 440px;
+    /*margin-bottom: 24px;*/
 }
 
 div.textBlockSpacer {

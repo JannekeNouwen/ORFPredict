@@ -19,9 +19,7 @@
         <label for="username">Username</label>
         <input id="username" name="username" type="text" required>
         <label for="password">Password</label>
-        <input id="password" name="password" type="password"
-               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-               required>
+        <input id="password" name="password" type="password" required>
         <label for="password2">Confirm password</label>
         <input id="password2" name="password2" type="password" required>
         <input class="button" type="submit" name="action" value="Register">

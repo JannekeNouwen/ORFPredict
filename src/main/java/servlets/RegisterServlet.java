@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
-
+// TODO: documentatie toevoegen.
 public class RegisterServlet extends HttpServlet {
+    // TODO: documentatie toevoegen.
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -22,46 +24,55 @@ public class RegisterServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    // TODO: documentatie toevoegen.
     @Override
     protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response) throws ServletException,
-            IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String password2 = request.getParameter("password2");
+                          HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("username").strip();
+        String password1 = request.getParameter("password").strip();
+        String password2 = request.getParameter("password2").strip();
 
-        if (password.equals(password2)) {
-            int status = 0;
-            try {
-                status = database_handler.UserInfoHandler.newUser(username,
-                        password);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            if (status == 0) {
-                String message = "Your account was successfully created. " +
-                        "Please use your new credentials to login.";
+        String message;
+        RequestDispatcher dispatcher;
+        Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+
+        if (password1.equals(password2)) {
+            if (!passwordPattern.matcher(password1).find()) {
+                message = "Password does not match the requirements!";
                 request.setAttribute("message", message);
-                RequestDispatcher dispatcher =
-                        this.getServletContext().getRequestDispatcher(
-                                "/");
-                dispatcher.forward(request, response);
+                dispatcher = this.getServletContext().getRequestDispatcher("/register.jsp");
             } else {
-                String message = "This username is already taken.";
-                request.setAttribute("message", message);
-                RequestDispatcher dispatcher =
-                        this.getServletContext().getRequestDispatcher(
-                                "/register.jsp");
-                dispatcher.forward(request, response);
+                int status = 0;
+                try {
+                    status = database_handler.UserInfoHandler.newUser(username,
+                            password1);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if (status == 0) {
+                    message = "Your account was successfully created. " +
+                            "Please use your new credentials to login.";
+                    request.setAttribute("message", message);
+                    dispatcher =
+                            this.getServletContext().getRequestDispatcher(
+                                    "/");
+                } else {
+                    message = "This username is already taken!";
+                    request.setAttribute("message", message);
+                    dispatcher =
+                            this.getServletContext().getRequestDispatcher(
+                                    "/register.jsp");
+                }
             }
         } else {
-            String message = "Your passwords do not match.";
+            message = "Passwords do not match.";
             request.setAttribute("message", message);
-            RequestDispatcher dispatcher =
+            dispatcher =
                     this.getServletContext().getRequestDispatcher(
                             "/register.jsp");
-            dispatcher.forward(request, response);
         }
+        dispatcher.forward(request, response);
 
     }
 }
