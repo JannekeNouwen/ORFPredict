@@ -1,3 +1,15 @@
+/*Stijl voor algemene elementen*/
+.pageTitle {
+    margin-top: 0;
+    font-size: 32px;
+}
+
+.widthLimiter {
+    max-width: 700px;
+}
+
+
+
 /*Stijl specifiek voor de result-pagina*/
 .browser {
     overflow:   auto;

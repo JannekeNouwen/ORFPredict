@@ -3,11 +3,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template_main>
-    <h1>[title_page]</h1>
-    <div>
+    <h1 class="pageTitle">Predict new ORF</h1>
+    <div class="widthLimiter">
         [description on how to use the tool]
     </div>
-    <form class="flexbox" action="predict" method="post" enctype="multipart/form-data">
+    <form class="flexbox widthLimiter" action="predict" method="post" enctype="multipart/form-data">
         <div id="name" class="flexbox">
             <label for="query_name">Query name</label>
             <input type="text" id="query_name" name="query_name" placeholder="e.g. 'My super awesome ORF-search'" required>
@@ -15,8 +15,7 @@
 
         <div id="sequence_input" class="flexbox">
             <label for="text_input">Enter an accession number or a FASTA-sequence for a nucleotide sequence</label>
-            <textarea id="text_input" name="textInput" rows="10" cols="50"
-                      placeholder="e.g. 'XP_020076380.1'"></textarea>
+            <textarea id="text_input" name="textInput" placeholder="e.g. 'XP_020076380.1'"></textarea>
         </div>
 
         <div class="flexbox">

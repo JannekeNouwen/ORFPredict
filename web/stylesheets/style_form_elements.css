@@ -4,7 +4,7 @@ label {
     font-weight: lighter;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], textarea, select {
     padding: 6px;
     border-style: solid;
     border-width: 2px;
@@ -13,13 +13,19 @@ input[type=text], input[type=password] {
     font-family: inherit;
 }
 
-input[type=text]:hover, input[type=password]:hover {
+input[type=text]:hover, input[type=password]:hover, textarea:hover, select:hover {
     border-color: darkgray;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus, textarea:focus, select:focus {
     outline: none;
     border-color: gray;
+}
+
+textarea {
+    resize: vertical;
+    height: 150px;
+    min-height: 150px;
 }
 
 .button {
