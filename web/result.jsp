@@ -3,7 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <t:template_main>
-    <h1>Results</h1>
+    <h1 class="pageTitle">Results</h1>
     <h2>Overview</h2>
 
     <canvas id="overview" width="200" height="100">

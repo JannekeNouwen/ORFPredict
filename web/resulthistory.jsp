@@ -3,7 +3,10 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <t:template_main>
-    <h1>Result history</h1>
+    <h1 class="pageTitle">Result history</h1>
+    <div class="widthLimiter">
+        [description of what can be found on this page]
+    </div>
     <table id="resulthistorytable">
         <tr>
             <th>Name</th>
