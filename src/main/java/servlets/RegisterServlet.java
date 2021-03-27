@@ -66,7 +66,7 @@ public class RegisterServlet extends HttpServlet {
                 }
             }
         } else {
-            message = "Passwords do not match.";
+            message = "Password confirmation does not match password!";
             request.setAttribute("message", message);
             dispatcher =
                     this.getServletContext().getRequestDispatcher(

@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <t:template_login_register>
-    <jsp:useBean id="message" scope="request" type="java.lang.String"/>
+    <jsp:useBean id="message" scope="request" class="java.lang.String"/>
 
     <div class="textBlock">
         Welcome to ORF Predict! Please use your credentials to log into your account.
