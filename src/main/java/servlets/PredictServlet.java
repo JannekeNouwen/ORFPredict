@@ -129,10 +129,11 @@ public class PredictServlet extends HttpServlet {
         }
 
         System.out.println("going to brazil");
-        request.setAttribute("result_id", resultId);
-        RequestDispatcher dispatcher =
-                this.getServletContext().getRequestDispatcher(
-                        "/result.jsp");
-        dispatcher.forward(request, response);
+        session.setAttribute("result_id", resultId);
+        response.sendRedirect("result");
+//        RequestDispatcher dispatcher =
+//                this.getServletContext().getRequestDispatcher(
+//                        "/result.jsp");
+//        dispatcher.forward(request, response);
     }
 }

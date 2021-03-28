@@ -17,6 +17,7 @@ public class ResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("did GET at ResultServlet");
         // Check if user is logged in
         HttpSession session = request.getSession(false);
         try {
@@ -29,7 +30,13 @@ public class ResultServlet extends HttpServlet {
                                 "/");
                 dispatcher.forward(request, response);
             } else {
-                int resultId = Integer.parseInt(request.getParameter("result_id"));
+                int resultId;
+                try {
+                    resultId = Integer.parseInt(request.getParameter("result_id"));
+                } catch (NullPointerException | NumberFormatException e) {
+                    resultId = (int) session.getAttribute("result_id");
+                    session.removeAttribute("result_id");
+                }
                 System.out.println("Got result_id = " + resultId + " during GET request");
                 try {
                     ORFResult result =
@@ -71,6 +78,12 @@ public class ResultServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        System.out.println(username);
+        int requestId = Integer.parseInt(request.getParameter("request_id"));
+        System.out.println(requestId);
 
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
