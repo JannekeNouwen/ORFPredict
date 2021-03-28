@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
+//TODO: documentatie toevoegen.
 public class ResultServlet extends HttpServlet {
+    //TODO: documentatie toevoegen.
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -69,6 +71,7 @@ public class ResultServlet extends HttpServlet {
         }
     }
 
+    //TODO: documentatie toevoegen.
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {

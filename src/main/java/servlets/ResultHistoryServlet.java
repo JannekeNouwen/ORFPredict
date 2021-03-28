@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+//TODO: documentatie toevoegen.
 public class ResultHistoryServlet extends HttpServlet{
+    //TODO: documentatie toevoegen.
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)

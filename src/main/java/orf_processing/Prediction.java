@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//TODO: documentatie toevoegen.
 public class Prediction {
     private String seq;
     private final String input;
@@ -13,6 +14,7 @@ public class Prediction {
     private final String startCodon;
     private final String stopCodon;
 
+    //TODO: documentatie toevoegen.
     public Prediction(String rawInput, int minSize, String startCodon, String stopCodon) {
         this.input = rawInput;
         this.minSize = minSize;
@@ -42,10 +44,12 @@ public class Prediction {
         }
     }
 
+    //TODO: documentatie toevoegen.
     private void getSeqByAcc() {
 //      TODO: Build logic to retrieve correct sequence with accessioncode from BLAST
     }
 
+    //TODO: documentatie toevoegen.
     public void fastaExtract() {
         String[] fastaInput = input.split("\\r?\\n");
         this.header = fastaInput[0];
@@ -54,6 +58,7 @@ public class Prediction {
         this.seq = seq.toUpperCase(Locale.ROOT);
     }
 
+    //TODO: documentatie toevoegen.
     public void typeCheck() {
         Pattern headerPattern = Pattern.compile("(>.+[\\n\\r])");
         Matcher headerMatcher = headerPattern.matcher(input);
@@ -70,6 +75,7 @@ public class Prediction {
         }
     }
 
+    //TODO: documentatie toevoegen.
     public ORFResult predictSeq() {
         ORFResult result = new ORFResult("", "", 0);
         String reverseComp = translating.revComp(seq);
@@ -181,14 +187,17 @@ public class Prediction {
         return result;
     }
 
+    //TODO: documentatie toevoegen.
     public String getSeq() {
         return seq;
     }
 
+    //TODO: documentatie toevoegen.
     public String getType() {
         return type;
     }
 
+    //TODO: documentatie toevoegen.
     public String getHeader() {
         return header;
     }

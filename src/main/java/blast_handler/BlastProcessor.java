@@ -8,6 +8,7 @@ import java.io.*;
 import org.biojava.nbio.core.sequence.io.util.IOUtils;
 import org.biojava.nbio.ws.alignment.qblast.*;
 
+// TODO: documentatie toevoegen.
 public class BlastProcessor {
     /**
      * Execute blast with parameters entered by the user
@@ -32,7 +33,7 @@ public class BlastProcessor {
         return XMLpath;
     }
 
-
+    // TODO: documentatie toevoegen.
     public static ArrayList<BlastResult> parseXML(String XMLpath) {
         ArrayList<BlastResult> BlastResults = new ArrayList<BlastResult>();
 

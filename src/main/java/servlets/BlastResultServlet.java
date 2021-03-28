@@ -13,8 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+//TODO: documentatie toevoegen.
 public class BlastResultServlet extends HttpServlet {
+    //TODO: documentatie toevoegen.
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -57,6 +58,7 @@ public class BlastResultServlet extends HttpServlet {
         }
     }
 
+    //TODO: documentatie toevoegen.
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) {

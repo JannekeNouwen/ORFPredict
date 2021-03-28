@@ -7,6 +7,7 @@ import orf_processing.ORFResult;
 import java.sql.*;
 import java.util.ArrayList;
 
+//TODO: documentatie toevoegen.
 public class DatabaseHandler {
     public static void saveResultToDb(ORFResult result) {
         // save ORF prediction result to database
@@ -98,6 +99,7 @@ public class DatabaseHandler {
         return result;
     }
 
+    //TODO: documentatie toevoegen.
     public static void saveBlastResult(ArrayList<BlastResult> blastResults) {
         // ORF id ophalen door de sequentie (seq van BlastResult)?
 
@@ -110,6 +112,7 @@ public class DatabaseHandler {
      * @param ORFid
      * @return
      */
+    //TODO: documentatie aanvullen.
     public static ArrayList<ArrayList<String>> getAllBlastResults(int ORFid) throws ClassNotFoundException, SQLException {
         ArrayList<ArrayList<String>> blastResultSummary =
                 new ArrayList<>();
@@ -145,6 +148,7 @@ public class DatabaseHandler {
      * @param blastSearchId
      * @return
      */
+    //TODO: documentatie aanvullen.
     public static ArrayList<BlastResult> getBlastResult(int blastSearchId) throws ClassNotFoundException {
         ArrayList<BlastResult> blastResults = new ArrayList<>();
 
@@ -178,6 +182,7 @@ public class DatabaseHandler {
         return blastResults;
     }
 
+    //TODO: documentatie toevoegen.
     protected static Connection connect() throws ClassNotFoundException {
         String MySQLURL = "jdbc:mysql://165.232.120.23:3306/";
         String databseUserName = "course7user";

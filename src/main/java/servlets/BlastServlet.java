@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+//TODO: documentatie toevoegen.
 public class BlastServlet extends HttpServlet {
+    //TODO: documentatie toevoegen.
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -27,6 +29,7 @@ public class BlastServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    //TODO: documentatie toevoegen.
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) {

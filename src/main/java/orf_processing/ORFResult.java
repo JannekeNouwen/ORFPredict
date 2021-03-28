@@ -3,6 +3,7 @@ package orf_processing;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+//TODO: documentatie toevoegen.
 public class ORFResult {
     private final String seq;
     private final String name;
@@ -11,6 +12,7 @@ public class ORFResult {
     private String header;
     private final ArrayList<ORF> ORFArray = new ArrayList<>();
 
+    //TODO: documentatie toevoegen.
     public ORFResult(String seq, String name, int userId, String accCode) {
         this.seq = seq;
         this.name = name;
@@ -18,6 +20,7 @@ public class ORFResult {
         this.accCode = accCode;
     }
 
+    //TODO: documentatie toevoegen.
     public ORFResult(String seq, String name, int userId, String accCode, String header) {
         this.seq = seq;
         this.name = name;
@@ -26,12 +29,14 @@ public class ORFResult {
         this.header = header;
     }
 
+    //TODO: documentatie toevoegen.
     public ORFResult(String seq, String name, int userId) {
         this.seq = seq;
         this.name = name;
         this.userId = userId;
     }
 
+    //TODO: documentatie toevoegen.
     public ArrayList<ArrayList<ORF>> getFormattedORFs() {
         ArrayList<Integer> rowLengths = new ArrayList<>();
         rowLengths.add(0, -6);
@@ -76,30 +81,37 @@ public class ORFResult {
         return formattedORFs;
     }
 
+    //TODO: documentatie toevoegen.
     public void addORF(ORF orf) {
         ORFArray.add(orf);
     }
 
+    //TODO: documentatie toevoegen.
     public String getSeq() {
         return seq;
     }
 
+    //TODO: documentatie toevoegen.
     public String getName() {
         return name;
     }
 
+    //TODO: documentatie toevoegen.
     public int getUserId() {
         return userId;
     }
 
+    //TODO: documentatie toevoegen.
     public String getAccCode() {
         return accCode;
     }
 
+    //TODO: documentatie toevoegen.
     public String getHeader() {
         return header;
     }
 
+    //TODO: documentatie toevoegen.
     public ArrayList<ORF> getORFs() {
         return ORFArray;
     }

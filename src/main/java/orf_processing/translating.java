@@ -2,8 +2,10 @@ package orf_processing;
 
 import java.util.HashMap;
 
+//TODO: documentatie toevoegen.
 public class translating {
 
+    //TODO: documentatie toevoegen.
     public static String revComp(String input) {
         HashMap<Character, Character> complementMap = new HashMap<>();
         complementMap.put('A', 'T');

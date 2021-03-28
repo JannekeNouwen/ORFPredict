@@ -13,8 +13,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+//TODO: documentatie toevoegen.
 public class BlastResultHistoryServlet extends HttpServlet {
+    //TODO: documentatie toevoegen.
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -65,6 +66,7 @@ public class BlastResultHistoryServlet extends HttpServlet {
         }
     }
 
+    //TODO: documentatie toevoegen.
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) {
