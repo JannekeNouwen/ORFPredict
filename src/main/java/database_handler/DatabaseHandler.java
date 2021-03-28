@@ -8,8 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseHandler {
-    public static void saveResultToDb(ORFResult result) {
+    public static int saveResultToDb(ORFResult result) {
         // save ORF prediction result to database
+        int resultId = 0;
+        return resultId;
     }
 
     /**
@@ -74,7 +76,6 @@ public class DatabaseHandler {
                 rs.getString("seq"),
                 rs.getString("name"),
                 rs.getInt("user_id"),
-                rs.getString("acc_code"),
                 rs.getString("header")
         );
 
@@ -87,7 +88,8 @@ public class DatabaseHandler {
                 rs.getInt("id"),
                 rs.getInt("start_pos"),
                 rs.getString("seq").length() + rs.getInt("start_pos"),
-                rs.getString("seq")
+                rs.getString("seq"),
+                rs.getInt("reading_frame")
             );
             result.addORF(orf);
         }

@@ -1,25 +1,17 @@
 package servlets;
 
+import database_handler.DatabaseHandler;
 import orf_processing.ORFResult;
 import orf_processing.Prediction;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -68,9 +60,8 @@ public class PredictServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
-        System.out.println(username);
 
-        int userId = (int) request.getAttribute("userId");
+        int userId = (int) session.getAttribute("userId");
         String queryName = request.getParameter("query_name");
 
         int minSize = Integer.parseInt(request.getParameter("minSize"));
@@ -110,6 +101,7 @@ public class PredictServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
+        int resultId = 0;
         Prediction prediction = new Prediction(inputSeq, minSize, startCodon, stopCodon, userId, queryName);
         if (prediction.getType().equals("acccode")) {
             String message = "Accession codes are not yet accepted, this is a planned function";
@@ -119,8 +111,10 @@ public class PredictServlet extends HttpServlet {
                             "/predict.jsp");
             dispatcher.forward(request, response);
         } else if (!prediction.getType().equals("invalid")) {
+            System.out.println("Prediction started");
             ORFResult result = prediction.predictSeq();
-
+            System.out.println("Prediction ended");
+            resultId = DatabaseHandler.saveResultToDb(result);
         } else {
             String message = "Input is not valid";
             request.setAttribute("message", message);
@@ -130,6 +124,8 @@ public class PredictServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
+        System.out.println("going to brazil");
+        request.setAttribute("result_id", resultId);
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
                         "/result.jsp");

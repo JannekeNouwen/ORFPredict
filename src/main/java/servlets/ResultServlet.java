@@ -30,7 +30,7 @@ public class ResultServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             } else {
                 int resultId = Integer.parseInt(request.getParameter("result_id"));
-
+                System.out.println("Got result_id = " + resultId + " during GET request");
                 try {
                     ORFResult result =
                             database_handler.DatabaseHandler.getResult(resultId);
