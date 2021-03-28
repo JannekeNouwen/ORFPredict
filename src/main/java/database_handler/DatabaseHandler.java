@@ -14,20 +14,22 @@ public class DatabaseHandler {
         Connection con = connect();
         assert con != null;
 
+        String header = result.getHeader().replace("'", "\\'");
+        String name = result.getName().replace("'", "\\'");
         try {
             String query = "insert into orf_prediction(name, seq, " +
-                    "user_id, header) values (" +
-                    result.getName() + ", " +
-                    result.getSeq() + ", " +
-                    result.getUserId() + ", " +
-                    result.getHeader() + ", " +
+                    "user_id, header) values ('" +
+                    name + "', '" +
+                    result.getSeq() + "', " +
+                    result.getUserId() + ", '" +
+                    header + "' " +
                     ");";
             Statement stmt = con.createStatement();
-            stmt.executeQuery(query);
+            stmt.executeUpdate(query);
 
             query = "select id from " +
                     "orf_prediction where seq = '" + result.getSeq() + "' " +
-                    " and name = '" + result.getName() +
+                    " and name = '" + name +
                     "' and user_id = " + result.getUserId() + ";";
 
             try (Statement stmt2 = con.createStatement()) {
@@ -37,14 +39,14 @@ public class DatabaseHandler {
                 ArrayList<ORF> orfs = result.getORFs();
                 for (ORF orf : orfs) {
                     query = "insert into orf(seq, orf_prediction_id, " +
-                            "start_pos, reading_frame) values (" +
-                            orf.getSeq() + ", " +
+                            "start_pos, reading_frame) values ('" +
+                            orf.getSeq() + "', " +
                             id + ", " +
                             orf.getStart() + ", " +
-                            orf.getReadingFrame() + ", " +
+                            orf.getReadingFrame() + " " +
                             ");";
                     stmt = con.createStatement();
-                    stmt.executeQuery(query);
+                    stmt.executeUpdate(query);
                 }
                 con.close();
                 return id;
@@ -116,7 +118,7 @@ public class DatabaseHandler {
         Connection con = connect();
         assert con != null;
 
-        String query = "select name, seq, user_id, acc_code, header from " +
+        String query = "select name, seq, user_id, header from " +
                 "orf_prediction where id = " + resultId + ";";
 
         Statement stmt = con.createStatement();
