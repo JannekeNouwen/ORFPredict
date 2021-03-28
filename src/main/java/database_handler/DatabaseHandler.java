@@ -60,8 +60,6 @@ public class DatabaseHandler {
      * @return
      */
     public static ORFResult getResult(int resultId) throws ClassNotFoundException, SQLException {
-//        ORFResult result = new ORFResult("", "", 0);  // heb ff lege data
-        // ingevuld om error te voorkomen
 
         Connection con = connect();
         assert con != null;
@@ -96,6 +94,29 @@ public class DatabaseHandler {
 
         con.close();
         return result;
+    }
+
+    public static ORF getOrf(String orfId) throws ClassNotFoundException,
+            SQLException {
+
+        Connection con = connect();
+        assert con != null;
+
+        String query = "select seq, start_pos from " +
+                "orf where id = " + orfId + ";";
+
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        ORF orf = new ORF(
+                Integer.parseInt(orfId),
+                rs.getInt("start_pos"),
+                rs.getInt("start_pos") + rs.getString("seq").length(),
+                rs.getString("seq")
+        );
+
+        con.close();
+        return orf;
     }
 
     public static void saveBlastResult(ArrayList<BlastResult> blastResults) {

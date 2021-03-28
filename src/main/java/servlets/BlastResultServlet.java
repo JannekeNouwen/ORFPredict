@@ -63,10 +63,10 @@ public class BlastResultServlet extends HttpServlet {
 
         HashMap<String, String> blastQuery = new HashMap<String, String>();
 
-        String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
+//        String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
 
-        ArrayList<BlastResult> BlastResults =
-                blast_handler.BlastProcessor.parseXML(XMLpath);
+//        ArrayList<BlastResult> BlastResults =
+//                blast_handler.BlastProcessor.parseXML(XMLpath);
 
         // Add BlastResults to request or response
     }

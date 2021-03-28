@@ -17,7 +17,6 @@ public class ResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("did GET at ResultServlet");
         // Check if user is logged in
         HttpSession session = request.getSession(false);
         try {
@@ -72,10 +71,6 @@ public class ResultServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
-        System.out.println(username);
 
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
