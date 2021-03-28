@@ -1,24 +1,36 @@
-input[type=text], input[type=password] {
-    padding: 8px;
+label {
+    margin-top: 24px;
+    margin-bottom: 2px;
+    font-weight: lighter;
+}
+
+input[type=text], input[type=password], textarea, select {
+    padding: 6px;
     border-style: solid;
     border-width: 2px;
     border-radius: 0;
     border-color: lightgray;
-    font-size: inherit;
+    font-family: inherit;
 }
 
-input[type=text]:hover, input[type=password]:hover {
+input[type=text]:hover, input[type=password]:hover, textarea:hover, select:hover {
     border-color: darkgray;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus, textarea:focus, select:focus {
     outline: none;
     border-color: gray;
 }
 
+textarea {
+    resize: vertical;
+    height: 150px;
+    min-height: 150px;
+}
+
 .button {
     margin-top: 24px;
-    padding: 8px 24px;
+    padding: 6px 22px;
     background-color: lightgray;
     border-style: solid;
     border-radius: 0;
@@ -27,7 +39,6 @@ input[type=text]:focus, input[type=password]:focus {
     text-decoration: none;
     text-align: center;
     font-family: inherit;
-    font-size: inherit;
     color: black;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
@@ -43,4 +54,25 @@ input[type=text]:focus, input[type=password]:focus {
     outline: none;
     background-color: darkgray;
     border-color: gray;
+}
+
+input[type=radio] {
+    margin: 2px 0 0 22px;
+    padding: 0;
+}
+
+label.radioLabel {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 3px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+div.radioElement {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    margin: 0 0 4px;
+    padding: 0;
 }

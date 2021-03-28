@@ -3,39 +3,51 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template_main>
-    <form class="flexbox" action="predict" method="post" enctype="multipart/form-data">
-        <div id="name">
-            <label for="query_name">Query name:</label>
-            <input type="text" id="query_name" name="query_name" required>
-        </div><br>
-        <div id="sequence_input">
-            <textarea name="textInput" rows="10" cols="50"
-                      placeholder="Enter ONE accession number or FASTA sequence"></textarea>
-            <div>
-                <label>Or, upload a file</label>
-                <input name="fileInput" type="file" accept=".fasta,.fa">
-            </div>
+    <h1 class="pageTitle">Predict new ORF</h1>
+    <div class="widthLimiter">
+        [description on how to use the tool]
+    </div>
+    <form class="flexbox widthLimiter" action="predict" method="post" enctype="multipart/form-data">
+        <div id="name" class="flexbox">
+            <label for="query_name">Query name</label>
+            <input type="text" id="query_name" name="query_name" placeholder="e.g. 'My super awesome ORF-search'" required>
         </div>
-        <div class="flexbox" id="codon_usage">
-            <div>
+
+        <div id="sequence_input" class="flexbox">
+            <label for="text_input">Enter an accession number or a FASTA-sequence for a nucleotide sequence</label>
+            <textarea id="text_input" name="textInput" placeholder="e.g. 'XP_020076380.1'"></textarea>
+        </div>
+
+        <div class="flexbox">
+            <label for="file_input">Or, upload a file</label>
+            <input name="fileInput" id="file_input" type="file" accept=".fasta,.fa">
+        </div>
+
+        <div class="flexbox" id="start_codon_use">
+            <label>ORF start codon use</label>
+            <div class="radioElement">
                 <input type="radio" id="atgonly" name="startcodon" value="atgonly" checked>
-                <label for="atgonly">"ATG" only</label>
+                <label class="radioLabel" for="atgonly">'ATG' only</label>
             </div>
-            <div>
+            <div class="radioElement">
                 <input type="radio" id="alternative" name="startcodon" value="alternative">
-                <label for="alternative">"ATG" and alternative initiation codons</label>
-            </div>
-            <br>
-            <div>
-                <input type="radio" id="normalstop" name="stopcodon" value="normalstop" checked>
-                <label for="normalstop">Only standard stop codons</label>
-            </div>
-            <div>
-                <input type="radio" id="mitostop" name="stopcodon" value="mitostop">
-                <label for="mitostop">Also include mitochondrial stop codons</label>
+                <label class="radioLabel" for="alternative">'ATG' and alternative initiation codons</label>
             </div>
         </div>
-        <div id="orf_length">
+
+        <div class="flexbox" id="stop_codon_use">
+            <label>ORF stop codon use</label>
+            <div class="radioElement">
+                <input type="radio" id="normalstop" name="stopcodon" value="normalstop" checked>
+                <label class="radioLabel" for="normalstop">'TAG', 'TGA' and 'TAA' only</label>
+            </div>
+            <div class="radioElement">
+                <input type="radio" id="mitostop" name="stopcodon" value="mitostop">
+                <label class="radioLabel" for="mitostop">'TAG', 'TGA', 'TAA' and mitochondrial termination codons</label>
+            </div>
+        </div>
+
+        <div class="flexbox" id="orf_length">
             <label for="length">Minimal ORF length</label>
             <select id="length" name="minSize">
                 <option value="30">30</option>

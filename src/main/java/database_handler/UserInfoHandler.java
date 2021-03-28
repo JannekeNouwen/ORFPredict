@@ -11,9 +11,10 @@ import java.sql.*;
 
 import static database_handler.DatabaseHandler.connect;
 
+//TODO: documentatie toevoegen.
 public class UserInfoHandler {
 
-
+    //TODO: documentatie toevoegen.
     public static int newUser(String username, String password) throws ClassNotFoundException {
         Connection con = connect();
         assert con != null;
@@ -43,11 +44,13 @@ public class UserInfoHandler {
         return 0;  // statuscode of user ID?
     }
 
+    //TODO: documentatie toevoegen.
     public static int removeUser(String username){
 
         return 0;  // statuscode oid
     }
 
+    //TODO: documentatie toevoegen.
     public static int checkCredentials(String username, String password) throws ClassNotFoundException {
         Connection con = connect();
         assert con != null;
@@ -88,6 +91,7 @@ public class UserInfoHandler {
         return -1;
     }
 
+    //TODO: documentatie toevoegen.
     private static String hashPassword(String strPassword, String strSalt) {
         char[] password = strPassword.toCharArray();
         byte[] salt = strSalt.getBytes();

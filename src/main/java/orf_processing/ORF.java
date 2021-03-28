@@ -5,12 +5,14 @@ public class ORF implements Comparable<ORF> {
     private final int start;
     private final int stop;
     private final String seq;
+    private final int readingFrame;
 
-    public ORF(int id, int start, int stop, String seq) {
+    public ORF(int id, int start, int stop, String seq, int readingFrame) {
         this.id = id;
         this.start = start;
         this.stop = stop;
         this.seq = seq;
+        this.readingFrame = readingFrame;
     }
 
     public int getId() {
@@ -27,6 +29,10 @@ public class ORF implements Comparable<ORF> {
 
     public String getSeq() {
         return seq;
+    }
+
+    public int getReadingFrame() {
+        return readingFrame;
     }
 
     @Override
