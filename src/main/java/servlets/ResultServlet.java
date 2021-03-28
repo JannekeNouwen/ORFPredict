@@ -47,7 +47,7 @@ public class ResultServlet extends HttpServlet {
                         request.setAttribute("result", result);
                         request.setAttribute("formattedORFs",
                                 result.getFormattedORFs());
-                        System.out.println("Acc_code: " + result.getAccCode());
+                        System.out.println("Acc_code: " + result.getHeader());
 
                         RequestDispatcher dispatcher =
                                 this.getServletContext().getRequestDispatcher(

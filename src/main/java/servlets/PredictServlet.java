@@ -1,5 +1,6 @@
 package servlets;
 
+import orf_processing.ORFResult;
 import orf_processing.Prediction;
 
 import javax.servlet.RequestDispatcher;
@@ -69,6 +70,9 @@ public class PredictServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         System.out.println(username);
 
+        int userId = (int) request.getAttribute("userId");
+        String queryName = request.getParameter("query_name");
+
         int minSize = Integer.parseInt(request.getParameter("minSize"));
         String startCodon = request.getParameter("startcodon");
         String stopCodon = request.getParameter("stopcodon");
@@ -96,9 +100,27 @@ public class PredictServlet extends HttpServlet {
             inputSeq = fileContent;
         } else inputSeq = Objects.requireNonNullElse(fileContent, textInput);
 
-        Prediction prediction = new Prediction(inputSeq, minSize, startCodon, stopCodon);
-        if (!prediction.getType().equals("invalid")) {
-            prediction.predictSeq();
+        assert inputSeq != null;
+        if (inputSeq.length() > 50000) {
+            String message = "Please input a sequence of less then 50000";
+            request.setAttribute("message", message);
+            RequestDispatcher dispatcher =
+                    this.getServletContext().getRequestDispatcher(
+                            "/predict.jsp");
+            dispatcher.forward(request, response);
+        }
+
+        Prediction prediction = new Prediction(inputSeq, minSize, startCodon, stopCodon, userId, queryName);
+        if (prediction.getType().equals("acccode")) {
+            String message = "Accession codes are not yet accepted, this is a planned function";
+            request.setAttribute("message", message);
+            RequestDispatcher dispatcher =
+                    this.getServletContext().getRequestDispatcher(
+                            "/predict.jsp");
+            dispatcher.forward(request, response);
+        } else if (!prediction.getType().equals("invalid")) {
+            ORFResult result = prediction.predictSeq();
+
         } else {
             String message = "Input is not valid";
             request.setAttribute("message", message);
