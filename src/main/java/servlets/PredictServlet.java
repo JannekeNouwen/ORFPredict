@@ -114,7 +114,11 @@ public class PredictServlet extends HttpServlet {
             System.out.println("Prediction started");
             ORFResult result = prediction.predictSeq();
             System.out.println("Prediction ended");
-            resultId = DatabaseHandler.saveResultToDb(result);
+            try {
+                resultId = DatabaseHandler.saveResultToDb(result);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         } else {
             String message = "Input is not valid";
             request.setAttribute("message", message);
