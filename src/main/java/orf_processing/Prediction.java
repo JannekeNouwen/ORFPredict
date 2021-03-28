@@ -161,6 +161,7 @@ public class Prediction {
                         ORF orf = new ORF(orfCount, currStartIndex, currStopIndex, orfSeq, currFrame);
                         result.addORF(orf);
                         orfCount++;
+                        break;
                     }
                 }
             }
