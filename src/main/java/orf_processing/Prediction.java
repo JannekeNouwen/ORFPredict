@@ -158,7 +158,7 @@ public class Prediction {
                     if ((currStopIndex - currStartIndex) >= minSize) {
                         List<String> currORFList = new ArrayList<>(currList.subList(currStartIndex, currStopIndex));
                         orfSeq = String.join("", currORFList);
-                        ORF orf = new ORF(orfCount, currStartIndex, currStopIndex, orfSeq, currFrame);
+                        ORF orf = new ORF(orfCount, currStartIndex * 3, currStopIndex * 3, orfSeq, currFrame);
                         result.addORF(orf);
                         orfCount++;
                         break;
