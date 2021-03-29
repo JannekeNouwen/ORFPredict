@@ -5,12 +5,14 @@
 <t:template_main>
     <h1 class="pageTitle">Predict new ORF</h1>
     <div class="widthLimiter">
-        [description on how to use the tool]
+        On this page you can enter your query to search for ORF's.
     </div>
     <form class="flexbox widthLimiter" action="predict" method="post" enctype="multipart/form-data">
         <div id="name" class="flexbox">
             <label for="query_name">Query name</label>
-            <input type="text" id="query_name" name="query_name" placeholder="e.g. 'My super awesome ORF-search'" required>
+            <input type="text" id="query_name" name="query_name"
+                   placeholder="e.g. 'My super awesome ORF-search'"
+                   maxlength="30" required>
         </div>
 
         <div id="sequence_input" class="flexbox">
