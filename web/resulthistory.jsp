@@ -11,7 +11,6 @@
         <tr>
             <th>Name</th>
             <th>Sequence</th>
-            <th>Accession Code</th>
             <th>Header</th>
         </tr>
         <c:forEach var="result" items="${resultSummary}" varStatus="loopCounter">
@@ -21,7 +20,6 @@
                         ${result.get(1)}</a></td>
                 <td class="resulthistorytabledata">${result.get(2)}</td>
                 <td class="resulthistorytabledata">${result.get(3)}</td>
-                <td class="resulthistorytabledata">${result.get(4)}</td>
             </tr>
         </c:forEach>
     </table>

@@ -14,8 +14,13 @@ public class DatabaseHandler {
         Connection con = connect();
         assert con != null;
 
-        String header = result.getHeader().replace("'", "\\'");
+        String header = "";
+        try {
+            header = result.getHeader().replace("'", "\\'");
+        } catch (NullPointerException ignore) {}
+
         String name = result.getName().replace("'", "\\'");
+
         try {
             String query = "insert into orf_prediction(name, seq, " +
                     "user_id, header) values ('" +
@@ -79,7 +84,7 @@ public class DatabaseHandler {
         Connection con = connect();
         assert con != null;
 
-        String query = "select id, name, seq, acc_code, header from " +
+        String query = "select id, name, seq, header from " +
                 "orf_prediction where user_id = " + userId + ";";
 
         try (Statement stmt = con.createStatement()) {
@@ -93,7 +98,6 @@ public class DatabaseHandler {
                 newResult.add(rs.getString("id"));
                 newResult.add(rs.getString("name"));
                 newResult.add(seq);
-                newResult.add(rs.getString("acc_code"));
                 newResult.add(rs.getString("header"));
 
                 resultSummary.add(newResult);
@@ -131,7 +135,7 @@ public class DatabaseHandler {
                 rs.getString("header")
         );
 
-        query = "select id, seq, start_pos from " +
+        query = "select id, seq, start_pos, reading_frame from " +
                 "orf where orf_prediction_id = " + resultId + ";";
         Statement stmt2 = con.createStatement();
         rs = stmt2.executeQuery(query);

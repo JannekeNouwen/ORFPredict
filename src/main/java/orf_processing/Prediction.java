@@ -160,7 +160,7 @@ public class Prediction {
                         List<String> currORFList = new ArrayList<>(currList.subList(currStartIndex, currStopIndex));
                         orfSeq = String.join("", currORFList);
                         ORF orf;
-                        if (currFrame < 4) {
+                        if (currFrame < 3) {
                             orf = new ORF(orfCount, currStartIndex * 3 + 1, currStopIndex * 3 + 1, orfSeq, currFrame);
                         } else {
                             orf = new ORF(orfCount, currStartIndex * 3 + 2, currStopIndex * 3 + 2, orfSeq, currFrame);
