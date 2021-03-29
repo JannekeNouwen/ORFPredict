@@ -10,6 +10,10 @@ body {
     font-size: 14px;
 }
 
+body.transparent {
+    background-color: transparent;
+}
+
 div.containerContent {
     display: flex;
     flex-flow: column;
