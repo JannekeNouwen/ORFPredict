@@ -128,6 +128,7 @@ public class Prediction {
         } else result = new ORFResult(seq, name, userId, Objects.requireNonNullElseGet(accCode, () -> header));
 
         // Search for all start and stop codon's per frame and combine start and stop codons for ORF's
+        // currFrame = 1-6
         int currFrame = 1;
         int orfCount = 1;
         for (ArrayList<String> currList : arr) {
@@ -158,7 +159,12 @@ public class Prediction {
                     if ((currStopIndex - currStartIndex) >= minSize) {
                         List<String> currORFList = new ArrayList<>(currList.subList(currStartIndex, currStopIndex));
                         orfSeq = String.join("", currORFList);
-                        ORF orf = new ORF(orfCount, currStartIndex * 3, currStopIndex * 3, orfSeq, currFrame);
+                        ORF orf;
+                        if (currFrame < 4) {
+                            orf = new ORF(orfCount, currStartIndex * 3 + 1, currStopIndex * 3 + 1, orfSeq, currFrame);
+                        } else {
+                            orf = new ORF(orfCount, currStartIndex * 3 + 2, currStopIndex * 3 + 2, orfSeq, currFrame);
+                        }
                         result.addORF(orf);
                         orfCount++;
                         break;
