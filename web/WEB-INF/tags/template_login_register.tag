@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="stylesheets/style_login_register.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/style_form_elements.css" type="text/css">
 </head>
-<body class="flexPage">
-    <h1>ORF Predict</h1>
-    <div class="containerBackground">
-        <jsp:doBody/>
+<body>
+    <div class="flexPage wallpaper">
+        <h1>ORF Predict</h1>
+        <div class="containerBackground">
+            <jsp:doBody/>
+        </div>
     </div>
 </body>
 </html>
