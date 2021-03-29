@@ -4,9 +4,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <t:template_main>
     <h1 class="pageTitle">Results</h1>
-    <h2>Overview</h2>
+<%--    <h2>Overview</h2>--%>
 
-    <canvas id="overview" width="200" height="100">
+    <canvas id="overview" width="0" height="0">
         Sorry, your browser does not support the Canvas element. You're missing out.
     </canvas>
     <script>
@@ -27,7 +27,7 @@
                 var y = 15*${loopCounter.count} + 25;
                 var len = ${orf.stop}*190/seqLength - x;
 
-                ctx.fillRect(x, y, len, 10);
+                // ctx.fillRect(x, y, len, 10);
 
                 </c:forEach>
             var rows = ${loopCounter.count}
@@ -42,7 +42,7 @@
         <span id="raphael_browser"></span>
     <script>
         var paper = Raphael("raphael_browser",
-            (seqLength * 20 + 10).toString(), rows * 20 + 60);
+            (seqLength * 20 + 10).toString(), rows * 20 + 100);
 
         for (var i = 0; i < seqLength; i++) {
             var nuc = seq.charAt(i).toUpperCase();
@@ -66,7 +66,7 @@
                 cursor: 'default'})
         }
 
-        function showORFInfo(orfId, start, stop, seq) {
+        function showORFInfo(orfId, start, stop, seq, reading_frame) {
             console.log("hellooo")
             document.getElementById("orf_info").style.visibility = "visible";
             document.getElementById("nuc_seq").innerHTML = seq;
@@ -76,8 +76,8 @@
                 start.toString();
             document.getElementById("seq_stop").innerHTML =
                 stop.toString();
-            document.getElementById("prot_seq").innerHTML = seq;
-            // TODO nog doen
+            document.getElementById("reading_frame").innerHTML =
+                reading_frame.toString();
             document.getElementById("new_blast").setAttribute('href',
                 '/blast?orf_id=' + orfId)
             document.getElementById("old_blasts").setAttribute('href',
@@ -102,7 +102,8 @@
                         cursor: 'pointer'})
                     .click(function() {
                         showORFInfo(
-                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}")
+                            ${orf.id}, ${orf.start}, ${orf.stop},
+                            "${orf.seq}", ${orf.readingFrame})
                     });
             } else if (nuc === "T") {
                 paper.rect(x, y, 20, 20)
@@ -110,7 +111,7 @@
                         cursor: 'pointer'})
                     .click(function() {
                         showORFInfo(
-                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}")
+                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}", ${orf.readingFrame})
                     });
             } else if (nuc === "C") {
                 paper.rect(x, y, 20, 20)
@@ -118,7 +119,7 @@
                         cursor: 'pointer'})
                     .click(function() {
                         showORFInfo(
-                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}")
+                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}", ${orf.readingFrame})
                     });
             } else if (nuc === "G") {
                 paper.rect(x, y, 20, 20)
@@ -126,7 +127,7 @@
                         cursor: 'pointer'})
                     .click(function() {
                         showORFInfo(
-                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}")
+                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}", ${orf.readingFrame})
                     });
             } else {
                 paper.rect(x, y, 20, 20)
@@ -134,13 +135,13 @@
                         cursor: 'pointer'})
                     .click(function() {
                         showORFInfo(
-                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}")
+                            ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}", ${orf.readingFrame})
                     });
             }
             paper.text(10 + x, 10 + y, nuc).attr({'font-weight':
                     "bold", cursor: 'pointer'}).click(function() {
                 showORFInfo(
-                    ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}")
+                    ${orf.id}, ${orf.start}, ${orf.stop}, "${orf.seq}", ${orf.readingFrame})
             });
 
         }
@@ -160,8 +161,8 @@
         <div id="seq_stop" class="info_text"></div>
         <div class="info_header">Length: </div>
         <div id="seq_len" class="info_text"></div>
-        <div class="info_header">Protein sequence: </div>
-        <div id="prot_seq" class="info_text"></div>
+        <div class="info_header">Reading frame: </div>
+        <div id="reading_frame" class="info_text"></div>
         <a id="new_blast" class="button">BLAST with this ORF</a>
         <a id="old_blasts" class="button">View old BLAST queries</a>
     </div>
