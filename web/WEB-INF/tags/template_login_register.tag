@@ -1,6 +1,6 @@
 <%@tag description="Template for login/register content" pageEncoding="UTF-8" %>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="fullHeight">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +11,10 @@
     <link rel="stylesheet" href="stylesheets/style_login_register.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/style_form_elements.css" type="text/css">
 </head>
-<body>
-    <div class="flexPage wallpaper">
-        <h1>ORF Predict</h1>
-        <div class="containerBackground">
-            <jsp:doBody/>
-        </div>
+<body class="flexPage wallpaper">
+    <h1>ORF Predict</h1>
+    <div class="containerBackground">
+        <jsp:doBody/>
     </div>
 </body>
 </html>

@@ -21,7 +21,7 @@ div.containerBackground {
     background-color: whitesmoke;
 }
 
-div.wallpaper {
+.wallpaper {
     /*Link achtergrond:*/
     /*https://unsplash.com/photos/Qi8CvonsYnM*/
     background-image: url("../assets/wallpaper_login.jpg");
