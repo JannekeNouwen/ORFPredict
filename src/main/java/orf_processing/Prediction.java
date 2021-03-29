@@ -159,10 +159,11 @@ public class Prediction {
                     if ((currStopIndex - currStartIndex) >= minSize) {
                         List<String> currORFList = new ArrayList<>(currList.subList(currStartIndex, currStopIndex));
                         orfSeq = String.join("", currORFList);
+                        ORF orf;
                         if (currFrame < 4) {
-                            ORF orf = new ORF(orfCount, currStartIndex * 3 + 1, currStopIndex * 3 + 1, orfSeq, currFrame);
+                            orf = new ORF(orfCount, currStartIndex * 3 + 1, currStopIndex * 3 + 1, orfSeq, currFrame);
                         } else {
-                            ORF orf = new ORF(orfCount, currStartIndex * 3 + 2, currStopIndex * 3 + 2, orfSeq, currFrame)
+                            orf = new ORF(orfCount, currStartIndex * 3 + 2, currStopIndex * 3 + 2, orfSeq, currFrame);
                         }
                         result.addORF(orf);
                         orfCount++;
