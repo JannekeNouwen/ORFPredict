@@ -18,13 +18,13 @@
         </div>
     </c:if>
     <form class="flexbox" action="register" method="post">
-        <label for="username">Username</label>
-        <input id="username" name="username" type="text" required>
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" required>
-        <label for="password2">Confirm password</label>
-        <input id="password2" name="password2" type="password" required>
-        <input class="button" type="submit" name="action" value="Register">
+        <label class="coloured" for="username">Username</label>
+        <input class="coloured" id="username" name="username" type="text" required>
+        <label class="coloured" for="password">Password</label>
+        <input class="coloured" id="password" name="password" type="password" required>
+        <label class="coloured" for="password2">Confirm password</label>
+        <input class="coloured" id="password2" name="password2" type="password" required>
+        <input class="button coloured" type="submit" name="action" value="Register">
     </form>
-    <a class="button" href="./">Log in instead</a>
+    <a class="button coloured" href="./">Log in instead</a>
 </t:template_login_register>

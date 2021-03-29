@@ -53,7 +53,7 @@ a.hamburgerButton {
     height: 100%;
 }
 a.hamburgerButton:hover {
-    background-color: turquoise;
+    background-color: #663366;
 }
 
 a.hamburgerButton > div {
@@ -63,7 +63,7 @@ a.hamburgerButton > div {
     background-color: lightgray;
 }
 a.hamburgerButton:hover > div {
-    background-color: gray;
+    background-color: white;
 }
 
 .titleWebsite {
@@ -101,7 +101,8 @@ ul.navigationDisplay > li a {
     color: black;
 }
 ul.navigationDisplay > li a:hover {
-    background-color: turquoise;
+    background-color: #663366;
+    color: white;
 }
 
 

@@ -15,16 +15,16 @@
         </div>
     </c:if>
     <form class="flexbox" action="login" method="post">
-        <label for="username">Username</label>
-        <input id="username" name="username" type="text" autocapitalize="off" required>
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" required>
-        <input class="button" type="submit" name="action" value="Login">
+        <label class="coloured" for="username">Username</label>
+        <input class="coloured" id="username" name="username" type="text" autocapitalize="off" required>
+        <label class="coloured" for="password">Password</label>
+        <input class="coloured" id="password" name="password" type="password" required>
+        <input class="button coloured" type="submit" name="action" value="Login">
     </form>
     <div class="flexbox register">
         <div>
             Or if you don't have an account, register one for free.
         </div>
-        <a class="button" href="register">Register</a>
+        <a class="button coloured" href="register">Register</a>
     </div>
 </t:template_login_register>
