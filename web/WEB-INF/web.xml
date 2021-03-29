@@ -33,6 +33,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>BlastResult</servlet-name>
+        <servlet-class>servlets.BlastResultServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BlastResult</servlet-name>
+        <url-pattern>/blastresult</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BlastResultHistory</servlet-name>
+        <servlet-class>servlets.BlastResultHistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BlastResultHistory</servlet-name>
+        <url-pattern>/blastresulthistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Predict</servlet-name>
         <servlet-class>servlets.PredictServlet</servlet-class>
     </servlet>
@@ -58,5 +76,23 @@
         <servlet-name>Result</servlet-name>
         <url-pattern>/result</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/general-error.html</location>
+    </error-page>
 
 </web-app>

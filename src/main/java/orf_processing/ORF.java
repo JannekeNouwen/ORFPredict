@@ -1,14 +1,22 @@
 package orf_processing;
 
-public class ORF {
+public class ORF implements Comparable<ORF> {
+    private final int id;
     private final int start;
     private final int stop;
     private final String seq;
+    private final int readingFrame;
 
-    public ORF(int start, int stop, String seq) {
+    public ORF(int id, int start, int stop, String seq, int readingFrame) {
+        this.id = id;
         this.start = start;
         this.stop = stop;
         this.seq = seq;
+        this.readingFrame = readingFrame;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getStart() {
@@ -21,5 +29,14 @@ public class ORF {
 
     public String getSeq() {
         return seq;
+    }
+
+    public int getReadingFrame() {
+        return readingFrame;
+    }
+
+    @Override
+    public int compareTo(ORF o) {
+        return Integer.compare(this.getStart(), o.getStart());
     }
 }

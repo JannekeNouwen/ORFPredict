@@ -1,0 +1,76 @@
+/*Stijl voor algemene elementen*/
+.pageTitle {
+    margin-top: 0;
+    font-size: 32px;
+}
+
+.widthLimiter {
+    max-width: 700px;
+}
+
+
+
+/*Stijl specifiek voor de result-pagina*/
+.browser {
+    overflow:   auto;
+    max-height: 500px;
+    margin-bottom: 24px;
+    padding: 24px;
+    background-color: whitesmoke;
+}
+
+#raphael_browser {
+}
+
+#overview {
+    padding: 10px;
+    background-color: whitesmoke;
+}
+
+div.containerBackground {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    padding: 24px;
+    background-color: whitesmoke;
+}
+
+#nuc_seq, #prot_seq {
+    word-wrap: break-word;
+}
+
+.info_text {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    font-size: 15px;
+}
+
+.info_header {
+    font-weight: bold;
+}
+
+
+#resulthistorytable {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    padding: 24px;
+    background-color: whitesmoke;
+}
+
+.resulthistorytablerow {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    font-size: 15px;
+}
+
+.resulthistorytabledata {
+    margin: 20px;
+    padding: 10px;
+}

@@ -1,0 +1,62 @@
+h1 {
+    align-self: center;
+    margin: 32px 0;
+    padding: 30px;
+    width: fit-content;
+    border-style: solid;
+    border-width: 8px;
+    border-color: white;
+    text-align: center;
+    font-size: 48px;
+    color: white;
+}
+
+div.containerBackground {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    padding: 24px;
+    background-color: whitesmoke;
+}
+
+.wallpaper {
+    /*Link achtergrond:*/
+    /*https://unsplash.com/photos/Qi8CvonsYnM*/
+    background-image: url("../assets/wallpaper_login.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div.welcome {
+    max-width: 440px;
+}
+
+div.register {
+    margin-top: 72px;
+}
+
+div.textBlock {
+    max-width: 440px;
+    /*margin-bottom: 24px;*/
+}
+
+div.textBlockSpacer {
+    margin: 0 0 16px 0;
+}
+
+
+@media (min-width: 560px) {
+    div.containerBackground {
+        flex-grow: 0;
+        flex-shrink: 0;
+        align-self: center;
+        margin-bottom: 64px;
+        padding: 32px;
+        width: fit-content;
+        border-radius: 26px;
+    }
+}

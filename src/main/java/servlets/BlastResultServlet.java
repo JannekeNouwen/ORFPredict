@@ -1,5 +1,7 @@
 package servlets;
 
+import blast_handler.BlastResult;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -7,19 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 //TODO: documentatie toevoegen.
-public class ResultHistoryServlet extends HttpServlet{
+public class BlastResultServlet extends HttpServlet {
     //TODO: documentatie toevoegen.
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Check if user is logged in
-        // TODO: Sorting functionality for resultHistory
         HttpSession session = request.getSession(false);
         try {
             if (session.getAttribute("userId") == null) {
@@ -31,24 +32,23 @@ public class ResultHistoryServlet extends HttpServlet{
                                 "/");
                 dispatcher.forward(request, response);
             } else {
-                ArrayList<ArrayList<String>> resultSummary =
-                        null;
-                try {
-                    resultSummary = database_handler.DatabaseHandler.getResultSummary(
-                            (Integer) session.getAttribute("userId"));
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                int blastSearchId = Integer.parseInt(request.getParameter(
+                        "blastsearch_id"));
 
-                request.setAttribute("resultSummary", resultSummary);
+                ArrayList<BlastResult> blastResults =
+                        database_handler.
+                DatabaseHandler.getBlastResult(blastSearchId);
+
+                request.setAttribute("blastResults", blastResults);
+
                 // Forward to /WEB-INF/<the correct page>.jsp
                 // (Users can not access directly into JSP pages placed in WEB-INF)
                 RequestDispatcher dispatcher =
                         this.getServletContext().getRequestDispatcher(
-                                "/resulthistory.jsp");
+                                "/blastresult.jsp");
                 dispatcher.forward(request, response);
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ClassNotFoundException e) {
             request.setAttribute("message", "You have to log in before you " +
                     "can use this page.");
             RequestDispatcher dispatcher =
@@ -56,5 +56,20 @@ public class ResultHistoryServlet extends HttpServlet{
                             "/");
             dispatcher.forward(request, response);
         }
+    }
+
+    //TODO: documentatie toevoegen.
+    @Override
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response) {
+
+        HashMap<String, String> blastQuery = new HashMap<String, String>();
+
+//        String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
+
+//        ArrayList<BlastResult> BlastResults =
+//                blast_handler.BlastProcessor.parseXML(XMLpath);
+
+        // Add BlastResults to request or response
     }
 }

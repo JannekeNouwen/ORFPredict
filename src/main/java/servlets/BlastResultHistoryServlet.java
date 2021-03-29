@@ -1,5 +1,7 @@
 package servlets;
 
+import blast_handler.BlastResult;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -7,19 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 //TODO: documentatie toevoegen.
-public class ResultHistoryServlet extends HttpServlet{
+public class BlastResultHistoryServlet extends HttpServlet {
     //TODO: documentatie toevoegen.
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Check if user is logged in
-        // TODO: Sorting functionality for resultHistory
         HttpSession session = request.getSession(false);
         try {
             if (session.getAttribute("userId") == null) {
@@ -31,21 +32,28 @@ public class ResultHistoryServlet extends HttpServlet{
                                 "/");
                 dispatcher.forward(request, response);
             } else {
-                ArrayList<ArrayList<String>> resultSummary =
+                int orfId = Integer.parseInt(request.getParameter("orf_id"));
+
+                ArrayList<ArrayList<String>> blastResultSummary =
                         null;
                 try {
-                    resultSummary = database_handler.DatabaseHandler.getResultSummary(
-                            (Integer) session.getAttribute("userId"));
+                    blastResultSummary = database_handler.DatabaseHandler.getAllBlastResults(
+                            orfId);
+                    System.out.println(blastResultSummary.size());
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
 
-                request.setAttribute("resultSummary", resultSummary);
+                request.setAttribute("blastResultSummary", blastResultSummary);
+
+
                 // Forward to /WEB-INF/<the correct page>.jsp
                 // (Users can not access directly into JSP pages placed in WEB-INF)
                 RequestDispatcher dispatcher =
                         this.getServletContext().getRequestDispatcher(
-                                "/resulthistory.jsp");
+                                "/blastresulthistory.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (NullPointerException e) {
@@ -56,5 +64,15 @@ public class ResultHistoryServlet extends HttpServlet{
                             "/");
             dispatcher.forward(request, response);
         }
+    }
+
+    //TODO: documentatie toevoegen.
+    @Override
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response) {
+
+
+
+        // Add BlastResults to request or response
     }
 }

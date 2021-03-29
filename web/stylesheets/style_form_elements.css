@@ -1,0 +1,93 @@
+label {
+    margin-top: 24px;
+    margin-bottom: 2px;
+    font-weight: lighter;
+}label.coloured {
+    color: #663366;
+}
+
+input[type=text], input[type=password], textarea, select {
+    padding: 6px;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 0;
+    border-color: lightgray;
+    font-family: inherit;
+}
+
+input[type=text]:hover, input[type=password]:hover, textarea:hover, select:hover {
+    border-color: darkgray;
+}input[type=text].coloured:hover, input[type=password].coloured:hover, textarea.coloured:hover, select.coloured:hover {
+    border-color: #663366;
+}
+
+input[type=text]:focus, input[type=password]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: gray;
+}input[type=text].coloured:focus, input[type=password].coloured:focus, textarea.coloured:focus, select.coloured:focus {
+    outline: none;
+    border-color: #990099;
+}
+
+textarea {
+    resize: vertical;
+    height: 150px;
+    min-height: 150px;
+}
+
+.button {
+    margin-top: 24px;
+    padding: 6px 22px;
+    background-color: lightgray;
+    border-style: solid;
+    border-radius: 0;
+    border-width: 2px;
+    border-color: lightgray;
+    text-decoration: none;
+    text-align: center;
+    font-family: inherit;
+    color: black;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+.button:hover, .button:focus {
+    outline: none;
+    border-color: darkgray;
+}.button.coloured:hover, .button.coloured:focus {
+    outline: none;
+    border-color: #663366;
+}
+
+.button:active {
+    outline: none;
+    background-color: darkgray;
+    border-color: gray;
+}.button.coloured:active {
+    outline: none;
+    background-color: darkgray;
+    border-color: #990099;
+}
+
+input[type=radio] {
+    margin: 2px 0 0 22px;
+    padding: 0;
+}
+
+label.radioLabel {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 3px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+div.radioElement {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    margin: 0 0 4px;
+    padding: 0;
+}
