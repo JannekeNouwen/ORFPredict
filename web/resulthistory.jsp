@@ -5,7 +5,7 @@
 <t:template_main>
     <h1 class="pageTitle">Result history</h1>
     <div class="widthLimiter">
-        [description of what can be found on this page]
+        On this page you can view your old queries.
     </div>
     <table id="resulthistorytable">
         <tr>

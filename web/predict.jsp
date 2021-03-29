@@ -5,7 +5,7 @@
 <t:template_main>
     <h1 class="pageTitle">Predict new ORF</h1>
     <div class="widthLimiter">
-        On this page you can view your old queries.
+        On this page you can enter your query to search for ORFs.
     </div>
     <form class="flexbox widthLimiter" action="predict" method="post" enctype="multipart/form-data">
         <div id="name" class="flexbox">
