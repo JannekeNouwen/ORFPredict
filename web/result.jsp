@@ -79,9 +79,9 @@
             document.getElementById("prot_seq").innerHTML = seq;
             // TODO nog doen
             document.getElementById("new_blast").setAttribute('href',
-                '/blast.jsp?orf_id=' + orfId)
+                '/blast?orf_id=' + orfId)
             document.getElementById("old_blasts").setAttribute('href',
-                '/blastresulthistory.jsp?orf_id=' + orfId)
+                '/blastresulthistory?orf_id=' + orfId)
 
         }
 

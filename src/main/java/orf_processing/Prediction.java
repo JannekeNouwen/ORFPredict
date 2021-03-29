@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//TODO: documentatie toevoegen.
 public class Prediction {
     private String seq;
     private final String input;
@@ -13,24 +12,32 @@ public class Prediction {
     private final int minSize;
     private final String startCodon;
     private final String stopCodon;
+    private final int userId;
+    private String accCode;
+    private final String name;
 
-    //TODO: documentatie toevoegen.
-    public Prediction(String rawInput, int minSize, String startCodon, String stopCodon) {
+    public Prediction(String rawInput, int minSize, String startCodon, String stopCodon, int userId, String name) {
         this.input = rawInput;
         this.minSize = minSize;
         this.startCodon = startCodon;
         this.stopCodon = stopCodon;
+        this.userId = userId;
+        this.name = name;
         typeCheck();
         switch (this.type) {
             case "fasta":
                 fastaExtract();
+                accCode = null;
                 break;
             case "acccode":
                 getSeqByAcc();
+                header = null;
                 break;
             case "fastanoheader":
                 this.seq = input.strip();
                 this.seq = this.seq.toUpperCase(Locale.ROOT);
+                header = null;
+                accCode = null;
                 break;
             default:
                 this.seq = null;
@@ -44,12 +51,11 @@ public class Prediction {
         }
     }
 
-    //TODO: documentatie toevoegen.
     private void getSeqByAcc() {
 //      TODO: Build logic to retrieve correct sequence with accessioncode from BLAST
+        accCode = null;
     }
 
-    //TODO: documentatie toevoegen.
     public void fastaExtract() {
         String[] fastaInput = input.split("\\r?\\n");
         this.header = fastaInput[0];
@@ -58,7 +64,6 @@ public class Prediction {
         this.seq = seq.toUpperCase(Locale.ROOT);
     }
 
-    //TODO: documentatie toevoegen.
     public void typeCheck() {
         Pattern headerPattern = Pattern.compile("(>.+[\\n\\r])");
         Matcher headerMatcher = headerPattern.matcher(input);
@@ -75,9 +80,7 @@ public class Prediction {
         }
     }
 
-    //TODO: documentatie toevoegen.
     public ORFResult predictSeq() {
-        ORFResult result = new ORFResult("", "", 0);
         String reverseComp = translating.revComp(seq);
         ArrayList<String> readingFrame1 = new ArrayList<>(Arrays.asList(seq.split("(?<=\\G...)")));
         ArrayList<String> readingFrame2 = new ArrayList<>(Arrays.asList(seq.substring(1).split("(?<=\\G...)")));
@@ -118,8 +121,15 @@ public class Prediction {
             stop.add("TTA");
         }
 
+        // Create ORFResult object
+        ORFResult result;
+        if (accCode == null && header == null) {
+            result = new ORFResult(seq, name, userId);
+        } else result = new ORFResult(seq, name, userId, Objects.requireNonNullElseGet(accCode, () -> header));
+
         // Search for all start and stop codon's per frame and combine start and stop codons for ORF's
-        int count = 1;
+        int currFrame = 1;
+        int orfCount = 1;
         for (ArrayList<String> currList : arr) {
             // Use TreeMap to have found start and stop codons be sorted by index
             Map<Integer, String> startCodons = new TreeMap<>();
@@ -138,66 +148,37 @@ public class Prediction {
                 }
             }
 
-            for (int y = 0; y < stopCodons.size(); y++) {
-
-            }
-
-            int currIndex;
-            String currStart;
-            String currStop;
+            int currStartIndex;
+            int currStopIndex;
+            String orfSeq;
             for (Map.Entry<Integer, String> startEntry : startCodons.entrySet()) {
-                currIndex = startEntry.getKey();
-                currStart = startEntry.getValue();
+                currStartIndex = startEntry.getKey();
                 for (Map.Entry<Integer, String> stopEntry : stopCodons.entrySet()) {
-//                    if (stopEntry.getKey() >)
+                    currStopIndex = stopEntry.getKey();
+                    if ((currStopIndex - currStartIndex) >= minSize) {
+                        List<String> currORFList = new ArrayList<>(currList.subList(currStartIndex, currStopIndex));
+                        orfSeq = String.join("", currORFList);
+                        ORF orf = new ORF(orfCount, currStartIndex, currStopIndex, orfSeq, currFrame);
+                        result.addORF(orf);
+                        orfCount++;
+                        break;
+                    }
                 }
             }
-            System.out.println(count);
-            System.out.println(startCodons);
-            System.out.println(stopCodons);
-            System.out.println("\n");
-            count++;
+            currFrame++;
         }
-
-//        boolean end = false;
-//        ArrayList<String> currList;
-//        List<String> slice;
-//        int lowStopIndex = -1;
-//        for (ArrayList<String> list: arr) {
-//            for (int index = 0; index < list.size(); index++) {
-//                // Loop over list, check for every codon if it is in the "start" array
-//                if (start.contains(list.get(index))) {
-//                    // if current codon is startcodon
-//                    slice = list.subList(index, list.size());
-//                    for (String stopCodon : stop) {
-//                        int stopIndex = slice.indexOf(stopCodon);
-//                        if (stopIndex != -1) {
-//                            if (stopIndex < lowStopIndex | lowStopIndex == -1) {
-//                                lowStopIndex = stopIndex;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
-        //System.out.println(java.util.Arrays.toString(seq.split("(?<=\\G...)")));
-        // predict ORFs
 
         return result;
     }
 
-    //TODO: documentatie toevoegen.
     public String getSeq() {
         return seq;
     }
 
-    //TODO: documentatie toevoegen.
     public String getType() {
         return type;
     }
 
-    //TODO: documentatie toevoegen.
     public String getHeader() {
         return header;
     }

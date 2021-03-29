@@ -7,14 +7,66 @@ import orf_processing.ORFResult;
 import java.sql.*;
 import java.util.ArrayList;
 
-//TODO: documentatie toevoegen.
 public class DatabaseHandler {
-    public static void saveResultToDb(ORFResult result) {
+    public static int saveResultToDb(ORFResult result) throws ClassNotFoundException {
         // save ORF prediction result to database
+
+        Connection con = connect();
+        assert con != null;
+
+        String header = result.getHeader().replace("'", "\\'");
+        String name = result.getName().replace("'", "\\'");
+        try {
+            String query = "insert into orf_prediction(name, seq, " +
+                    "user_id, header) values ('" +
+                    name + "', '" +
+                    result.getSeq() + "', " +
+                    result.getUserId() + ", '" +
+                    header + "' " +
+                    ");";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(query);
+
+            query = "select id from " +
+                    "orf_prediction where seq = '" + result.getSeq() + "' " +
+                    " and name = '" + name +
+                    "' and user_id = " + result.getUserId() + ";";
+
+            try (Statement stmt2 = con.createStatement()) {
+                ResultSet rs = stmt2.executeQuery(query);
+                rs.next();
+                int id = rs.getInt("id");
+                ArrayList<ORF> orfs = result.getORFs();
+                for (ORF orf : orfs) {
+                    query = "insert into orf(seq, orf_prediction_id, " +
+                            "start_pos, reading_frame) values ('" +
+                            orf.getSeq() + "', " +
+                            id + ", " +
+                            orf.getStart() + ", " +
+                            orf.getReadingFrame() + " " +
+                            ");";
+                    stmt = con.createStatement();
+                    stmt.executeUpdate(query);
+                }
+                con.close();
+                return id;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Something went wrong. Please try again.");
+        }
+        return 0;
     }
 
     /**
      * Get result history summary from database
+     *
      * @param userId
      * @return
      * @throws ClassNotFoundException
@@ -57,17 +109,16 @@ public class DatabaseHandler {
 
     /**
      * get ORF result from database by user id
+     *
      * @param resultId
      * @return
      */
     public static ORFResult getResult(int resultId) throws ClassNotFoundException, SQLException {
-//        ORFResult result = new ORFResult("", "", 0);  // heb ff lege data
-        // ingevuld om error te voorkomen
 
         Connection con = connect();
         assert con != null;
 
-        String query = "select name, seq, user_id, acc_code, header from " +
+        String query = "select name, seq, user_id, header from " +
                 "orf_prediction where id = " + resultId + ";";
 
         Statement stmt = con.createStatement();
@@ -77,7 +128,6 @@ public class DatabaseHandler {
                 rs.getString("seq"),
                 rs.getString("name"),
                 rs.getInt("user_id"),
-                rs.getString("acc_code"),
                 rs.getString("header")
         );
 
@@ -87,10 +137,11 @@ public class DatabaseHandler {
         rs = stmt2.executeQuery(query);
         while (rs.next()) {
             ORF orf = new ORF(
-                rs.getInt("id"),
-                rs.getInt("start_pos"),
-                rs.getString("seq").length() + rs.getInt("start_pos"),
-                rs.getString("seq")
+                    rs.getInt("id"),
+                    rs.getInt("start_pos"),
+                    rs.getString("seq").length() + rs.getInt("start_pos"),
+                    rs.getString("seq"),
+                    rs.getInt("reading_frame")
             );
             result.addORF(orf);
         }
@@ -99,7 +150,30 @@ public class DatabaseHandler {
         return result;
     }
 
-    //TODO: documentatie toevoegen.
+    public static ORF getOrf(String orfId) throws ClassNotFoundException,
+            SQLException {
+
+        Connection con = connect();
+        assert con != null;
+
+        String query = "select seq, start_pos, reading_frame from " +
+                "orf where id = " + orfId + ";";
+
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        ORF orf = new ORF(
+                Integer.parseInt(orfId),
+                rs.getInt("start_pos"),
+                rs.getInt("start_pos") + rs.getString("seq").length(),
+                rs.getString("seq"),
+                rs.getInt("reading_frame")
+        );
+
+        con.close();
+        return orf;
+    }
+
     public static void saveBlastResult(ArrayList<BlastResult> blastResults) {
         // ORF id ophalen door de sequentie (seq van BlastResult)?
 
@@ -109,10 +183,10 @@ public class DatabaseHandler {
 
     /**
      * get summary of all blastresults
+     *
      * @param ORFid
      * @return
      */
-    //TODO: documentatie aanvullen.
     public static ArrayList<ArrayList<String>> getAllBlastResults(int ORFid) throws ClassNotFoundException, SQLException {
         ArrayList<ArrayList<String>> blastResultSummary =
                 new ArrayList<>();
@@ -145,10 +219,10 @@ public class DatabaseHandler {
 
     /**
      * get blast results by BlastSearch id
+     *
      * @param blastSearchId
      * @return
      */
-    //TODO: documentatie aanvullen.
     public static ArrayList<BlastResult> getBlastResult(int blastSearchId) throws ClassNotFoundException {
         ArrayList<BlastResult> blastResults = new ArrayList<>();
 
@@ -161,7 +235,7 @@ public class DatabaseHandler {
 
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()) {
+            while (rs.next()) {
                 BlastResult result = new BlastResult(
                         rs.getString("seq"),
                         rs.getString("aligned_seq"),
@@ -182,7 +256,6 @@ public class DatabaseHandler {
         return blastResults;
     }
 
-    //TODO: documentatie toevoegen.
     protected static Connection connect() throws ClassNotFoundException {
         String MySQLURL = "jdbc:mysql://165.232.120.23:3306/";
         String databseUserName = "course7user";

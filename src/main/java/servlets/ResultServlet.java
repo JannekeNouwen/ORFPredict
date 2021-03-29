@@ -32,8 +32,14 @@ public class ResultServlet extends HttpServlet {
                                 "/");
                 dispatcher.forward(request, response);
             } else {
-                int resultId = Integer.parseInt(request.getParameter("result_id"));
-
+                int resultId;
+                try {
+                    resultId = Integer.parseInt(request.getParameter("result_id"));
+                } catch (NullPointerException | NumberFormatException e) {
+                    resultId = (int) session.getAttribute("result_id");
+                    session.removeAttribute("result_id");
+                }
+                System.out.println("Got result_id = " + resultId + " during GET request");
                 try {
                     ORFResult result =
                             database_handler.DatabaseHandler.getResult(resultId);
@@ -49,7 +55,7 @@ public class ResultServlet extends HttpServlet {
                         request.setAttribute("result", result);
                         request.setAttribute("formattedORFs",
                                 result.getFormattedORFs());
-                        System.out.println("Acc_code: " + result.getAccCode());
+                        System.out.println("Acc_code: " + result.getHeader());
 
                         RequestDispatcher dispatcher =
                                 this.getServletContext().getRequestDispatcher(
@@ -79,6 +85,8 @@ public class ResultServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         System.out.println(username);
+        int requestId = Integer.parseInt(request.getParameter("request_id"));
+        System.out.println(requestId);
 
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(
