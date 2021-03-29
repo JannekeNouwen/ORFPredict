@@ -3,7 +3,7 @@ label {
     margin-bottom: 2px;
     font-weight: lighter;
 }label.coloured {
-    border-color: #663366;
+    color: #663366;
 }
 
 input[type=text], input[type=password], textarea, select {
