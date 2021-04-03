@@ -3,6 +3,11 @@ package orf_processing;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * class used to store results from ORF predict query
+ * @version 1
+ * @author Yuri, Janneke & Max
+ */
 public class ORFResult {
     private final String seq;
     private final String name;
@@ -10,6 +15,13 @@ public class ORFResult {
     private String header;
     private final ArrayList<ORF> ORFArray = new ArrayList<>();
 
+    /**
+     * Constructor of ORFResult class
+     * @param seq String containing original input sequence
+     * @param name String containing query name
+     * @param userId int containing the id of the user executing the query
+     * @param header String containing the header of the input
+     */
     public ORFResult(String seq, String name, int userId, String header) {
         this.seq = seq;
         this.name = name;
@@ -17,12 +29,23 @@ public class ORFResult {
         this.header = header;
     }
 
+    /**
+     * Alternative constructor of ORFResult class without header param
+     * @param seq String containing original input sequence
+     * @param name String containing query name
+     * @param userId int containing the id of the user executing the query
+     */
     public ORFResult(String seq, String name, int userId) {
         this.seq = seq;
         this.name = name;
         this.userId = userId;
     }
 
+    /**
+     * Function used to format the ORF's to be used for visualisation
+     * @return ArrayList<ArrayList<ORF>>
+     */
+    // TODO: Commentary and better docstring
     public ArrayList<ArrayList<ORF>> getFormattedORFs() {
         ArrayList<Integer> rowLengths = new ArrayList<>();
         rowLengths.add(0, -6);
@@ -67,26 +90,50 @@ public class ORFResult {
         return formattedORFs;
     }
 
+    /**
+     * Add ORF to ORFArray of current ORFResult obj
+     * @param orf ORF object containing a predicted ORF
+     */
     public void addORF(ORF orf) {
         ORFArray.add(orf);
     }
 
+    /**
+     * Get original input sequence
+     * @return String containing original input sequence
+     */
     public String getSeq() {
         return seq;
     }
 
+    /**
+     * Get name of query
+     * @return String containing the name of the query
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get userId of user that executed this prediction
+     * @return int containing the id of the user that executed this prediction
+     */
     public int getUserId() {
         return userId;
     }
 
+    /**
+     * Get header of query input
+     * @return String containg the header that was included in the input
+     */
     public String getHeader() {
         return header;
     }
 
+    /**
+     * Get the List of arrays stored in this ORFResult obj
+     * @return ArrayList<ORF> containing all ORF's in this object
+     */
     public ArrayList<ORF> getORFs() {
         return ORFArray;
     }
