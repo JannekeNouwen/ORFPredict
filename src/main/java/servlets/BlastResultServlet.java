@@ -13,9 +13,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//TODO: documentatie toevoegen.
+/**
+ * Class BlastResultServlet
+ *
+ * A class which processes incoming requests from
+ * clients to present a single BLAST-result to the
+ * client.
+ *
+ * @version 1
+ * @author Yuri, Janneke & Max
+ * */
 public class BlastResultServlet extends HttpServlet {
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles get-requests from clients.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -58,12 +71,16 @@ public class BlastResultServlet extends HttpServlet {
         }
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles post-requests from clients.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) {
 
-        HashMap<String, String> blastQuery = new HashMap<String, String>();
+        HashMap<String, String> blastQuery = new HashMap<>();
 
 //        String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
 
