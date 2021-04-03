@@ -1,7 +1,5 @@
 package servlets;
 
-import blast_handler.BlastResult;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +35,7 @@ public class BlastResultHistoryServlet extends HttpServlet {
                 ArrayList<ArrayList<String>> blastResultSummary =
                         null;
                 try {
-                    blastResultSummary = database_handler.DatabaseHandler.getAllBlastResults(
+                    blastResultSummary = database_handler.DatabaseHandler.getAllBlastSearches(
                             orfId);
                     System.out.println(blastResultSummary.size());
                 } catch (ClassNotFoundException e) {
