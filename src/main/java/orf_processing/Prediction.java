@@ -222,12 +222,4 @@ public class Prediction {
     public String getType() {
         return type;
     }
-
-    /**
-     * get header stored in prediction obj
-     * @return String header
-     */
-    public String getHeader() {
-        return header;
-    }
 }

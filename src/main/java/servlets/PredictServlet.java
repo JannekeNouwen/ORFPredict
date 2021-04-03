@@ -138,6 +138,9 @@ public class PredictServlet extends HttpServlet {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+            System.out.println("going to brazil");
+            session.setAttribute("result_id", resultId);
+            response.sendRedirect("result");
         } else {
             String message = "Input is not valid";
             request.setAttribute("message", message);
@@ -146,13 +149,5 @@ public class PredictServlet extends HttpServlet {
                             "/predict.jsp");
             dispatcher.forward(request, response);
         }
-
-        System.out.println("going to brazil");
-        session.setAttribute("result_id", resultId);
-        response.sendRedirect("result");
-//        RequestDispatcher dispatcher =
-//                this.getServletContext().getRequestDispatcher(
-//                        "/result.jsp");
-//        dispatcher.forward(request, response);
     }
 }
