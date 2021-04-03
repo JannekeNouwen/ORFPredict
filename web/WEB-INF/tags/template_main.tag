@@ -29,7 +29,7 @@
         <ul class="navigationDisplay" id="navigation_display">
             <li><a id="link_predict" href="predict">Predict new ORF</a></li>
             <li><a id="link_history" href="resulthistory">My result history</a></li>
-            <li><a id="link_account" href="account">My account</a></li>
+            <li><a id="link_account" href="index?logout=true">Log out</a></li>
         </ul>
     </div>
     <div class="containerContent" id="content">
