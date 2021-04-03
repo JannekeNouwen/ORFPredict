@@ -1,7 +1,17 @@
 package blast_handler;
 
-//TODO: documentatie toevoegen.
+/**
+ * Object containing information on a single BLAST hit
+ *
+ * seq - sequence of the blast hit
+ * alignedSeq - sequence with gaps
+ * eValue - e-value of the blast hit
+ * accCode - accession code of the sequence
+ * identityPercent - identity percent of the blast hit
+ * title - title of the blast hit
+ */
 public class BlastResult {
+
     private final String seq;
     private final String alignedSeq;
     private final double eValue;
