@@ -7,13 +7,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-//TODO: documentatie toevoegen.
+/**
+ * Class BlastResultHistoryServlet
+ *
+ * A class which processes incoming requests from
+ * clients to present a list of all BLAST-searches
+ * a client has executed.
+ *
+ * @version 1
+ * @author Yuri, Janneke & Max
+ * */
 public class BlastResultHistoryServlet extends HttpServlet {
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles get-requests from clients.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -38,10 +50,8 @@ public class BlastResultHistoryServlet extends HttpServlet {
                     blastResultSummary = database_handler.DatabaseHandler.getAllBlastSearches(
                             orfId);
                     System.out.println(blastResultSummary.size());
-                } catch (ClassNotFoundException e) {
+                } catch (ClassNotFoundException | SQLException e) {
                     e.printStackTrace();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
                 }
 
                 request.setAttribute("blastResultSummary", blastResultSummary);
@@ -64,7 +74,11 @@ public class BlastResultHistoryServlet extends HttpServlet {
         }
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles post-requests from clients.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) {
