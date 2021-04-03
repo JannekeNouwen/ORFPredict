@@ -24,7 +24,7 @@ div.containerBackground {
 .wallpaper {
     /*Link achtergrond:*/
     /*https://unsplash.com/photos/Qi8CvonsYnM*/
-    background-image: url("../assets/wallpaper_login.jpg");
+    background-image: url("../assets/wallpaper_login_optimized.jpg");
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
