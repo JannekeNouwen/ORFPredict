@@ -81,7 +81,7 @@ public class Prediction {
     }
 
     public ORFResult predictSeq() {
-        String reverseComp = translating.revComp(seq);
+        String reverseComp = Translating.revComp(seq);
         ArrayList<String> readingFrame1 = new ArrayList<>(Arrays.asList(seq.split("(?<=\\G...)")));
         ArrayList<String> readingFrame2 = new ArrayList<>(Arrays.asList(seq.substring(1).split("(?<=\\G...)")));
         ArrayList<String> readingFrame3 = new ArrayList<>(Arrays.asList(seq.substring(2).split("(?<=\\G...)")));
