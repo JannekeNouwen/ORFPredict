@@ -1,6 +1,6 @@
 # ORFPredict
 
-##Veranderingen t.o.v. het UML:
+## Veranderingen t.o.v. het UML:
 ### blast_handler (geen wijzigingen)
   * BlastResult
   * BlastProcessor
