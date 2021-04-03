@@ -9,10 +9,23 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-//TODO: documentatie toevoegen.
+/**
+ * Class ResultHistoryServlet
+ *
+ * A class which processes incoming requests from
+ * clients to show a list of all ORF-searches the
+ * user has submitted.
+ *
+ * @version 1
+ * @author Yuri, Janneke & Max
+ * */
 public class ResultHistoryServlet extends HttpServlet{
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles get-requests from clients. Shows
+     * a list of all ORF-searches the user has submitted.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
