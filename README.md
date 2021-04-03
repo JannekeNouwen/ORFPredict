@@ -1,5 +1,5 @@
 # ORFPredict
-# <https://orfpredict.live>
+# <http://orfpredict.live>
 ## Authors:
 * Yuri Wit
 * Max Nollet
