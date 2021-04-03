@@ -1,18 +1,18 @@
 # ORFPredict
 
-Veranderingen t.o.v. het UML:
-## blast_handler (geen wijzigingen)
+##Veranderingen t.o.v. het UML:
+### blast_handler (geen wijzigingen)
   * BlastResult
   * BlastProcessor
-## servlets
+### servlets
   * ResultHistoryServlet
     * GEEN functie doPost()
-## database_handler
+### database_handler
   * UserInfoHandler
     * HashPassword(String): String --> HashPassword(String, String): String (Salt toegevoegd)
   * DataBaseHandler
     * Extra functies: connect(): Connection, getORF(String): ORF
-## orf_processing
+### orf_processing
   * Prediction
     * GEEN functies getSeqByAcc(), getSeqByFile()
     * Constructor Prediction(String, int, String, String, int, String) i.p.v. 3 losse constructors
