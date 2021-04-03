@@ -45,7 +45,6 @@ public class Prediction {
                 accCode = null;
                 break;
             case "acccode":
-                getSeqByAcc();
                 header = null;
                 break;
             case "fastanoheader":
@@ -65,14 +64,6 @@ public class Prediction {
         if (nuclMatcher.find()) {
             this.type = "invalid";
         }
-    }
-
-    /**
-     * Get the correct sequence using an accession code
-     */
-    private void getSeqByAcc() {
-//      TODO: Build logic to retrieve correct sequence with accessioncode from BLAST
-        accCode = null;
     }
 
     /**
