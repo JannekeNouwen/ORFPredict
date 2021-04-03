@@ -8,9 +8,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-// TODO: documentatie toevoegen.
+/**
+ * Class RegisterServlet
+ *
+ * A class which processes incoming requests from
+ * clients to show a form a user can use to register
+ * a new account.
+ *
+ * @version 1
+ * @author Yuri, Janneke & Max
+ * */
 public class RegisterServlet extends HttpServlet {
-    // TODO: documentatie toevoegen.
+    /**
+     * A method which handles get-requests from clients. Shows
+     * the registration form.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -24,7 +38,12 @@ public class RegisterServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    // TODO: documentatie toevoegen.
+    /**
+     * A method which handles post-requests from clients. Retrieves
+     * the entered credentials and tries to create a new account.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
