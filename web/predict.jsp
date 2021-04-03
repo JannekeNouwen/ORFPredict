@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <t:template_main>
     <h1 class="pageTitle">Predict new ORF</h1>
     <div class="widthLimiter">
         On this page you can enter your query to search for ORF's.
     </div>
+    <c:if test="${not empty message}">
+        <div class="errorMessage">
+                ${message}
+        </div>
+    </c:if>
     <form class="flexbox widthLimiter" action="predict" method="post" enctype="multipart/form-data">
         <div id="name" class="flexbox">
             <label for="query_name">Query name</label>
@@ -66,5 +72,5 @@
             <input class="button" type="reset">
         </div>
     </form>
-    ${message}
+
 </t:template_main>
