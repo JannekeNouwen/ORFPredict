@@ -7,10 +7,19 @@ import orf_processing.ORFResult;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Handles all actions that need to interact with the database
+ * @version 1
+ * @author Yuri, Janneke & Max
+ */
 public class DatabaseHandler {
+    /**
+     * Save ORF prediction result to database
+     * @param result result of ORF prediction
+     * @return id of saved result
+     * @throws ClassNotFoundException when no suitable driver is found
+     */
     public static int saveResultToDb(ORFResult result) throws ClassNotFoundException {
-        // save ORF prediction result to database
-
         Connection con = connect();
         assert con != null;
 
@@ -21,6 +30,7 @@ public class DatabaseHandler {
 
         String name = result.getName().replace("'", "\\'");
 
+        // Voeg predictie toe aan database
         try {
             String query = "insert into orf_prediction(name, seq, " +
                     "user_id, header) values ('" +
@@ -35,8 +45,10 @@ public class DatabaseHandler {
             query = "select id from " +
                     "orf_prediction where seq = '" + result.getSeq() + "' " +
                     " and name = '" + name +
-                    "' and user_id = " + result.getUserId() + ";";
+                    "' and user_id = " + result.getUserId() + " " +
+                    "order by id desc;";
 
+            // Voeg alle gevonden ORFs toe aan de database
             try (Statement stmt2 = con.createStatement()) {
                 ResultSet rs = stmt2.executeQuery(query);
                 rs.next();
@@ -71,11 +83,9 @@ public class DatabaseHandler {
 
     /**
      * Get result history summary from database
-     *
-     * @param userId
-     * @return
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * @param userId user id of the user who's result summary is requested
+     * @return ArrayList of result history
+     * @throws ClassNotFoundException when no suitable driver is found
      */
     public static ArrayList<ArrayList<String>> getResultSummary(int userId) throws ClassNotFoundException {
         ArrayList<ArrayList<String>> resultSummary =
@@ -84,6 +94,7 @@ public class DatabaseHandler {
         Connection con = connect();
         assert con != null;
 
+        // Get a summary of all the results from a user
         String query = "select id, name, seq, header from " +
                 "orf_prediction where user_id = " + userId + ";";
 
@@ -94,6 +105,8 @@ public class DatabaseHandler {
                 if (seq.length() > 20) {
                     seq = seq.substring(0, 18) + "...";
                 }
+                // Add arraylist of info for one prediction to the result
+                // summary
                 ArrayList<String> newResult = new ArrayList<>();
                 newResult.add(rs.getString("id"));
                 newResult.add(rs.getString("name"));
@@ -113,15 +126,16 @@ public class DatabaseHandler {
 
     /**
      * get ORF result from database by user id
-     *
-     * @param resultId
-     * @return
+     * @param resultId id of the result needed from the database
+     * @return ORFResult object containing all information about the prediction
+     * @throws ClassNotFoundException when no suitable driver is found
      */
     public static ORFResult getResult(int resultId) throws ClassNotFoundException, SQLException {
 
         Connection con = connect();
         assert con != null;
 
+        // Get all information needed for ORFResult object
         String query = "select name, seq, user_id, header from " +
                 "orf_prediction where id = " + resultId + ";";
 
@@ -135,6 +149,7 @@ public class DatabaseHandler {
                 rs.getString("header")
         );
 
+        // Get all information for ORFs belonging to the prediction
         query = "select id, seq, start_pos, reading_frame from " +
                 "orf where orf_prediction_id = " + resultId + ";";
         Statement stmt2 = con.createStatement();
@@ -147,6 +162,7 @@ public class DatabaseHandler {
                     rs.getString("seq"),
                     rs.getInt("reading_frame")
             );
+            // Add ORF to ORF prediction
             result.addORF(orf);
         }
 
@@ -154,18 +170,26 @@ public class DatabaseHandler {
         return result;
     }
 
+    /**
+     * Gets ORF from database by ORF id
+     * @param orfId id of the ORF
+     * @return ORF - ORF requested by id
+     * @throws ClassNotFoundException when no suitable driver is found
+     */
     public static ORF getOrf(String orfId) throws ClassNotFoundException,
             SQLException {
 
         Connection con = connect();
         assert con != null;
 
+        // Select data for ORF by id
         String query = "select seq, start_pos, reading_frame from " +
                 "orf where id = " + orfId + ";";
 
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
+        // Use data to make new ORF object
         ORF orf = new ORF(
                 Integer.parseInt(orfId),
                 rs.getInt("start_pos"),
@@ -178,26 +202,32 @@ public class DatabaseHandler {
         return orf;
     }
 
+    /**
+     * Save blast results of ORF to database
+     * @param blastResults
+     */
     public static void saveBlastResult(ArrayList<BlastResult> blastResults) {
-        // ORF id ophalen door de sequentie (seq van BlastResult)?
+        // ORF id ophalen door de sequentie (seq van BlastResult)
 
         // Save blast results of ORF to database
 
     }
 
     /**
-     * get summary of all blastresults
-     *
-     * @param ORFid
-     * @return
+     * Get summary of all blast searches for one ORF
+     * @param ORFid id of the ORF result from which the blast results are
+     *              requested
+     * @return ArrayList with summary of blast results
+     * @throws ClassNotFoundException when no suitable driver is found
      */
-    public static ArrayList<ArrayList<String>> getAllBlastResults(int ORFid) throws ClassNotFoundException, SQLException {
+    public static ArrayList<ArrayList<String>> getAllBlastSearches(int ORFid) throws ClassNotFoundException, SQLException {
         ArrayList<ArrayList<String>> blastResultSummary =
                 new ArrayList<>();
 
         Connection con = connect();
         assert con != null;
 
+        // Get all blast results
         String query = "select id, `database`, organism, `exclude`, " +
                 "max_target_sequences, expect_threshold, word_size " +
                 "from blast_search where orf_id = " + ORFid + ";";
@@ -205,6 +235,7 @@ public class DatabaseHandler {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
+            // Add blast query to arrayList one by one
             ArrayList<String> newBlastResult = new ArrayList<>();
             newBlastResult.add(rs.getString("id"));
             newBlastResult.add(rs.getString("database"));
@@ -222,18 +253,19 @@ public class DatabaseHandler {
     }
 
     /**
-     * get blast results by BlastSearch id
-     *
-     * @param blastSearchId
-     * @return
+     * Get blast results by BlastSearch id
+     * @param blastSearchId id of the blast search from which the results
+     *                      are requested
+     * @return ArrayList of BlastResult objects from the search
+     * @throws ClassNotFoundException when no suitable driver is found
      */
     public static ArrayList<BlastResult> getBlastResult(int blastSearchId) throws ClassNotFoundException {
         ArrayList<BlastResult> blastResults = new ArrayList<>();
 
-        //
         Connection con = connect();
         assert con != null;
 
+        // Get all blast results by blast search id
         String query = "select seq, aligned_seq, e_value, acc_code, identity_percent, title from " +
                 "blast_result where blast_search_id = " + blastSearchId + ";";
 
@@ -260,16 +292,23 @@ public class DatabaseHandler {
         return blastResults;
     }
 
+    /**
+     * Make connection to database containing all data on the ORF predictions
+     * @return Connection
+     * @throws ClassNotFoundException when no suitable driver is found
+     */
     protected static Connection connect() throws ClassNotFoundException {
+        // Credentials
         String MySQLURL = "jdbc:mysql://165.232.120.23:3306/";
         String databseUserName = "course7user";
         String databasePassword = "ORFfound!01";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = null;
+        Connection con;
         try {
             con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword);
             if (con != null) {
+                // Set database
                 String query = "use ORFPredict;";
                 Statement use = con.createStatement();
                 ResultSet rs1 = use.executeQuery(query);

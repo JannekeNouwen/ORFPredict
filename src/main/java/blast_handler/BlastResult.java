@@ -1,7 +1,19 @@
 package blast_handler;
 
-//TODO: documentatie toevoegen.
+/**
+ * Object containing information on a single BLAST hit
+ * @version 1
+ * @author Yuri, Janneke & Max
+ *
+ * seq - sequence of the blast hit
+ * alignedSeq - sequence with gaps
+ * eValue - e-value of the blast hit
+ * accCode - accession code of the sequence
+ * identityPercent - identity percent of the blast hit
+ * title - title of the blast hit
+ */
 public class BlastResult {
+
     private final String seq;
     private final String alignedSeq;
     private final double eValue;
@@ -9,7 +21,9 @@ public class BlastResult {
     private final double identityPercent;
     private final String title;
 
-    //TODO: documentatie toevoegen.
+    /**
+     * Constructor for BlastResult
+     */
     public BlastResult(
             String seq,
             String alignedSeq,
@@ -26,32 +40,44 @@ public class BlastResult {
         this.title = title;
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * @return seq - sequence of the blast hit
+     */
     public String getSeq() {
         return seq;
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * @return alignedSeq - sequence with gaps
+     */
     public String getAlignedSeq() {
         return alignedSeq;
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * @return eValue - e-value of the blast hit
+     */
     public double geteValue() {
         return eValue;
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * @return accCode - accession code of the sequence
+     */
     public String getAccCode() {
         return accCode;
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * @return identityPercent - identity percent of the blast hit
+     */
     public double getIdentityPercent() {
         return identityPercent;
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * @return title - title of the blast hit
+     */
     public String getTitle() {
         return title;
     }

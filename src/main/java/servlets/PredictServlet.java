@@ -3,6 +3,7 @@ package servlets;
 import database_handler.DatabaseHandler;
 import orf_processing.ORFResult;
 import orf_processing.Prediction;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,15 +13,25 @@ import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Scanner;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-//TODO: documentatie toevoegen.
+/**
+ * Class PredictServlet
+ *
+ * A class which processes incoming requests from
+ * clients to show a form a user can use to start
+ * a new ORF-search.
+ *
+ * @version 1
+ * @author Yuri, Janneke & Max
+ * */
 @MultipartConfig
 public class PredictServlet extends HttpServlet {
-
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles get-requests from clients. Shows
+     * the user a form to enter parameters for the ORF-search.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -55,7 +66,12 @@ public class PredictServlet extends HttpServlet {
 //        }
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles post-requests from clients. Retrieves
+     * parameters from the form and tries to start an ORF-search.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     protected void doPost(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
@@ -84,7 +100,7 @@ public class PredictServlet extends HttpServlet {
 
         String inputSeq = null;
         if (textInput.isEmpty() && fileContent == null) {
-            String message = "Please input either a fasta seq, fasta file or accession code";
+            String message = "Please input either a fasta seq or fasta file";
             request.setAttribute("message", message);
             RequestDispatcher dispatcher =
                     this.getServletContext().getRequestDispatcher(
@@ -95,48 +111,46 @@ public class PredictServlet extends HttpServlet {
         } else inputSeq = Objects.requireNonNullElse(fileContent, textInput);
 
         assert inputSeq != null;
-        if (inputSeq.length() > 50000) {
-            String message = "Please input a sequence of less then 50000";
-            request.setAttribute("message", message);
-            RequestDispatcher dispatcher =
-                    this.getServletContext().getRequestDispatcher(
-                            "/predict.jsp");
-            dispatcher.forward(request, response);
-        }
-
-        int resultId = 0;
-        Prediction prediction = new Prediction(inputSeq, minSize, startCodon, stopCodon, userId, queryName);
-        if (prediction.getType().equals("acccode")) {
-            String message = "Accession codes are not yet accepted, this is a planned function";
-            request.setAttribute("message", message);
-            RequestDispatcher dispatcher =
-                    this.getServletContext().getRequestDispatcher(
-                            "/predict.jsp");
-            dispatcher.forward(request, response);
-        } else if (!prediction.getType().equals("invalid")) {
-            System.out.println("Prediction started");
-            ORFResult result = prediction.predictSeq();
-            System.out.println("Prediction ended");
-            try {
-                resultId = DatabaseHandler.saveResultToDb(result);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+        if (!response.isCommitted()) {
+            if (inputSeq.length() > 50000) {
+                String message = "Please input a sequence of less then 50000";
+                request.setAttribute("message", message);
+                RequestDispatcher dispatcher =
+                        this.getServletContext().getRequestDispatcher(
+                                "/predict.jsp");
+                dispatcher.forward(request, response);
             }
-        } else {
-            String message = "Input is not valid";
-            request.setAttribute("message", message);
-            RequestDispatcher dispatcher =
-                    this.getServletContext().getRequestDispatcher(
-                            "/predict.jsp");
-            dispatcher.forward(request, response);
         }
-
-        System.out.println("going to brazil");
-        session.setAttribute("result_id", resultId);
-        response.sendRedirect("result");
-//        RequestDispatcher dispatcher =
-//                this.getServletContext().getRequestDispatcher(
-//                        "/result.jsp");
-//        dispatcher.forward(request, response);
+        if (!response.isCommitted()) {
+            int resultId = 0;
+            Prediction prediction = new Prediction(inputSeq, minSize, startCodon, stopCodon, userId, queryName);
+            if (prediction.getType().equals("acccode")) {
+                String message = "Accession codes are not yet accepted, this is a planned function";
+                request.setAttribute("message", message);
+                RequestDispatcher dispatcher =
+                        this.getServletContext().getRequestDispatcher(
+                                "/predict.jsp");
+                dispatcher.forward(request, response);
+            } else if (!prediction.getType().equals("invalid")) {
+                System.out.println("Prediction started");
+                ORFResult result = prediction.predictSeq();
+                System.out.println("Prediction ended");
+                try {
+                    resultId = DatabaseHandler.saveResultToDb(result);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("going to brazil");
+                session.setAttribute("result_id", resultId);
+                response.sendRedirect("result");
+            } else {
+                String message = "Input is not valid";
+                request.setAttribute("message", message);
+                RequestDispatcher dispatcher =
+                        this.getServletContext().getRequestDispatcher(
+                                "/predict.jsp");
+                dispatcher.forward(request, response);
+            }
+        }
     }
 }

@@ -15,10 +15,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-//TODO: documentatie toevoegen.
+/**
+ * Class BlastServlet
+ *
+ * A class which processes incoming requests from
+ * clients to show an input form from which a user
+ * can start a BLAST-search.
+ *
+ * @version 1
+ * @author Yuri, Janneke & Max
+ * */
 public class BlastServlet extends HttpServlet {
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles get-requests from clients.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -36,7 +48,13 @@ public class BlastServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles post-requests from clients. Values
+     * from the form are retrieved and used to start a BLAST-
+     * search.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) {

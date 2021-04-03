@@ -17,6 +17,7 @@
             <th>word_size</th>
             <th></th>
         </tr>
+        <%-- Table of old blast queries --%>
         <c:forEach var="search" items="${blastResultSummary}"
                    varStatus="loopCounter">
             <tr>
