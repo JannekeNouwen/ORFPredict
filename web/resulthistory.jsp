@@ -13,6 +13,7 @@
             <th>Sequence</th>
             <th>Header</th>
         </tr>
+        <%-- Loop over old results --%>
         <c:forEach var="result" items="${resultSummary}" varStatus="loopCounter">
             <tr class="resulthistorytablerow">
                 <td class="resulthistorytabledata"><a

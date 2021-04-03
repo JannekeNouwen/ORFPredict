@@ -42,11 +42,11 @@ public class ORFResult {
     }
 
     /**
-     * Function used to format the ORF's to be used for visualisation
-     * @return ArrayList<ArrayList<ORF>>
+     * Format the ORF's to be used for visualisation
+     * @return ArrayList with an ArrayList for each row of ORFs
      */
-    // TODO: Commentary and better docstring
     public ArrayList<ArrayList<ORF>> getFormattedORFs() {
+        // ArrayList containing the lengths of each row
         ArrayList<Integer> rowLengths = new ArrayList<>();
         rowLengths.add(0, -6);
         int row = 0;
@@ -56,14 +56,18 @@ public class ORFResult {
         formattedORFs.add(row, new ArrayList<>());
         System.out.println("Number of ORF's: " + ORFArray.size());
 
+        // Sort ORFs by start position
         ORFArray.sort(Comparator.comparingInt(ORF::getStart));
 
+        // Loop over all ORFs and place them in the row where their start
+        // position is bigger than the rowlength, so the ORF fits in the row
         for (ORF orf : ORFArray) {
             System.out.println(orf.getStart());
             placed = false;
             numRows = rowLengths.size();
             for (Integer length : rowLengths) {
                 if (row > numRows) {
+                    // Add orf to new row
                     formattedORFs.add(row, new ArrayList<>());
                     formattedORFs.get(row).add(orf);
                     rowLengths.add(row, orf.getStop());
@@ -71,6 +75,7 @@ public class ORFResult {
                     break;
                 }
                 if (length + 5 < orf.getStart()) {
+                    // ORF fits in the row
                     formattedORFs.get(row).add(orf);
                     rowLengths.set(row, orf.getStop());
                     placed = true;
@@ -79,6 +84,7 @@ public class ORFResult {
                 row++;
             }
             if (!placed) {
+                // Add orf to new row
                 formattedORFs.add(row, new ArrayList<>());
                 formattedORFs.get(row).add(orf);
                 rowLengths.add(row, orf.getStop());

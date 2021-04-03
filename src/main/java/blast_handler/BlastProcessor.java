@@ -18,7 +18,7 @@ public class BlastProcessor {
     public static String blast(HashMap<String, String> blastQuery) throws Exception {
         System.out.println("starting blast()");
 
-        // Check of er al een queue bestaat en maak er anders een aan
+        // Check if a queue already exists. If not, create one
         Runtime.getRuntime().exec(new String[] { "bash", "-c", "cd" });
         String command = "screen -list";
         Process process = Runtime.getRuntime().exec(new String[] { "bash", "-c", command });
@@ -38,9 +38,8 @@ public class BlastProcessor {
             Runtime.getRuntime().exec(new String[] { "bash", "-c", command });
         }
 
-
-        // Stuur een blast opdracht naar de queue met de parameters die de
-        // gebruiker heeft ingevoerd.
+        // Send a blast query to the queue with the parameters entered by
+        // the user
         String header = blastQuery.get("output_file").substring(0,
                 blastQuery.get("output_file").length()-4);
         String blastCommand = blastQuery.get("program") +
