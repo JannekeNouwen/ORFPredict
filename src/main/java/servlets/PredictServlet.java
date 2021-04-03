@@ -3,6 +3,7 @@ package servlets;
 import database_handler.DatabaseHandler;
 import orf_processing.ORFResult;
 import orf_processing.Prediction;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,15 +13,25 @@ import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Scanner;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-//TODO: documentatie toevoegen.
+/**
+ * Class PredictServlet
+ *
+ * A class which processes incoming requests from
+ * clients to show a form a user can use to start
+ * a new ORF-search.
+ *
+ * @version 1
+ * @author Yuri, Janneke & Max
+ * */
 @MultipartConfig
 public class PredictServlet extends HttpServlet {
-
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles get-requests from clients. Shows
+     * the user a form to enter parameters for the ORF-search.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -55,7 +66,12 @@ public class PredictServlet extends HttpServlet {
 //        }
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles post-requests from clients. Retrieves
+     * parameters from the form and tries to start an ORF-search.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     protected void doPost(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
