@@ -15,6 +15,7 @@
             <th>identityPercent</th>
             <th>title</th>
         </tr>
+        <%-- Table of blast results --%>
         <c:forEach var="result" items="${blastResults}" varStatus="loopCounter">
             <tr>
                 <td>${result.seq}</td>

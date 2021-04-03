@@ -4,36 +4,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <t:template_main>
     <h1 class="pageTitle">Results</h1>
-<%--    <h2>Overview</h2>--%>
-
-    <canvas id="overview" width="0" height="0">
-        Sorry, your browser does not support the Canvas element. You're missing out.
-    </canvas>
     <script>
-        var c = document.getElementById("overview");
-        var ctx = c.getContext("2d");
-        ctx.fillStyle = "#00FF00";
-        ctx.fillRect(5, 5, 190, 20);
-
-
         let seq = "${result.seq}";
         let seqLength = seq.length;
-        ctx.fillStyle = "#FF0000";
 
         <c:forEach var="row" items="${formattedORFs}" varStatus="loopCounter">
-            <c:forEach var="orf" items="${row}">
-
-                var x = ${orf.start}*190/seqLength + 5;
-                var y = 15*${loopCounter.count} + 25;
-                var len = ${orf.stop}*190/seqLength - x;
-
-                // ctx.fillRect(x, y, len, 10);
-
-                </c:forEach>
             var rows = ${loopCounter.count}
         </c:forEach>
-
-        c.style.height = (rows * 20 + 30).toString();
     </script>
 
     <h2>ORF browser</h2>
@@ -41,9 +18,11 @@
     <div class="browser" id="div_browser">
         <span id="raphael_browser"></span>
     <script>
+        // New blank browser
         var paper = Raphael("raphael_browser",
             (seqLength * 20 + 10).toString(), rows * 20 + 100);
 
+        // Loop over the original sequence and draw it on the browser
         for (var i = 0; i < seqLength; i++) {
             var nuc = seq.charAt(i).toUpperCase();
             if (nuc === "A") {
@@ -66,8 +45,15 @@
                 cursor: 'default'})
         }
 
+        /**
+         * Show info of clicked ORF
+         * @param orfId - id of the orf
+         * @param start - start position
+         * @param stop - stop position
+         * @param seq - ORF sequence
+         * @param reading_frame - reading frame of the orf
+         */
         function showORFInfo(orfId, start, stop, seq, reading_frame) {
-            console.log("hellooo")
             document.getElementById("orf_info").style.visibility = "visible";
             document.getElementById("nuc_seq").innerHTML = seq;
             document.getElementById("seq_len").innerHTML =
@@ -85,13 +71,15 @@
 
         }
 
+        // Loop over the rows to draw the ORFs
         <c:forEach var="row" items="${formattedORFs}" varStatus="loopCounter">
+        // Loop over the ORFs in a row
         <c:forEach var="orf" items="${row}">
         seq = "${orf.seq}";
         var orfLength = seq.length;
         var y = 25*${loopCounter.count} + 20;
 
-        // TODO van deze sequenties aminozuur sequenties maken
+        // Loop over the sequence of an ORF to draw it on the browser
         for (i = 0; i < orfLength; i++) {
             nuc = seq.charAt(i).toUpperCase();
             var x = ${orf.start} * 20 + i * 20 + 5;
