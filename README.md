@@ -1,4 +1,8 @@
 # ORFPredict
+## Authors:
+* Yuri Wit
+* Max Nollet
+* Janneke Nouwen
 
 ## Veranderingen t.o.v. het UML:
 ### blast_handler (geen wijzigingen)
