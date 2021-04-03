@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 /**
  * Handling of blast searches
+ * @version 1
+ * @author Yuri, Janneke & Max
  */
 public class BlastProcessor {
     /**
