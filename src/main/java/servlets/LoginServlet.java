@@ -45,6 +45,9 @@ public class LoginServlet extends HttpServlet {
                     this.getServletContext().getRequestDispatcher(
                             "/login.jsp");
             dispatcher.forward(request, response);
+        } else if (request.getParameter("logout").equals("true")) {
+            session.invalidate();
+            response.sendRedirect("/");
         } else {
             request.setAttribute("message", "");
             RequestDispatcher dispatcher =
