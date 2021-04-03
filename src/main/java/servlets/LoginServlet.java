@@ -1,18 +1,30 @@
 package servlets;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.*;
-import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
-
-//TODO: documentatie toevoegen.
+/**
+ * Class LoginServlet
+ *
+ * A class which processes incoming requests from
+ * clients to show a page where a user can log into
+ * the website.
+ *
+ * @version 1
+ * @author Yuri, Janneke & Max
+ * */
 public class LoginServlet extends HttpServlet {
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles get-requests from clients. Shows
+     * the user the form to login int their account.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
@@ -43,10 +55,16 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    //TODO: documentatie toevoegen.
+    /**
+     * A method which handles post-requests from clients. Retrieves
+     * the credentials from the form and tries to log the user
+     * into their account.
+     * @param request Incoming request from the client.
+     * @param response Outgoing response to the client.
+     * */
     @Override
     protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response) throws ServletException, IOException {
+                          HttpServletResponse response) throws IOException {
 
         System.out.println("Did post request at LoginServlet");
 
