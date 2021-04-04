@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 
 import java.time.LocalDateTime;
@@ -36,16 +37,55 @@ public class BlastServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Forward to /WEB-INF/<the correct page>.jsp
-        // (Users can not access directly into JSP pages placed in WEB-INF)
-        System.out.println("Dit get request at BlastServlet");
-        request.setAttribute("orf_id", request.getParameter("orf_id"));
-        System.out.println(request.getAttribute("orf_id"));
+        boolean blastDone = false;
+        int timeout = 0;
 
-        RequestDispatcher dispatcher =
-                this.getServletContext().getRequestDispatcher(
-                        "/blast.jsp");
-        dispatcher.forward(request, response);
+        // Check if the request contains a timeout variable. If this is
+        // true, the user has just entered a blast query and is waiting
+        // for the result
+        try {
+            timeout = (int) request.getAttribute("timeout");
+            blastDone = true;
+        } catch (NullPointerException ignore) {}
+        try {
+            timeout = Integer.parseInt(request.getParameter("timeout"));
+            blastDone = true;
+        } catch (NullPointerException ignore) {}
+
+        System.out.println(timeout);
+        // If the user is waiting for blast result, a check is done to
+        // check if the output file is ready. If not, the user is sent
+        // back to the waiting page. If the result is ready, the output
+        // is parsed.
+        if (blastDone) {
+            File f = new File((String) request.getAttribute("output_file"));
+            if (!f.exists()) {
+                timeout += 5000;
+                request.setAttribute("timeout", timeout);
+                RequestDispatcher dispatcher =
+                        this.getServletContext().getRequestDispatcher(
+                                "/waitforblast.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                ArrayList<BlastResult> BlastResults =
+                        blast_handler.BlastProcessor.parseXML((String) request.getAttribute("output_file"));
+
+                request.setAttribute("blastresults", BlastResults);
+                RequestDispatcher dispatcher =
+                        this.getServletContext().getRequestDispatcher(
+                                "/blastresult.jsp");
+                dispatcher.forward(request, response);
+            }
+        }
+
+        if (!blastDone) {
+            request.setAttribute("orf_id", request.getParameter("orf_id"));
+
+            RequestDispatcher dispatcher =
+                    this.getServletContext().getRequestDispatcher(
+                            "/blast.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     /**
@@ -83,14 +123,17 @@ public class BlastServlet extends HttpServlet {
 
             String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
 
-            ArrayList<BlastResult> BlastResults =
-                    blast_handler.BlastProcessor.parseXML(XMLpath);
+            File f = new File(blastQuery.get("output_file"));
+            int timeout = 5000;
+            if (!f.exists()) {
+                request.setAttribute("timeout", timeout);
+                request.setAttribute("output_file", XMLpath);
+                RequestDispatcher dispatcher =
+                        this.getServletContext().getRequestDispatcher(
+                                "/waitforblast.jsp");
+                dispatcher.forward(request, response);
+            }
 
-            request.setAttribute("blastresults", BlastResults);
-            RequestDispatcher dispatcher =
-                    this.getServletContext().getRequestDispatcher(
-                            "/blastresult.jsp");
-            dispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }

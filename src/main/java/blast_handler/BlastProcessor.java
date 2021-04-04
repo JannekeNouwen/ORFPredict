@@ -19,7 +19,6 @@ public class BlastProcessor {
         System.out.println("starting blast()");
 
         // Check if a queue already exists. If not, create one
-        Runtime.getRuntime().exec(new String[] { "bash", "-c", "cd" });
         String command = "screen -list";
         Process process = Runtime.getRuntime().exec(new String[] { "bash", "-c", command });
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -34,14 +33,14 @@ public class BlastProcessor {
             }
         }
         if (!queueFound) {
-            command = "screen -d -m -S blastqueue";
+            command = "screen -d -m -S blastqueue -c ~/.bashrc";
             Runtime.getRuntime().exec(new String[] { "bash", "-c", command });
         }
 
-        // Send a blast query to the queue with the parameters entered by
+        String outputFile = blastQuery.get("output_file");
+        // Make a blast query to the queue with the parameters entered by
         // the user
-        String header = blastQuery.get("output_file").substring(0,
-                blastQuery.get("output_file").length()-4);
+        String header = outputFile.substring(0, outputFile.length()-4);
         String blastCommand = blastQuery.get("program") +
                 " -db " + blastQuery.get("database") +
                 " -query " + "<(echo -e \\\">" + header + "\\\\n" + blastQuery.get(
@@ -49,22 +48,27 @@ public class BlastProcessor {
                 " -evalue " + blastQuery.get("evalue") +
                 " -word_size " + blastQuery.get("word_size") +
                 " -max_target_seqs " + blastQuery.get("alignment_number") +
-                " -out /home/blast_output_ORFPredict/" + blastQuery.get(
-                "output_file") +
+                " -out /home/blast_output_ORFPredict/" + outputFile +
                 " -outfmt 5" +
                 " -remote " +
                 "^M";
 
-        System.out.println("starting blast with command:");
-        System.out.println(blastCommand);
-
+        // Add the blast query to the queue
         String screenCommand =
                 "screen -S blastqueue -X stuff \"" +blastCommand + "\"";
         System.out.println(screenCommand);
-
         Runtime.getRuntime().exec(new String[] { "bash", "-c", screenCommand });
 
-        return blastQuery.get("output_file");
+        // When the blast is executed, rename the file to show it's finished
+        String finishedCommand =
+                "mv /home/blast_output_ORFPredict/" + header + "_finished.xml ^M";
+        screenCommand =
+                "screen -S blastqueue -X stuff \"" + finishedCommand + "\"";
+        System.out.println(screenCommand);
+
+        Runtime.getRuntime().exec(new String[] { "bash", "-c", finishedCommand });
+
+        return "/home/blast_output_ORFPredict/" + header + "_finished.xml";
     }
 
     /**
