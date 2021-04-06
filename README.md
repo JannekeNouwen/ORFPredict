@@ -8,6 +8,8 @@
 ## Veranderingen t.o.v. het UML:
 ### blast_handler (geen wijzigingen)
   * BlastResult
+    * Extra variabele: qseq: String
+    * Extra functie: getQseq(): String 
   * BlastProcessor
 ### servlets
   * ResultHistoryServlet
