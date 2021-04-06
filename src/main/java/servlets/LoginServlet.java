@@ -57,7 +57,6 @@ public class LoginServlet extends HttpServlet {
                     this.getServletContext().getRequestDispatcher(
                             "/predict.jsp");
             dispatcher.forward(request, response);
-//            response.sendRedirect("predict");
         }
     }
 
@@ -107,10 +106,6 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("message", message);
 
                 response.sendRedirect("login");
-//                RequestDispatcher dispatcher =
-//                        this.getServletContext().getRequestDispatcher(
-//                                "/");
-//                dispatcher.forward(request, response);
             }
         }
     }
