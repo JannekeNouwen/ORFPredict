@@ -65,12 +65,15 @@ public class BlastServlet extends HttpServlet {
         // is parsed.
         if (blastDone) {
             try {
-                HttpSession session = request.getSession();
-
-                File f = new File((String) session.getAttribute("output_file"));
+                HttpSession session = request.getSession(false);
+                String outputFileName = (String) session.getAttribute(
+                        "output_file");
+                File f = new File(outputFileName);
+                System.out.println("Output file = " + outputFileName);
                 if (!f.exists()) {
                     timeout += 5;
                     request.setAttribute("timeout", timeout);
+                    session.setAttribute("output_file", outputFileName);
                     RequestDispatcher dispatcher =
                             this.getServletContext().getRequestDispatcher(
                                     "/waitforblast.jsp");
@@ -79,7 +82,7 @@ public class BlastServlet extends HttpServlet {
                     ArrayList<BlastResult> BlastResults =
                             blast_handler.BlastProcessor.parseXML((String) session.getAttribute("output_file"));
 
-                    session.setAttribute("output_file", "");
+                    session.setAttribute("output_file", "hello");
 
                     int searchId =
                             Integer.parseInt(session.getAttribute("blastsearch_id").toString());
@@ -135,7 +138,6 @@ public class BlastServlet extends HttpServlet {
             LocalDateTime now = LocalDateTime.now();
             blastQuery.put("output_file", session.getAttribute("userId") + "_" + orf.getId() + "_" + now.toString().replace(":", "_") + ".json");
 
-//            String JSONpath = "/home/blast_output_ORFPredict/1_1550_2021-04-05T22_20_23.593056_finished.json"; // todo, weghalen is voor testen
             String JSONpath = blast_handler.BlastProcessor.blast(blastQuery);
 
             int searchId =

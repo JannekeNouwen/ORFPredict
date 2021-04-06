@@ -49,8 +49,6 @@ public class BlastProcessor {
             // the user
             String blastCommand = blastQuery.get("program") +
                     " -db " + blastQuery.get("database") +
-//                " -query " + "<(echo -e \">" + header + "\\n" + blastQuery.get(
-//                        "seq") + "\")" +
                     " -query /home/blast_output_ORFPredict/" + header + ".fasta" +
                     " -evalue " + blastQuery.get("evalue") +
                     " -word_size " + blastQuery.get("word_size") +
@@ -63,8 +61,6 @@ public class BlastProcessor {
             String tsCommand =
                     "ts bash --rcfile ~/.bashrc -c -i '" + blastCommand + "'";
             Runtime.getRuntime().exec(new String[]{"bash", "-c", tsCommand});
-
-            // TODO remove temp fasta file
 
             // When the blast is executed, rename the file to show it's finished
             String finishedCommand =
@@ -89,20 +85,27 @@ public class BlastProcessor {
      * @return ArrayList of al blast hits as objects
      */
     public static ArrayList<BlastResult> parseXML(String JSONpath) throws IOException, ParseException {
-        ArrayList<BlastResult> BlastResults = new ArrayList<BlastResult>();
+        ArrayList<BlastResult> BlastResults = new ArrayList<>();
 
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(JSONpath));
+
+        // TODO nu komt er een lege pagina als er geen hits zijn. Zelfde
+        //  soort pagina maken als bij de orf prediction waarop staat dat er
+        //  geen hits zijn gevonden
 
         JSONObject jsonObject = (JSONObject) obj;
         JSONArray blastOutput = (JSONArray) jsonObject.get("BlastOutput2");
         for (JSONObject object : (Iterable<JSONObject>) blastOutput) {
             try {
+                // Get the blast hits from the nested JSON
                 JSONObject blastReport = (JSONObject) object.get("report");
                 JSONObject blastResults = (JSONObject) blastReport.get("results");
                 JSONObject blastSearch = (JSONObject) blastResults.get(
                         "search");
                 JSONArray blastHits = (JSONArray) blastSearch.get("hits");
+                // Loop over the blast hits and save the hits as result
+                // objects in the BlastResults ArrayList
                 for (JSONObject hit : (Iterable<JSONObject>) blastHits) {
                     JSONArray description = (JSONArray) hit.get("description");
                     JSONObject descObject = (JSONObject) description.get(0);
@@ -127,8 +130,6 @@ public class BlastProcessor {
                 e.printStackTrace();
             }
         }
-
-        // TODO remove json file
 
         return BlastResults;
     }
