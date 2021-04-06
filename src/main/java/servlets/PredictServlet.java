@@ -75,8 +75,6 @@ public class PredictServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Did post request at PredictServlet");
-
         HttpSession session = request.getSession();
 
         int userId = (int) session.getAttribute("userId");
@@ -138,15 +136,12 @@ public class PredictServlet extends HttpServlet {
                                 "/predict.jsp");
                 dispatcher.forward(request, response);
             } else if (!prediction.getType().equals("invalid")) {
-                System.out.println("Prediction started");
                 ORFResult result = prediction.predictSeq();
-                System.out.println("Prediction ended");
                 try {
                     resultId = DatabaseHandler.saveResultToDb(result);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                System.out.println("going to brazil");
                 session.setAttribute("result_id", resultId);
                 response.sendRedirect("result");
             } else {

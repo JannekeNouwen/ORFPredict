@@ -53,10 +53,12 @@ public class LoginServlet extends HttpServlet {
                 }
             } catch ( NullPointerException ignore) {}
             request.setAttribute("message", "");
+            session.setAttribute("output_file", "");
             RequestDispatcher dispatcher =
                     this.getServletContext().getRequestDispatcher(
                             "/predict.jsp");
             dispatcher.forward(request, response);
+//            response.sendRedirect("predict");
         }
     }
 
@@ -70,9 +72,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
-
-        System.out.println("Did post request at LoginServlet");
-
         String action = request.getParameter("action");
         if ("register".equals(action)) {
             response.sendRedirect("register");
@@ -92,20 +91,17 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             if (loginResult > 0) {
                 String message = "Login was successful!";
-                System.out.println(message);
                 session.setAttribute("username", username);
-                System.out.println(session.getAttribute("username"));
                 session.setAttribute("userId", loginResult);
-                System.out.println(session.getAttribute("userId"));
 
                 response.sendRedirect("predict");
 
             } else {
                 String message = "Login was not successful. Please try again.";
-                System.out.println(message);
                 session.setAttribute("message", message);
 
                 response.sendRedirect("login");
+
             }
         }
     }

@@ -47,7 +47,6 @@ public class UserInfoHandler {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Something went wrong. Please try again.");
         }
         return 0;
     }
@@ -93,7 +92,7 @@ public class UserInfoHandler {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Something went wrong. Please try again.");
+
         }
         return -1;
     }

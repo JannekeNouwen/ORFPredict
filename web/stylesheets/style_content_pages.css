@@ -19,9 +19,6 @@
     background-color: whitesmoke;
 }
 
-#raphael_browser {
-}
-
 #overview {
     padding: 10px;
     background-color: whitesmoke;
@@ -53,7 +50,7 @@ div.containerBackground {
 }
 
 
-#resulthistorytable {
+.resulthistorytable {
     display: flex;
     flex-flow: column;
     flex-grow: 1;
@@ -73,4 +70,30 @@ div.containerBackground {
 .resulthistorytabledata {
     margin: 20px;
     padding: 10px;
+}
+
+.resulthistorytableheader {
+    padding: 20px;
+}
+
+/*Stijl specifiek voor de blastresult-pagina*/
+.blastresult {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    padding: 24px;
+    background-color: whitesmoke;
+    word-wrap: break-word;
+}
+
+.blastvisuals {
+    font-family: "Courier New", monospace;
+    word-break: keep-all;
+    word-wrap: unset;
+    overflow:   auto;
+    background-color: whitesmoke;
+    white-space: nowrap;
+    overflow-x: scroll;
 }
