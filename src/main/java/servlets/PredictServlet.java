@@ -39,7 +39,6 @@ public class PredictServlet extends HttpServlet {
 
         // Check if user is logged in
         HttpSession session = request.getSession(false);
-//        try {
             if (session.getAttribute("userId") == null) {
                 // No session created yet, so user is not logged in
                 request.setAttribute("message", "You have to log in before you " +
@@ -56,14 +55,6 @@ public class PredictServlet extends HttpServlet {
                                 "/predict.jsp");
                 dispatcher.forward(request, response);
             }
-//        } catch (NullPointerException e) {
-//            request.setAttribute("message", "You have to log in before you " +
-//                    "can use this page.");
-//            RequestDispatcher dispatcher =
-//                    this.getServletContext().getRequestDispatcher(
-//                            "/");
-//            dispatcher.forward(request, response);
-//        }
     }
 
     /**
