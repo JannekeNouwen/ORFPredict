@@ -54,7 +54,6 @@ public class ORFResult {
         boolean placed = false;
         ArrayList<ArrayList<ORF>> formattedORFs = new ArrayList<>();
         formattedORFs.add(row, new ArrayList<>());
-        System.out.println("Number of ORF's: " + ORFArray.size());
 
         // Sort ORFs by start position
         ORFArray.sort(Comparator.comparingInt(ORF::getStart));
@@ -62,7 +61,6 @@ public class ORFResult {
         // Loop over all ORFs and place them in the row where their start
         // position is bigger than the rowlength, so the ORF fits in the row
         for (ORF orf : ORFArray) {
-            System.out.println(orf.getStart());
             placed = false;
             numRows = rowLengths.size();
             for (Integer length : rowLengths) {
@@ -91,8 +89,6 @@ public class ORFResult {
             }
             row = 0;
         }
-        System.out.println("Formatted the ORFs to " + rowLengths.size() +
-                "rows.");
         return formattedORFs;
     }
 

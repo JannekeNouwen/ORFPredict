@@ -14,6 +14,7 @@ package blast_handler;
  */
 public class BlastResult {
 
+    private final String qseq;
     private final String seq;
     private final String alignedSeq;
     private final double eValue;
@@ -25,6 +26,7 @@ public class BlastResult {
      * Constructor for BlastResult
      */
     public BlastResult(
+            String qseq,
             String seq,
             String alignedSeq,
             double eValue,
@@ -32,12 +34,20 @@ public class BlastResult {
             double identityPercent,
             String title
     ) {
-        this.seq = seq;
+        this.qseq = qseq.toUpperCase();
+        this.seq = seq.toUpperCase();
         this.alignedSeq = alignedSeq;
         this.eValue = eValue;
         this.accCode = accCode;
         this.identityPercent = identityPercent;
         this.title = title;
+    }
+
+    /**
+     * @return qseq - orf sequence of the blast hit
+     */
+    public String getQseq() {
+        return qseq;
     }
 
     /**

@@ -32,7 +32,6 @@ public class ResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("did GET at ResultServlet");
         // Check if user is logged in
         HttpSession session = request.getSession(false);
         try {
@@ -52,11 +51,9 @@ public class ResultServlet extends HttpServlet {
                     resultId = (int) session.getAttribute("result_id");
                     session.removeAttribute("result_id");
                 }
-                System.out.println("Got result_id = " + resultId + " during GET request");
                 try {
                     ORFResult result =
                             database_handler.DatabaseHandler.getResult(resultId);
-                    System.out.println("Found result!");
 
                     request.setAttribute("ORFArray", result.getORFs());
                     if (result.getORFs().size() == 0) {
@@ -68,7 +65,6 @@ public class ResultServlet extends HttpServlet {
                         request.setAttribute("result", result);
                         request.setAttribute("formattedORFs",
                                 result.getFormattedORFs());
-                        System.out.println("Acc_code: " + result.getHeader());
 
                         RequestDispatcher dispatcher =
                                 this.getServletContext().getRequestDispatcher(
@@ -100,12 +96,6 @@ public class ResultServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
-        System.out.println(username);
-        int requestId = Integer.parseInt(request.getParameter("request_id"));
-        System.out.println(requestId);
 
         RequestDispatcher dispatcher =
                 this.getServletContext().getRequestDispatcher(

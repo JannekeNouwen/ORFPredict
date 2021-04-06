@@ -49,7 +49,6 @@ public class BlastResultHistoryServlet extends HttpServlet {
                 try {
                     blastResultSummary = database_handler.DatabaseHandler.getAllBlastSearches(
                             orfId);
-                    System.out.println(blastResultSummary.size());
                 } catch (ClassNotFoundException | SQLException e) {
                     e.printStackTrace();
                 }
