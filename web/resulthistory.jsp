@@ -7,11 +7,11 @@
     <div class="widthLimiter">
         On this page you can view your old queries.
     </div>
-    <table id="resulthistorytable">
+    <table class="resulthistorytable">
         <tr>
-            <th>Name</th>
-            <th>Sequence</th>
-            <th>Header</th>
+            <th class="resulthistorytableheader">Name</th>
+            <th class="resulthistorytableheader">Sequence</th>
+            <th class="resulthistorytableheader">Header</th>
         </tr>
         <%-- Loop over old results --%>
         <c:forEach var="result" items="${resultSummary}" varStatus="loopCounter">

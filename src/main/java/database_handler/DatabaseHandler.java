@@ -80,7 +80,6 @@ public class DatabaseHandler {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Something went wrong. Please try again.");
         }
         return 0;
     }
@@ -211,8 +210,9 @@ public class DatabaseHandler {
 
     /**
      * Save blast query to database
+     *
      * @param blastQuery - parameters of blast query
-     * @param orfId - orf id of the blast query
+     * @param orfId      - orf id of the blast query
      * @return id of the blast search in de database
      * @throws ClassNotFoundException
      */
@@ -258,8 +258,9 @@ public class DatabaseHandler {
 
     /**
      * Save blast results of ORF to database
-     * @param blastResults
-     * @param searchId
+     *
+     * @param blastResults - ArrayList of blastResult objects
+     * @param searchId     - id of blast query in database
      * @throws ClassNotFoundException
      * @throws SQLException
      */
@@ -270,14 +271,19 @@ public class DatabaseHandler {
         assert con != null;
 
         for (BlastResult result : blastResults) {
-            String query = "insert into blast_result(acc_code, e_value, seq, " +
+            String title = result.getTitle().replace("'", "\\'");
+            String query = "insert into blast_result(acc_code, e_value, " +
+                    "qseq, seq, " +
                     "aligned_seq, identity_percent, title, blast_search_id" +
                     ") values ('" +
-                    // TODO something
-//                    orf.getSeq() + "', " +
-//                    id + ", " +
-//                    orf.getStart() + ", " +
-//                    orf.getReadingFrame() + " " +
+                    result.getAccCode() + "', " +
+                    result.geteValue() + ", '" +
+                    result.getQseq() + "', '" +
+                    result.getSeq() + "', '" +
+                    result.getAlignedSeq() + "', " +
+                    result.getIdentityPercent() + ", '" +
+                    title + "', " +
+                    searchId + " " +
                     ");";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
@@ -342,13 +348,15 @@ public class DatabaseHandler {
         assert con != null;
 
         // Get all blast results by blast search id
-        String query = "select seq, aligned_seq, e_value, acc_code, identity_percent, title from " +
+        String query = "select qseq, seq, aligned_seq, e_value, acc_code, " +
+                "identity_percent, title from " +
                 "blast_result where blast_search_id = " + blastSearchId + ";";
 
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 BlastResult result = new BlastResult(
+                        rs.getString("qseq"),
                         rs.getString("seq"),
                         rs.getString("aligned_seq"),
                         rs.getDouble("e_value"),
@@ -389,7 +397,6 @@ public class DatabaseHandler {
                 String query = "use ORFPredict;";
                 Statement use = con.createStatement();
                 ResultSet rs1 = use.executeQuery(query);
-                System.out.println("Database connection is successful!");
                 return con;
             }
         } catch (Exception e) {

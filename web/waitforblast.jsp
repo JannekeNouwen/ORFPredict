@@ -15,7 +15,8 @@
         }
 
         async function wait() {
-            await sleep(${timeout})
+            var timeout = parseInt(${timeout}) * 1000;
+            await sleep(timeout);
             window.location.replace("/blast?timeout=${timeout}");
         }
 

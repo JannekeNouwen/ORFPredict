@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Class BlastResultServlet
@@ -33,7 +32,6 @@ public class BlastResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-
         HttpSession session = request.getSession(false);
         try {
             if (session.getAttribute("userId") == null) {
@@ -45,8 +43,15 @@ public class BlastResultServlet extends HttpServlet {
                                 "/");
                 dispatcher.forward(request, response);
             } else {
-                int blastSearchId = Integer.parseInt(request.getParameter(
-                        "blastsearch_id"));
+                int blastSearchId = 0;
+                try {
+                    blastSearchId = (int) request.getAttribute(
+                            "blastsearch_id");
+                } catch (NullPointerException | NumberFormatException ignore) {}
+                try {
+                    blastSearchId = Integer.parseInt(request.getParameter(
+                            "blastsearch_id"));
+                } catch (NullPointerException | NumberFormatException ignore) {}
 
                 ArrayList<BlastResult> blastResults =
                         database_handler.
@@ -78,15 +83,7 @@ public class BlastResultServlet extends HttpServlet {
      * */
     @Override
     protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response) {
-
-        HashMap<String, String> blastQuery = new HashMap<>();
-
-//        String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
-
-//        ArrayList<BlastResult> BlastResults =
-//                blast_handler.BlastProcessor.parseXML(XMLpath);
-
-        // Add BlastResults to request or response
+                          HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 }
