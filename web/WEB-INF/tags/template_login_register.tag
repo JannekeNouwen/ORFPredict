@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%--        TODO: titel vanuit servlet doorgeven en hier weergeven.--%>
+    <title>ORFPredict
     </title>
     <link rel="stylesheet" href="stylesheets/style_base.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/style_login_register.css" type="text/css">
