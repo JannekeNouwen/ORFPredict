@@ -78,7 +78,6 @@ public class PredictServlet extends HttpServlet {
         System.out.println("Did post request at PredictServlet");
 
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
 
         int userId = (int) session.getAttribute("userId");
         String queryName = request.getParameter("query_name");
@@ -114,6 +113,13 @@ public class PredictServlet extends HttpServlet {
         if (!response.isCommitted()) {
             if (inputSeq.length() > 50000) {
                 String message = "Please input a sequence of less then 50000";
+                request.setAttribute("message", message);
+                RequestDispatcher dispatcher =
+                        this.getServletContext().getRequestDispatcher(
+                                "/predict.jsp");
+                dispatcher.forward(request, response);
+            } else if (inputSeq.length() < minSize) {
+                String message = "Please input a sequence that's at least the size of the minimum length of an ORF";
                 request.setAttribute("message", message);
                 RequestDispatcher dispatcher =
                         this.getServletContext().getRequestDispatcher(
