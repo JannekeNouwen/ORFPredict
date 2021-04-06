@@ -151,8 +151,8 @@
         <div id="seq_len" class="info_text"></div>
         <div class="info_header">Reading frame: </div>
         <div id="reading_frame" class="info_text"></div>
-        <a id="new_blast" class="button">BLAST with this ORF</a>
-        <a id="old_blasts" class="button">View old BLAST queries</a>
+        <a id="new_blast" class="button coloured">BLAST with this ORF</a>
+        <a id="old_blasts" class="button coloured">View old BLAST queries</a>
     </div>
 </t:template_main>
 
