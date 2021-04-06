@@ -62,6 +62,7 @@ public class BlastProcessor {
                     "ts bash --rcfile ~/.bashrc -c -i '" + blastCommand + "'";
             Runtime.getRuntime().exec(new String[]{"bash", "-c", tsCommand});
 
+            System.out.println(tsCommand);
             // When the blast is executed, rename the file to show it's finished
             String finishedCommand =
                     "mv /home/blast_output_ORFPredict/" + header + ".json " +

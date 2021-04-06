@@ -69,6 +69,7 @@ public class BlastServlet extends HttpServlet {
                 String outputFileName = (String) session.getAttribute(
                         "output_file");
                 File f = new File(outputFileName);
+                System.out.println(outputFileName);
                 if (!f.exists()) {
                     timeout += 5;
                     request.setAttribute("timeout", timeout);
@@ -147,6 +148,7 @@ public class BlastServlet extends HttpServlet {
             request.setAttribute("timeout", timeout);
             session.setAttribute("blastsearch_id", searchId);
             session.setAttribute("output_file", JSONpath);
+            System.out.println(session.getAttribute("output_file"));
             RequestDispatcher dispatcher =
                     this.getServletContext().getRequestDispatcher(
                             "/waitforblast.jsp");
