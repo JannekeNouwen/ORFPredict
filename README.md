@@ -18,7 +18,7 @@
   * UserInfoHandler
     * HashPassword(String): String --> HashPassword(String, String): String (Salt toegevoegd)
   * DataBaseHandler
-    * Extra functies: connect(): Connection, getORF(String): ORF
+    * Extra functies: connect(): Connection, getORF(String): ORF, saveBlastSearch(Hashmap<String, String>, int)
 ### orf_processing
   * Prediction
     * GEEN functies getSeqByAcc(), getSeqByFile()
