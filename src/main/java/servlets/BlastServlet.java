@@ -69,7 +69,6 @@ public class BlastServlet extends HttpServlet {
                 String outputFileName = (String) session.getAttribute(
                         "output_file");
                 File f = new File(outputFileName);
-                System.out.println("Output file = " + outputFileName);
                 if (!f.exists()) {
                     timeout += 5;
                     request.setAttribute("timeout", timeout);
