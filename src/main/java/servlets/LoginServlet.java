@@ -53,6 +53,7 @@ public class LoginServlet extends HttpServlet {
                 }
             } catch ( NullPointerException ignore) {}
             request.setAttribute("message", "");
+            session.setAttribute("output_file", "");
             RequestDispatcher dispatcher =
                     this.getServletContext().getRequestDispatcher(
                             "/predict.jsp");

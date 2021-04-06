@@ -44,41 +44,66 @@ public class BlastServlet extends HttpServlet {
         // true, the user has just entered a blast query and is waiting
         // for the result
         try {
+            System.out.println("testing...");
             timeout = (int) request.getAttribute("timeout");
-            blastDone = true;
-        } catch (NullPointerException ignore) {}
+            System.out.println("found timeout attribute: " + timeout);
+            if (timeout > 0) {
+                blastDone = true;
+            }
+        } catch (NullPointerException | NumberFormatException ignore) {}
         try {
+            System.out.println("testing...2");
             timeout = Integer.parseInt(request.getParameter("timeout"));
-            blastDone = true;
-        } catch (NullPointerException ignore) {}
+            System.out.println("found timeout parameter: " + timeout);
+            if (timeout > 0) {
+                blastDone = true;
+            }
+        } catch (NullPointerException | NumberFormatException ignore) {}
 
-        System.out.println(timeout);
+        System.out.println(blastDone);
         // If the user is waiting for blast result, a check is done to
         // check if the output file is ready. If not, the user is sent
         // back to the waiting page. If the result is ready, the output
         // is parsed.
         if (blastDone) {
-            File f = new File((String) request.getAttribute("output_file"));
-            if (!f.exists()) {
-                timeout += 5000;
-                request.setAttribute("timeout", timeout);
-                RequestDispatcher dispatcher =
-                        this.getServletContext().getRequestDispatcher(
-                                "/waitforblast.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                ArrayList<BlastResult> BlastResults =
-                        blast_handler.BlastProcessor.parseXML((String) request.getAttribute("output_file"));
+            try {
+                HttpSession session = request.getSession();
 
-                request.setAttribute("blastresults", BlastResults);
-                RequestDispatcher dispatcher =
-                        this.getServletContext().getRequestDispatcher(
-                                "/blastresult.jsp");
-                dispatcher.forward(request, response);
+                System.out.println("blast search was executed. Timeout is " + timeout);
+                File f = new File((String) session.getAttribute("output_file"));
+//                if (!f.exists()) {
+                if (false) {  //TODO regel hierboven pakken, deze regel
+                    // is voor testen
+                    timeout += 5000;
+                    request.setAttribute("timeout", timeout);
+                    RequestDispatcher dispatcher =
+                            this.getServletContext().getRequestDispatcher(
+                                    "/waitforblast.jsp");
+                    dispatcher.forward(request, response);
+                } else {
+                    ArrayList<BlastResult> BlastResults =
+                            blast_handler.BlastProcessor.parseXML((String) session.getAttribute("output_file"));
+
+                    session.setAttribute("output_file", "");
+
+                    int searchId =
+                            Integer.parseInt(session.getAttribute("searchId").toString());
+                    database_handler.DatabaseHandler.saveBlastResult(BlastResults, searchId);
+
+                    request.setAttribute("blastresults", BlastResults);
+                    RequestDispatcher dispatcher =
+                            this.getServletContext().getRequestDispatcher(
+                                    "/blastresult.jsp");
+                    dispatcher.forward(request, response);
+                }
+            } catch (NullPointerException ignore) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
         if (!blastDone) {
+            System.out.println("Blast search was not yet executed");
             request.setAttribute("orf_id", request.getParameter("orf_id"));
 
             RequestDispatcher dispatcher =
@@ -111,27 +136,49 @@ public class BlastServlet extends HttpServlet {
             blastQuery.put("database", request.getParameter("database"));
             blastQuery.put("program", request.getParameter("program"));
             blastQuery.put("evalue", request.getParameter("evalue"));
-            blastQuery.put("organism", request.getParameter("organism"));
-            blastQuery.put("exclude", request.getParameter("exclude"));
             blastQuery.put("word_size", request.getParameter("word_size"));
             blastQuery.put("alignment_number", request.getParameter("alignment_number"));
             blastQuery.put("seq", orf.getSeq());
 
             HttpSession session = request.getSession();
             LocalDateTime now = LocalDateTime.now();
-            blastQuery.put("output_file", session.getAttribute("userId") + "_" + orf.getId() + "_" + now + ".xml");
+            blastQuery.put("output_file", session.getAttribute("userId") + "_" + orf.getId() + "_" + now.toString().replace(":", "_") + ".json");
 
-            String XMLpath = blast_handler.BlastProcessor.blast(blastQuery);
+            String JSONpath =  "/home/blast_output_ORFPredict/1_1550_2021-04-05T22_20_23.593056_finished.json"; // todo, weghalen is voor testen
+//            String JSONpath = blast_handler.BlastProcessor.blast(blastQuery);
 
-            File f = new File(blastQuery.get("output_file"));
+            int searchId =
+                    database_handler.DatabaseHandler.saveBlastSearch(blastQuery,
+                    orf.getId());
+
+            File f = new File(JSONpath);
             int timeout = 5000;
             if (!f.exists()) {
                 request.setAttribute("timeout", timeout);
-                request.setAttribute("output_file", XMLpath);
+                session.setAttribute("searchId", searchId);
+                session.setAttribute("output_file", JSONpath);
                 RequestDispatcher dispatcher =
                         this.getServletContext().getRequestDispatcher(
                                 "/waitforblast.jsp");
                 dispatcher.forward(request, response);
+            } else {
+                try {
+                    ArrayList<BlastResult> BlastResults =
+                            blast_handler.BlastProcessor.parseXML(JSONpath);
+                    System.out.println(BlastResults.size());
+
+                    session.setAttribute("output_file", "");
+
+                    database_handler.DatabaseHandler.saveBlastResult(BlastResults, searchId);
+
+                    request.setAttribute("blastresults", BlastResults);
+                    RequestDispatcher dispatcher =
+                            this.getServletContext().getRequestDispatcher(
+                                    "/blastresult.jsp");
+                    dispatcher.forward(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         } catch (Exception e) {

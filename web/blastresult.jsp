@@ -9,6 +9,7 @@
     <table>
         <tr>
             <th>seq</th>
+            <th>seq</th>
             <th>alignedSeq</th>
             <th>eValue</th>
             <th>accCode</th>
@@ -18,6 +19,7 @@
         <%-- Table of blast results --%>
         <c:forEach var="result" items="${blastResults}" varStatus="loopCounter">
             <tr>
+                <td>helloo</td>
                 <td>${result.seq}</td>
                 <td>${result.alignedSeq}</td>
                 <td>${result.eValue}</td>
